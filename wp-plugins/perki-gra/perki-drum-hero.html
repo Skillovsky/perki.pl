@@ -14,110 +14,129 @@
 <link href="https://fonts.googleapis.com/css2?family=Titan+One&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg:#161110;          /* sala prób, ciepła czerń */
-    --bg2:#211915;
-    --amber:#FFB938;       /* światło sceniczne */
-    --amber-dim:#8a6320;
-    --copper:#C4683A;
-    --bone:#EFE6D6;        /* tekst */
-    --muted:#9b8d7c;
-    --red:#E2503C;         /* naciąg werbla / miss */
-    --green:#7BC96F;       /* perfect */
-    --lane:#241c17;
-    --radius:14px;
+    --bg:#f7f3ec;          /* jasny, cieply papier */
+    --bg2:#ffffff;         /* karty */
+    --line:#e7ddcc;
+    --amber:#f0a500;       /* przyciski, akcenty aktywne */
+    --amber-text:#9a6200;  /* akcent tekstowy na jasnym tle (kontrast) */
+    --copper:#c4683a;
+    --ink:#2a2018;         /* tekst */
+    --muted:#6f6557;       /* min 4.5:1 na --bg i bieli (WCAG AA) */
+    --red:#d8442e;         /* miss */
+    --green:#2e8b2a;       /* perfect */
+    --radius:16px;
+    --shadow:0 10px 30px rgba(42,32,24,.08);
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html,body{height:100%}
+  /* iOS: bez double-tap zoomu przy szybkim stukaniu (preventDefault nie wystarcza) */
+  .spot,.pad,#kit,canvas{touch-action:manipulation;-webkit-tap-highlight-color:transparent}
   body{
-    background:radial-gradient(1200px 600px at 50% -10%, #2b201a 0%, var(--bg) 60%);
-    color:var(--bone);
+    background:radial-gradient(1200px 600px at 50% -10%, #fffaf0 0%, var(--bg) 60%);
+    color:var(--ink);
     font-family:'Inter',system-ui,sans-serif;
     display:flex;flex-direction:column;align-items:center;
     min-height:100vh;padding:16px;
     user-select:none;-webkit-user-select:none;
   }
   header{width:100%;max-width:980px;display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:10px}
-  .logo{font-family:'Titan One',cursive;font-size:clamp(26px,4vw,40px);color:var(--amber);letter-spacing:1px;text-shadow:0 0 24px rgba(255,185,56,.35)}
-  .logo span{color:var(--bone)}
+  .logo{font-family:'Titan One',cursive;font-size:clamp(26px,4vw,40px);color:var(--amber-text);letter-spacing:1px}
+  .logo span{color:var(--ink)}
   .hud{display:flex;gap:18px;align-items:baseline;font-weight:800}
-  .hud .score{font-family:'Titan One',cursive;font-size:clamp(20px,3vw,30px);color:var(--bone)}
-  .hud .combo{color:var(--amber)}
+  .hud .score{font-family:'Titan One',cursive;font-size:clamp(20px,3vw,30px);color:var(--ink)}
+  .hud .combo{color:var(--amber-text)}
   .hud .xp{color:var(--copper);font-size:14px;font-weight:600}
   .tabs{display:flex;gap:8px;margin:6px 0 14px}
   .tabs button{
-    background:var(--bg2);color:var(--muted);border:1px solid #36291f;
+    background:var(--bg2);color:var(--muted);border:1px solid var(--line);
     padding:8px 18px;border-radius:999px;font-weight:600;font-family:inherit;font-size:14px;cursor:pointer;
+    box-shadow:var(--shadow);
   }
   .tabs button.active{background:var(--amber);color:#231703;border-color:var(--amber)}
-  .tabs button:focus-visible{outline:2px solid var(--amber);outline-offset:2px}
+  .tabs button:focus-visible{outline:2px solid var(--amber-text);outline-offset:2px}
   main{width:100%;max-width:980px;display:flex;flex-direction:column;align-items:center;gap:14px}
 
   /* ====== HIGHWAY ====== */
   #stage{position:relative;width:100%;max-width:760px;display:none}
   #stage.on{display:block}
-  canvas{width:100%;border-radius:var(--radius);background:linear-gradient(180deg,#0e0a09 0%,var(--lane) 85%);display:block;border:1px solid #36291f}
+  canvas{width:100%;border-radius:var(--radius);background:linear-gradient(180deg,#fffdf8 0%,#f3ecdd 85%);display:block;border:1px solid var(--line);box-shadow:var(--shadow)}
   .judgement{
     position:absolute;left:50%;top:38%;transform:translate(-50%,-50%);
     font-family:'Titan One',cursive;font-size:34px;pointer-events:none;opacity:0;
     transition:opacity .12s ease, transform .12s ease;
   }
   .judgement.show{opacity:1;transform:translate(-50%,-70%)}
-  .j-perfect{color:var(--green);text-shadow:0 0 18px rgba(123,201,111,.5)}
-  .j-good{color:var(--amber)}
+  .j-perfect{color:var(--green)}
+  .j-good{color:var(--amber-text)}
   .j-miss{color:var(--red)}
 
-  /* ====== KIT (wolna gra) ====== */
-  #kit{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;width:100%;max-width:760px}
-  #kit.hidden{display:none}
+  /* ====== KIT: fotorealistyczny zestaw Jacke (wolna gra) ====== */
+  #kit{position:relative;width:100%;max-width:900px;border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);border:1px solid var(--line);background:#1a1410}
+  #kit.hidden{display:none !important} /* !important: wygrywa z pozniejszym #kit.nofoto{display:grid} */
+  /* aspect-ratio = KIT_RATIO: kontener trzyma wysokosc zanim zdjecie dojedzie (3G) */
+  #kit img.kitfoto{width:100%;height:auto;aspect-ratio:1600/984;display:block;pointer-events:none;-webkit-user-drag:none}
+  .kit-note{position:absolute;left:12px;bottom:10px;font-size:11px;color:rgba(255,255,255,.75);background:rgba(26,20,16,.45);padding:3px 10px;border-radius:999px;pointer-events:none}
+  .spot{
+    position:absolute;transform:translate(-50%,-50%);background:transparent;
+    border:none;border-radius:50%;cursor:pointer;padding:0;
+  }
+  .spot .tag{
+    position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+    font-family:'Titan One',cursive;font-size:clamp(11px,1.6vw,15px);color:#fff;
+    background:rgba(26,20,16,.72);padding:2px 10px;border-radius:999px;
+    pointer-events:none;letter-spacing:.5px;
+  }
+  .spot:focus-visible{outline:none;box-shadow:0 0 0 3px rgba(240,165,0,.65)}
+  @media (hover:hover){ .spot:hover{box-shadow:0 0 0 3px rgba(240,165,0,.65)} } /* bez sticky hover na dotyku */
+  .spot.hit{box-shadow:0 0 0 4px rgba(240,165,0,.95), inset 0 0 60px rgba(240,165,0,.45)}
+  /* fallback: klasyczne pady, gdy zdjecie sie nie zaladuje */
+  #kit.nofoto{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;max-width:760px;overflow:visible;background:none;border:none;box-shadow:none}
   .pad{
     position:relative;aspect-ratio:1/1;border-radius:50%;
-    background:radial-gradient(circle at 35% 30%, #3a2c22 0%, #251c16 70%);
-    border:3px solid #4a382a;cursor:pointer;
+    background:radial-gradient(circle at 35% 30%, #ffffff 0%, #f1e9da 70%);
+    border:3px solid #d9cbb4;cursor:pointer;
     display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;
-    transition:transform .05s ease;
+    transition:transform .05s ease;box-shadow:var(--shadow);
   }
   .pad:focus-visible{outline:3px solid var(--amber);outline-offset:3px}
-  .pad .key{
-    font-family:'Titan One',cursive;font-size:clamp(18px,3vw,26px);color:var(--amber);
-  }
+  .pad .key{font-family:'Titan One',cursive;font-size:clamp(18px,3vw,26px);color:var(--amber-text)}
   .pad .name{font-size:12px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.08em}
-  .pad.hit{transform:scale(.93);border-color:var(--amber);box-shadow:0 0 34px rgba(255,185,56,.55), inset 0 0 24px rgba(255,185,56,.25)}
-  .pad[data-d="snare"]{background:radial-gradient(circle at 35% 30%, #4d322b 0%, #2a1c18 70%)}
-  .pad[data-d="kick"]{border-width:5px}
+  .pad.hit{transform:scale(.93);border-color:var(--amber);box-shadow:0 0 34px rgba(240,165,0,.5), inset 0 0 24px rgba(240,165,0,.25)}
 
   /* ====== SONG LIST ====== */
   #songs{display:none;width:100%;max-width:760px;flex-direction:column;gap:10px}
   #songs.on{display:flex}
   .song{
-    background:var(--bg2);border:1px solid #36291f;border-radius:var(--radius);
+    background:var(--bg2);border:1px solid var(--line);border-radius:var(--radius);
     padding:14px 18px;display:flex;align-items:center;justify-content:space-between;gap:12px;
-    cursor:pointer;transition:border-color .15s;
+    cursor:pointer;transition:border-color .15s;box-shadow:var(--shadow);
   }
-  .song:hover,.song:focus-visible{border-color:var(--amber);outline:none}
+  .song:hover{border-color:var(--amber)}
+  .song:focus-visible{border-color:var(--amber);outline:2px solid var(--amber-text);outline-offset:2px}
   .song .t{font-weight:800;font-size:16px}
   .song .d{font-size:13px;color:var(--muted)}
-  .song .lvl{font-family:'Titan One',cursive;color:var(--amber);font-size:22px;min-width:64px;text-align:center}
-  .song .stars{color:var(--amber);font-size:14px;letter-spacing:2px;min-width:60px;text-align:right}
+  .song .lvl{font-family:'Titan One',cursive;color:var(--amber-text);font-size:22px;min-width:64px;text-align:center}
+  .song .stars{color:var(--amber-text);font-size:14px;letter-spacing:2px;min-width:60px;text-align:right}
   .song.locked{opacity:.45;cursor:not-allowed}
 
   /* ====== RESULT ====== */
   #result{
-    display:none;position:fixed;inset:0;background:rgba(12,8,7,.86);z-index:10;
+    display:none;position:fixed;inset:0;background:rgba(42,32,24,.45);z-index:10;
     padding:20px;overflow-y:auto;
   }
   #result.on{display:flex}
   .card{
-    background:var(--bg2);border:1px solid var(--amber-dim);border-radius:20px;
+    background:var(--bg2);border:1px solid var(--line);border-radius:20px;
     padding:34px 40px;text-align:center;max-width:420px;width:100%;
-    box-shadow:0 0 80px rgba(255,185,56,.18);
+    box-shadow:0 24px 80px rgba(42,32,24,.25);
     margin:auto; /* centruje, a przy karcie wyzszej niz ekran pozwala przewijac */
   }
-  .card h2{font-family:'Titan One',cursive;color:var(--amber);font-size:30px;margin-bottom:6px}
+  .card h2{font-family:'Titan One',cursive;color:var(--amber-text);font-size:clamp(20px,6.5vw,30px);margin-bottom:6px;overflow-wrap:break-word}
   .card .big-stars{font-size:44px;color:var(--amber);letter-spacing:6px;margin:10px 0}
   .card p{color:var(--muted);font-size:14px;margin:6px 0}
   .card .reward{
     margin:16px 0;padding:12px;border:1px dashed var(--copper);border-radius:12px;
-    color:var(--bone);font-size:14px;
+    color:var(--ink);font-size:14px;background:#fffaf0;
   }
   .card button{
     margin-top:10px;background:var(--amber);border:none;color:#231703;font-weight:800;
@@ -126,27 +145,31 @@
   .card button:disabled{opacity:.55;cursor:wait}
 
   /* ====== RANKING / LEAD ====== */
-  .lead{margin-top:16px;padding-top:14px;border-top:1px solid #36291f;text-align:left}
+  .lead{margin-top:16px;padding-top:14px;border-top:1px solid var(--line);text-align:left}
   .lead.hidden{display:none}
-  .lead-t{font-weight:800;font-size:14px;color:var(--bone);margin-bottom:8px;text-align:center}
+  .lead-t{font-weight:800;font-size:14px;color:var(--ink);margin-bottom:8px;text-align:center}
   .lead input{
     width:100%;margin-bottom:8px;padding:10px 12px;border-radius:10px;
-    background:var(--bg);border:1px solid #4a382a;color:var(--bone);
+    background:#faf7f1;border:1px solid #e0d5c2;color:var(--ink);
     font-family:inherit;font-size:14px;
   }
   .lead input:focus-visible{outline:2px solid var(--amber);outline-offset:1px;border-color:var(--amber)}
   .lead button{width:100%;margin-top:2px}
   .lead-note{font-size:11px;color:var(--muted);line-height:1.45;margin-top:8px}
-  .lead-status{font-size:13px;font-weight:600;color:var(--amber);margin-top:8px;text-align:center;min-height:1em}
+  .lead-status{font-size:13px;font-weight:600;color:var(--amber-text);margin-top:8px;text-align:center;min-height:1em}
   .hp-field{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
-  .hint{font-size:13px;color:var(--muted);text-align:center;max-width:600px;line-height:1.5}
-  .hint b{color:var(--amber)}
+  .hint{font-size:13px;color:var(--muted);text-align:center;max-width:640px;line-height:1.5}
+  .hint b{color:var(--amber-text)}
+  @media (max-width:700px){
+    .kit-note{display:none}
+  }
   @media (max-width:560px){
-    #kit{grid-template-columns:repeat(4,1fr);gap:8px}
+    #kit.nofoto{grid-template-columns:repeat(4,1fr);gap:8px}
     .pad .name{display:none}
+    .spot .tag{font-size:10px;padding:1px 7px}
   }
   @media (prefers-reduced-motion: reduce){
-    .judgement,.pad{transition:none}
+    .judgement,.pad,.spot{transition:none}
   }
 </style>
 </head>
@@ -176,9 +199,9 @@
   </div>
 
   <p class="hint" id="hintText">
-    Graj klawiaturą: <b>F</b> hi-hat &nbsp;·&nbsp; <b>J</b> werbel &nbsp;·&nbsp; <b>SPACJA</b> stopa &nbsp;·&nbsp;
-    <b>K</b> crash &nbsp;·&nbsp; <b>D</b> tom 1 &nbsp;·&nbsp; <b>S</b> tom 2 &nbsp;·&nbsp; <b>A</b> floor tom &nbsp;·&nbsp; <b>L</b> ride.
-    Na telefonie po prostu stukaj w pady.
+    Stukaj prosto w bębny i talerze na zdjęciu albo graj klawiaturą:
+    <b>F</b> hi-hat &nbsp;·&nbsp; <b>J</b> werbel &nbsp;·&nbsp; <b>SPACJA</b> stopa &nbsp;·&nbsp;
+    <b>K</b> crash &nbsp;·&nbsp; <b>D</b> tom 1 &nbsp;·&nbsp; <b>S</b> pad SPD &nbsp;·&nbsp; <b>A</b> floor tom &nbsp;·&nbsp; <b>L</b> ride.
   </p>
 </main>
 
@@ -210,6 +233,9 @@
    Deep-link: ?level=N otwiera od razu utwór o id N (do osadzania po lekcjach kursu). */
 var PERKI_API  = "https://perki.pl/wp-json/perki/v1/wynik";
 var PERKI_PING = "https://perki.pl/wp-json/perki/v1/gra-ping";
+/* zdjecie zestawu Jacke (fotorealistyczny interfejs jak w EZdrummer);
+   puste "" lub blad ladowania = klasyczne okragle pady */
+var PERKI_KIT_IMG = "https://perki.pl/wp-content/uploads/2026/06/perki-kit.jpg";
 
 /* ================= AUDIO: syntezowana perkusja (Web Audio) ================= */
 let AC = null;
@@ -253,9 +279,24 @@ const KEYMAP = {
   'f':'hihat','j':'snare',' ':'kick','k':'crash','d':'tom1','s':'tom2','a':'ftom','l':'ride'
 };
 const PADS = [
-  {d:'crash',k:'K',label:'Crash'},{d:'tom1',k:'D',label:'Tom 1'},{d:'tom2',k:'S',label:'Tom 2'},{d:'ride',k:'L',label:'Ride'},
+  {d:'crash',k:'K',label:'Crash'},{d:'tom1',k:'D',label:'Tom 1'},{d:'tom2',k:'S',label:'Pad SPD'},{d:'ride',k:'L',label:'Ride'},
   {d:'hihat',k:'F',label:'Hi-hat'},{d:'snare',k:'J',label:'Werbel'},{d:'kick',k:'SPACJA',label:'Stopa'},{d:'ftom',k:'A',label:'Floor tom'}
 ];
+/* hotspoty na zdjeciu zestawu: x,y = srodek w % obrazka, w = szerokosc strefy
+   w % szerokosci, fl = splaszczenie elipsy (perspektywa). Kolejnosc = z-index. */
+const KIT_SPOTS = [
+  {d:'crash', k:'K',      label:'Crash',     x:22.5, y:23.7, w:32.4, fl:.62},
+  {d:'ride',  k:'L',      label:'Ride',      x:59.6, y:29.1, w:25.8, fl:.62},
+  {d:'crash', k:'K',      label:'Crash 2',   x:81.0, y:25.8, w:23.4, fl:.62},
+  {d:'ride',  k:'L',      label:'Ride 2',    x:94.6, y:61.0, w:25.0, fl:.62},
+  {d:'hihat', k:'F',      label:'Hi-hat',    x:16.2, y:56.2, w:23.4, fl:.62},
+  {d:'tom1',  k:'D',      label:'Tom 1',     x:42.1, y:42.0, w:17.6, fl:.75},
+  {d:'tom2',  k:'S',      label:'Pad SPD',   x: 4.6, y:78.0, w:18.0, fl:.75},
+  {d:'snare', k:'J',      label:'Werbel',    x:39.2, y:63.5, w:21.6, fl:.75},
+  {d:'ftom',  k:'A',      label:'Floor tom', x:65.8, y:70.5, w:25.0, fl:.75},
+  {d:'kick',  k:'SPACJA', label:'Stopa',     x:50.0, y:81.3, w:17.0, fl:.80},
+];
+const KIT_RATIO = 1600/984; /* proporcje perki-kit.jpg (szer/wys) */
 
 /* ================= UTWORY (małe kroki, każdy poziom = nowa umiejętność) ================= */
 /* nuty: {b: beat, d: drum} ; pattern powtarzany przez `bars` taktów 4/4 */
@@ -310,17 +351,49 @@ function sendScore(payload, cb){
   } else { post(null); }
 }
 
-/* ================= UI: KIT ================= */
+/* ================= UI: KIT =================
+   Tryb foto: zdjecie zestawu Jacke + klikalne strefy (jak w EZdrummer).
+   Fallback (brak PERKI_KIT_IMG / blad ladowania): klasyczne okragle pady. */
 const kitEl = document.getElementById('kit');
-PADS.forEach(p=>{
-  const el=document.createElement('button');
-  el.className='pad'; el.dataset.d=p.d; el.setAttribute('aria-label',p.label);
-  el.innerHTML=`<span class="key">${p.k}</span><span class="name">${p.label}</span>`;
-  el.addEventListener('pointerdown',e=>{e.preventDefault();hitDrum(p.d);});
-  kitEl.appendChild(el);
-});
-function flashPad(d){ const el=kitEl.querySelector(`[data-d="${d}"]`); if(!el)return;
-  el.classList.add('hit'); setTimeout(()=>el.classList.remove('hit'),90); }
+function buildClassicPads(){
+  kitEl.classList.add('nofoto'); kitEl.innerHTML='';
+  PADS.forEach(p=>{
+    const el=document.createElement('button');
+    el.className='pad'; el.dataset.d=p.d; el.setAttribute('aria-label',p.label);
+    el.innerHTML=`<span class="key">${p.k}</span><span class="name">${p.label}</span>`;
+    el.addEventListener('pointerdown',e=>{e.preventDefault();hitDrum(p.d);});
+    el.addEventListener('click',e=>{ if(e.detail===0) hitDrum(p.d); }); /* Enter/czytnik ekranu */
+    kitEl.appendChild(el);
+  });
+}
+function buildPhotoKit(){
+  kitEl.classList.remove('nofoto'); kitEl.innerHTML='';
+  const img=document.createElement('img');
+  img.className='kitfoto'; img.src=PERKI_KIT_IMG; img.alt='Zestaw perkusyjny Jacke';
+  img.setAttribute('fetchpriority','high');
+  img.addEventListener('error',buildClassicPads,{once:true});
+  kitEl.appendChild(img);
+  KIT_SPOTS.forEach(s=>{
+    const el=document.createElement('button');
+    el.className='spot'; el.dataset.d=s.d;
+    el.setAttribute('aria-label',s.label+' (klawisz '+s.k+')');
+    el.style.left=s.x+'%'; el.style.top=s.y+'%';
+    el.style.width=s.w+'%'; el.style.height=(s.w*s.fl*KIT_RATIO)+'%';
+    el.innerHTML=`<span class="tag">${s.k}</span>`;
+    el.addEventListener('pointerdown',e=>{e.preventDefault();hitDrum(s.d);});
+    el.addEventListener('click',e=>{ if(e.detail===0) hitDrum(s.d); }); /* Enter/czytnik ekranu */
+    kitEl.appendChild(el);
+  });
+  const note=document.createElement('span');
+  note.className='kit-note'; note.textContent='Zestaw Jacke. Stukaj prosto w bębny i talerze';
+  kitEl.appendChild(note);
+}
+if(PERKI_KIT_IMG){ buildPhotoKit(); } else { buildClassicPads(); }
+function flashPad(d){
+  kitEl.querySelectorAll(`[data-d="${d}"]`).forEach(el=>{
+    el.classList.add('hit'); setTimeout(()=>el.classList.remove('hit'),90);
+  });
+}
 
 /* ================= UI: SONGS ================= */
 const songsEl=document.getElementById('songs');
@@ -365,7 +438,7 @@ cv.addEventListener('pointerdown',e=>{
   const li=Math.max(0,Math.min(LANES.length-1,Math.floor((e.clientX-r.left)/r.width*LANES.length)));
   hitDrum(LANES[li].d);
 });
-const LANES=[{d:'hihat',key:'F',color:'#E8D24F'},{d:'snare',key:'J',color:'#E2503C'},{d:'kick',key:'SPC',color:'#FFB938'},{d:'crash',key:'K',color:'#7BC96F'}];
+const LANES=[{d:'hihat',key:'F',color:'#dfa800'},{d:'snare',key:'J',color:'#d8442e'},{d:'kick',key:'SPC',color:'#f08c00'},{d:'crash',key:'K',color:'#3e9e3a'}];
 const HITLINE=440, SPEED=220; /* px na sekundę */
 const judgeEl=document.getElementById('judge');
 
@@ -400,18 +473,18 @@ function draw(t){
   const lw=cv.width/LANES.length;
   /* tory */
   LANES.forEach((l,i)=>{
-    cx.fillStyle = i%2? '#1c1511':'#191310'; cx.fillRect(i*lw,0,lw,cv.height);
+    cx.fillStyle = i%2? '#f6efe2':'#efe6d4'; cx.fillRect(i*lw,0,lw,cv.height);
     /* pad-cel */
     cx.beginPath(); cx.arc(i*lw+lw/2,HITLINE,34,0,7);
     cx.strokeStyle=l.color; cx.lineWidth=3; cx.globalAlpha=.9; cx.stroke(); cx.globalAlpha=1;
-    cx.fillStyle='#EFE6D6'; cx.font='800 16px Inter'; cx.textAlign='center';
+    cx.fillStyle='#2a2018'; cx.font='800 16px Inter'; cx.textAlign='center';
     cx.fillText(l.key, i*lw+lw/2, HITLINE+62);
   });
   /* linia trafień */
-  cx.strokeStyle='#4a382a'; cx.lineWidth=1;
+  cx.strokeStyle='#d8c9ad'; cx.lineWidth=1;
   cx.beginPath(); cx.moveTo(0,HITLINE); cx.lineTo(cv.width,HITLINE); cx.stroke();
   /* odliczanie */
-  if(t<3){ cx.fillStyle='#FFB938'; cx.font="900 64px 'Titan One'"; cx.textAlign='center';
+  if(t<3){ cx.fillStyle='#d97706'; cx.font="900 64px 'Titan One'"; cx.textAlign='center';
     cx.fillText(Math.ceil(3-t), cv.width/2, 200); }
   /* nuty */
   g.notes.forEach(n=>{
@@ -423,11 +496,14 @@ function draw(t){
     /* podpowiedź: nuta blisko linii świeci mocniej */
     const close=Math.abs(n.t-t)<0.35;
     cx.beginPath(); cx.arc(li*lw+lw/2,y,24,0,7);
-    cx.fillStyle=n.judged? '#5a4438' : l.color;
-    cx.globalAlpha = n.judged? .35 : (close? 1 : .8);
+    cx.fillStyle=n.judged? '#cfc4b2' : l.color;
+    cx.globalAlpha = n.judged? .45 : (close? 1 : .85);
     cx.fill(); cx.globalAlpha=1;
+    /* stala ciemna obwodka: nuta zawsze min 3:1 na kremowym torze (WCAG 1.4.11) */
+    if(!n.judged){ cx.beginPath(); cx.arc(li*lw+lw/2,y,24,0,7);
+      cx.strokeStyle='#2a2018'; cx.lineWidth=2; cx.stroke(); }
     if(close&&!n.judged){ cx.beginPath(); cx.arc(li*lw+lw/2,y,30,0,7);
-      cx.strokeStyle='#fff'; cx.lineWidth=2; cx.globalAlpha=.6; cx.stroke(); cx.globalAlpha=1; }
+      cx.strokeStyle='#2a2018'; cx.lineWidth=2; cx.globalAlpha=.4; cx.stroke(); cx.globalAlpha=1; }
   });
 }
 function hitDrum(d){

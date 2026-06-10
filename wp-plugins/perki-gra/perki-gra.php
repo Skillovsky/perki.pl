@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Perki Gra (Drum Hero)
  * Description: Serwuje gre Perki Drum Hero pod adresem /gra/ (pelny ekran, bez motywu) i zapisuje wyniki graczy WEWNATRZ WordPress jako CPT "wynik_gry" + powiadomienie mailem. Endpointy: GET /perki/v1/gra-ping (nonce), POST /perki/v1/wynik.
- * Version: 1.0.1
+ * Version: 1.1.0
  * Author: perki.pl
  * License: GPL-2.0-or-later
  * Text Domain: perki-gra
@@ -18,7 +18,7 @@ class Perki_Gra {
 	const QV        = 'perki_gra';       // query var strony /gra/
 	const GAME_FILE = 'perki-drum-hero.html'; // jedyne zrodlo prawdy gry (DRY)
 
-	const VERSION      = '1.0.1'; // zmiana wersji = automatyczny purge cache LiteSpeed
+	const VERSION      = '1.1.0'; // zmiana wersji = automatyczny purge cache LiteSpeed
 	const THROTTLE_MAX = 120;   // backstop antyspamowy per IP, nie limiter UX (utwor trwa ~30-40 s)
 	const THROTTLE_WIN = 3600;  // okno throttlingu w sekundach (1h)
 	const MAX_BODY     = 8192;  // limit wielkosci payloadu JSON w bajtach
