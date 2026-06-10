@@ -1,5 +1,22 @@
 # Wdrozenie Perki Drum Hero na perki.pl (2026-06-10)
 
+## AKTUALIZACJA: v2 (1.1.0) wdrozona tego samego dnia
+- JASNA, nowoczesna skorka (decyzja Jacke: jasno, lekko) + FOTOREALISTYCZNY
+  zestaw Jacke w wolnej grze: zdjecie (Media Library: perki-kit.jpg, att. 4492)
+  z 10 klikalnymi strefami, fallback do klasycznych padow.
+- Zrodlo zdjecia: IMG_5598.HEIC od Jacke (perspektywa gracza); obrobiony kadr
+  w repo: wp-plugins/perki-gra/assets/perki-kit.jpg. Docelowo warto powtorzyc
+  zdjecie z doswietlona prawa strona (ride/UFIP w cieniu).
+- Drugi audyt adwersaryjny: 5 majorow naprawionych (kontrast WCAG --muted i nut
+  na jasnym torze, touch-action vs double-tap zoom iOS, aspect-ratio obrazka vs
+  hotspoty na 3G, specyficznosc #kit.hidden vs .nofoto) + 6 minorow.
+- Sciezka wdrozenia tresci, ktora dziala najlepiej: commit do repo -> push ->
+  w edytorze wtyczki fetch z raw.githubusercontent.com -> setValue -> zapis
+  (zero recznego wklejania; raw ma CORS *). Upload obrazow: Media Library przez
+  fetch blob + async-upload.php z wpUploaderInit.multipart_params.
+- Do skasowania w mediach: duplikat perki-kit-1.jpg (att. 4493).
+
+
 ## Co wdrozono
 - Wtyczka `perki-gra` 1.0.0 (z `wp-plugins/perki-gra/`): aktywna na produkcji.
 - Gra dostepna: https://perki.pl/gra/ oraz deep-link https://perki.pl/gra/?level=N
