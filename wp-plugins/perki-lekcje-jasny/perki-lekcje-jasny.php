@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Perki Lekcje (jasny landing)
  * Description: Jasny, sprzedazowy landing lekcji perkusji pod adresem /lekcje-nowy/ serwowany headless (pelny dokument, bez motywu i Elementora). Zrodlo prawdy: landing.html. Przyjmuje prosby o termin (CPT "prosba_lekcja" + mail). Platnosc Stripe i Kalendarz Google dokladane w kolejnych modulach.
- * Version: 1.1.0
+ * Version: 1.1.1
  * Author: perki.pl
  * License: GPL-2.0-or-later
  * Text Domain: perki-lekcje-jasny
@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; }
 
 class Perki_Lekcje_Jasny {
 
-	const VERSION   = '1.1.0';            // zmiana = auto purge LiteSpeed
+	const VERSION   = '1.1.1';            // zmiana = auto purge LiteSpeed
 	const QV        = 'perki_lekcje_jasny';
 	const SLUG      = 'lekcje-nowy';      // docelowo mozna przelaczyc na 'lekcje'
 	const PAGE_FILE = 'landing.html';     // jedyne zrodlo prawdy (DRY)
@@ -71,9 +71,14 @@ class Perki_Lekcje_Jasny {
 			exit( 'Brak pliku landingu. Zainstaluj wtyczke perki-lekcje-jasny ponownie.' );
 		}
 
+		// Headless w 100%: czyscimy wszystkie bufory wyjscia, zeby zaden plugin
+		// (lazyload, placeholdery obrazow, Autoptimize) nie przerobil dokumentu.
+		while ( ob_get_level() > 0 ) { ob_end_clean(); }
+
 		status_header( 200 );
 		header( 'Content-Type: text/html; charset=UTF-8' );
 		header( 'X-Frame-Options: SAMEORIGIN' );
+		header( 'X-Perki-Headless: 1' );
 		readfile( $file );
 		exit;
 	}
