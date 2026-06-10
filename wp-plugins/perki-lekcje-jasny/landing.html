@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lekcje gry na perkusji w Poznaniu i online | perki.pl</title>
+<meta name="description" content="Nauka gry na perkusji 1 na 1 z czynnym perkusista zespolu TUGA. Centrum Poznania albo online. Coś, co brzmi jak muzyka, zagrasz juz na pierwszej lekcji. Lekcja 45 min od 150 zl, zaczynasz od jednej.">
+<link rel="canonical" href="https://perki.pl/lekcje-nowy/">
+<meta property="og:title" content="Lekcje gry na perkusji w Poznaniu i online | perki.pl">
+<meta property="og:description" content="Nauka gry na perkusji 1 na 1 z czynnym muzykiem. Poznan lub online. Pierwsza lekcja bez zobowiazan.">
+<meta property="og:url" content="https://perki.pl/lekcje-nowy/">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FFFCF6; --surface:#FFFFFF; --surface-alt:#F7F1E6;
+    --ink:#1A1714; --ink-soft:#6B6259;
+    --accent:#F2641E; --accent-press:#D44E0E; --accent-tint:#FCE9DC;
+    --trust:#15324B; --trust-tint:#E4EBF1; --gold:#E6A938;
+    --ok:#2E7D52; --ok-tint:#E2F2E9;
+    --border:#E9E0D2; --border-strong:#D8CBB6;
+    --shadow:0 8px 30px rgba(26,23,20,.10);
+    --shadow-lg:0 18px 50px rgba(26,23,20,.16);
+    --wrap:1200px; --wrap-narrow:760px;
+    --r-sm:10px; --r-md:16px; --r-lg:22px; --r-xl:32px; --r-pill:999px;
+    --display:'Bricolage Grotesque',system-ui,sans-serif;
+    --sans:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.7;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  a{color:inherit;text-decoration:none}
+  img{max-width:100%;display:block}
+  h1,h2,h3,.display{font-family:var(--display);font-weight:800;letter-spacing:-.02em;line-height:1.04;color:var(--ink)}
+  .wrap{max-width:var(--wrap);margin:0 auto;padding:0 clamp(20px,5vw,48px)}
+  .kicker{font-size:.8rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+  section{padding-block:clamp(60px,9vw,124px)}
+  .alt{background:var(--surface-alt)}
+  .num{font-variant-numeric:tabular-nums}
+
+  /* buttons */
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;font-family:var(--sans);font-weight:600;font-size:16px;padding:14px 26px;border-radius:var(--r-md);cursor:pointer;border:1.5px solid transparent;transition:transform .18s ease,background .18s ease,border-color .18s ease,box-shadow .18s ease;white-space:nowrap}
+  .btn:focus-visible{outline:3px solid var(--accent-tint);outline-offset:2px}
+  .btn--primary{background:var(--accent);color:#fff}
+  .btn--primary:hover{background:var(--accent-press);transform:translateY(-2px);box-shadow:var(--shadow)}
+  .btn--primary:active{transform:scale(.98)}
+  .btn--trust{background:var(--trust);color:#fff}
+  .btn--trust:hover{transform:translateY(-2px);box-shadow:var(--shadow);background:#0f263a}
+  .btn--ghost{background:transparent;color:var(--ink);border-color:var(--border-strong)}
+  .btn--ghost:hover{background:var(--accent-tint);border-color:var(--accent);color:var(--accent-press)}
+  .btn--lg{padding:17px 32px;font-size:17px}
+  .btn--block{width:100%}
+  .beat{animation:beat 1.5s ease-in-out infinite}
+  .beat:hover{animation-play-state:paused}
+  @keyframes beat{0%,100%{transform:scale(1)}8%{transform:scale(1.035)}16%{transform:scale(1)}}
+
+  .reassurance{display:flex;gap:18px;flex-wrap:wrap;margin-top:16px;color:var(--ink-soft);font-size:13.5px}
+  .reassurance span{display:inline-flex;align-items:center;gap:7px}
+  .reassurance svg{width:16px;height:16px;color:var(--ok);flex:none}
+
+  .pills{display:flex;gap:10px;flex-wrap:wrap;margin-top:26px}
+  .pill{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--border);background:var(--surface);border-radius:var(--r-pill);padding:8px 15px;font-size:13.5px;font-weight:500;color:var(--ink-soft)}
+  .pill svg{width:16px;height:16px;color:var(--accent);flex:none}
+
+  /* nav */
+  nav{position:sticky;top:0;z-index:60;background:rgba(255,252,246,.86);backdrop-filter:saturate(1.3) blur(10px);border-bottom:1px solid var(--border)}
+  .nav-in{display:flex;align-items:center;justify-content:space-between;gap:18px;height:66px}
+  .brand{font-family:var(--display);font-weight:800;font-size:23px;letter-spacing:-.03em}
+  .brand b{color:var(--accent)}
+  .nav-links{display:flex;gap:28px}
+  .nav-links a{font-size:15px;color:var(--ink-soft);font-weight:500}
+  .nav-links a:hover{color:var(--ink)}
+  .nav-right{display:flex;align-items:center;gap:14px}
+  .nav-tel{font-weight:600;font-size:15px}
+  .burger{display:none;background:none;border:none;cursor:pointer;color:var(--ink)}
+  @media(max-width:880px){.nav-links,.nav-tel{display:none}}
+
+  /* hero */
+  .hero{padding-top:clamp(40px,6vw,76px);padding-bottom:clamp(48px,7vw,96px)}
+  .hero-grid{display:grid;grid-template-columns:7fr 5fr;gap:clamp(28px,5vw,64px);align-items:center}
+  .hero h1{font-size:clamp(2.5rem,6vw,4.5rem);margin:14px 0 0}
+  .hero h1 .mark{position:relative;color:var(--accent);white-space:nowrap}
+  .hero h1 .mark::after{content:"";position:absolute;left:-2%;right:-2%;bottom:.06em;height:.16em;background:var(--accent);opacity:.22;border-radius:3px}
+  .hero .lead{font-size:clamp(1.05rem,1.6vw,1.28rem);color:var(--ink-soft);max-width:46ch;margin:22px 0 28px}
+  .hero-cta{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+  .hero-media{position:relative;border-radius:var(--r-xl);overflow:hidden;border:1px solid var(--border);box-shadow:var(--shadow-lg);background:#15110e;aspect-ratio:4/5}
+  .hero-media img{width:100%;height:100%;object-fit:cover}
+  .hero-media .float{position:absolute;left:16px;bottom:16px;right:16px;display:flex;gap:10px;flex-wrap:wrap}
+  .hero-media .tagchip{background:rgba(255,252,246,.94);border-radius:var(--r-pill);padding:8px 14px;font-size:13px;font-weight:600;display:inline-flex;gap:7px;align-items:center}
+  .hero-media .tagchip svg{width:15px;height:15px;color:var(--accent)}
+  @media(max-width:880px){.hero-grid{grid-template-columns:1fr}.hero-media{aspect-ratio:16/11;order:-1}}
+
+  /* stats */
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(16px,3vw,40px)}
+  .stat .big{font-family:var(--display);font-weight:800;font-size:clamp(2.1rem,4vw,3.1rem);color:var(--ink);line-height:1}
+  .stat .lab{font-size:14px;color:var(--ink-soft);margin-top:6px}
+  .stat .big .u{color:var(--accent)}
+  @media(max-width:680px){.stats{grid-template-columns:repeat(2,1fr);gap:26px}}
+
+  /* generic section head */
+  .head{max-width:60ch;margin-bottom:clamp(28px,4vw,48px)}
+  .head .bar{width:42px;height:4px;background:var(--accent);border-radius:3px;margin-bottom:16px}
+  .head h2{font-size:clamp(1.9rem,4vw,2.9rem);margin:8px 0 0}
+  .head p{color:var(--ink-soft);font-size:18px;margin-top:14px}
+  .head.center{margin-inline:auto;text-align:center}
+  .head.center .bar{margin-inline:auto}
+
+  /* instructor */
+  .inst{display:grid;grid-template-columns:5fr 7fr;gap:clamp(28px,5vw,56px);align-items:center}
+  .inst-photo{border-radius:var(--r-lg);overflow:hidden;border:1px solid var(--border);box-shadow:var(--shadow);background:#15110e;aspect-ratio:4/5}
+  .inst-photo img{width:100%;height:100%;object-fit:cover}
+  .inst h2{font-size:clamp(1.7rem,3.4vw,2.5rem);margin:10px 0 18px}
+  .inst .q{color:var(--ink-soft);font-size:17px;max-width:52ch}
+  .badges{display:flex;gap:10px;flex-wrap:wrap;margin:24px 0}
+  .tbadge{display:inline-flex;align-items:center;gap:8px;background:var(--trust-tint);color:var(--trust);border-radius:var(--r-sm);padding:8px 13px;font-size:13.5px;font-weight:600}
+  .tbadge svg{width:16px;height:16px;flex:none}
+  @media(max-width:780px){.inst{grid-template-columns:1fr}.inst-photo{aspect-ratio:16/11;max-width:440px}}
+
+  /* cards (dla kogo) */
+  .grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+  .card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:clamp(20px,2.6vw,28px);transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease}
+  .card:hover{transform:translateY(-4px);box-shadow:var(--shadow);border-color:var(--border-strong)}
+  .card .ico{width:46px;height:46px;border-radius:var(--r-md);background:var(--accent-tint);color:var(--accent-press);display:flex;align-items:center;justify-content:center;margin-bottom:16px}
+  .card .ico svg{width:24px;height:24px}
+  .card h3{font-size:1.25rem;margin-bottom:8px}
+  .card p{font-size:15px;color:var(--ink-soft)}
+  .card .more{display:inline-flex;gap:6px;align-items:center;margin-top:14px;color:var(--accent-press);font-weight:600;font-size:14px}
+  @media(max-width:900px){.grid4{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:520px){.grid4{grid-template-columns:1fr}}
+
+  /* steps */
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(20px,3vw,34px);position:relative}
+  .step .n{width:58px;height:58px;border-radius:50%;border:2px solid var(--accent);color:var(--accent-press);font-family:var(--display);font-weight:800;font-size:24px;display:flex;align-items:center;justify-content:center;background:var(--surface);margin-bottom:16px}
+  .step h3{font-size:1.2rem;margin-bottom:6px}
+  .step p{font-size:15px;color:var(--ink-soft)}
+  @media(max-width:760px){.steps{grid-template-columns:1fr}}
+
+  /* cennik */
+  .plans{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;align-items:stretch}
+  .plan{position:relative;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:26px 22px;display:flex;flex-direction:column}
+  .plan--feat{border:2px solid var(--accent);box-shadow:var(--shadow);z-index:1}
+  .plan .pop{position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:var(--accent);color:#fff;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:5px 13px;border-radius:var(--r-md);white-space:nowrap}
+  .plan .pname{font-family:var(--display);font-weight:700;font-size:1.15rem}
+  .plan .per{font-family:var(--display);font-weight:800;font-size:clamp(2rem,3.4vw,2.7rem);margin-top:14px;line-height:1}
+  .plan .per small{font-family:var(--sans);font-size:14px;font-weight:500;color:var(--ink-soft)}
+  .plan .base{font-size:14px;color:var(--ink-soft);margin-top:6px}
+  .plan .base s{color:var(--ink-soft);opacity:.7}
+  .plan .save{display:inline-block;margin-top:12px;background:var(--ok-tint);color:var(--ok);font-size:13px;font-weight:600;padding:5px 12px;border-radius:var(--r-pill)}
+  .plan ul{list-style:none;margin:18px 0 22px;display:flex;flex-direction:column;gap:9px}
+  .plan li{display:flex;gap:9px;font-size:14.5px;color:var(--ink-soft)}
+  .plan li svg{width:18px;height:18px;color:var(--ok);flex:none;margin-top:2px}
+  .plan .btn{margin-top:auto}
+  .price-note{margin-top:20px;color:var(--ink-soft);font-size:15px;display:flex;gap:18px;flex-wrap:wrap;justify-content:center;text-align:center}
+  @media(max-width:980px){.plans{grid-template-columns:repeat(2,1fr)}.plan--feat{transform:none}}
+  @media(max-width:560px){.plans{grid-template-columns:1fr}}
+
+  /* guarantee */
+  .guarantee{background:var(--accent-tint);border-radius:var(--r-xl);padding:clamp(28px,4vw,48px);display:grid;grid-template-columns:auto 1fr;gap:24px;align-items:center}
+  .guarantee .shield{width:64px;height:64px;border-radius:50%;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;flex:none}
+  .guarantee .shield svg{width:32px;height:32px}
+  .guarantee h3{font-size:clamp(1.4rem,2.6vw,2rem);color:var(--accent-press)}
+  .guarantee p{color:#7a3413;margin-top:8px;font-size:16px;max-width:60ch}
+  @media(max-width:560px){.guarantee{grid-template-columns:1fr;text-align:left}}
+
+  /* reviews */
+  .reviews{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;align-items:start}
+  .review{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:24px}
+  .review .stars{color:var(--gold);display:flex;gap:2px;margin-bottom:12px}
+  .review .stars svg{width:18px;height:18px}
+  .review p{font-size:16px}
+  .review .who{display:flex;align-items:center;gap:10px;margin-top:16px}
+  .review .av{width:42px;height:42px;border-radius:50%;background:var(--trust-tint);color:var(--trust);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:15px}
+  .review .who b{font-weight:600;font-size:14px}
+  .review .who span{display:block;font-size:13px;color:var(--ink-soft)}
+  .reviews-note{margin-top:18px;text-align:center;color:var(--ink-soft);font-size:14px}
+  @media(max-width:820px){.reviews{grid-auto-flow:column;grid-template-columns:none;grid-auto-columns:84%;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:8px}.review{scroll-snap-align:start}}
+
+  /* booking */
+  .book-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:24px;align-items:start}
+  .book-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:clamp(20px,2.6vw,28px);box-shadow:var(--shadow)}
+  .book-top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:18px}
+  .seg{display:inline-flex;background:var(--surface-alt);border-radius:var(--r-pill);padding:4px;gap:4px}
+  .seg button{border:none;background:transparent;font-family:inherit;font-size:13.5px;font-weight:600;color:var(--ink-soft);padding:7px 14px;border-radius:var(--r-pill);cursor:pointer}
+  .seg button[aria-pressed=true]{background:var(--accent);color:#fff}
+  .tz{font-size:13px;color:var(--ink-soft);display:inline-flex;gap:6px;align-items:center}
+  .tz svg{width:15px;height:15px}
+  .cal{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
+  .cal .dow{text-align:center;font-size:12px;color:var(--ink-soft);font-weight:600;padding-bottom:4px}
+  .cal button{aspect-ratio:1;border:1px solid var(--border);background:var(--surface);border-radius:var(--r-sm);font-family:inherit;font-weight:600;font-size:14px;color:var(--ink);cursor:pointer;transition:.15s}
+  .cal button:hover:not(:disabled){border-color:var(--accent);color:var(--accent-press)}
+  .cal button:disabled{color:#cbc3b6;cursor:default;background:var(--surface-alt)}
+  .cal button.sel{background:var(--accent);color:#fff;border-color:var(--accent)}
+  .cal .empty{visibility:hidden}
+  .slots{margin-top:20px}
+  .slots h4{font-size:14px;font-weight:600;color:var(--ink-soft);margin-bottom:10px}
+  .slot-row{display:grid;grid-template-columns:repeat(auto-fill,minmax(92px,1fr));gap:8px}
+  .slot{border:1px solid var(--border);background:var(--surface);border-radius:var(--r-sm);padding:11px 0;text-align:center;font-family:inherit;font-weight:600;font-size:14px;cursor:pointer;transition:.15s}
+  .slot:hover:not(:disabled){border-color:var(--accent);transform:scale(1.03)}
+  .slot:disabled{color:#cbc3b6;text-decoration:line-through;cursor:default;background:var(--surface-alt)}
+  .slot.sel{background:var(--accent);color:#fff;border-color:var(--accent)}
+  .book-side .review{box-shadow:none}
+  .paybar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:16px;padding:14px 16px;background:var(--surface-alt);border-radius:var(--r-md);font-size:13px;color:var(--ink-soft)}
+  .paybar .lock{display:inline-flex;gap:6px;align-items:center;font-weight:600;color:var(--ink)}
+  .paybar .lock svg{width:15px;height:15px;color:var(--ok)}
+  .paymeth{display:flex;gap:6px;align-items:center}
+  .paymeth span{font-size:11px;font-weight:700;border:1px solid var(--border);border-radius:5px;padding:2px 7px;color:var(--ink-soft);background:var(--surface)}
+  .book-summary{margin-top:18px;padding-top:16px;border-top:1px dashed var(--border);font-size:15px}
+  .book-summary b{font-weight:600}
+  .book-form{margin-top:14px}
+  .bf-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .book-form input{width:100%;margin-bottom:10px;padding:12px 14px;border:1px solid var(--border-strong);border-radius:var(--r-sm);font-family:inherit;font-size:15px;color:var(--ink);background:var(--surface)}
+  .book-form input:focus-visible{outline:2px solid var(--accent);outline-offset:1px;border-color:var(--accent)}
+  .book-form .hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
+  .bf-note{font-size:13px;color:var(--ink-soft);margin-top:10px;line-height:1.5}
+  .bf-status{font-size:14px;font-weight:600;color:var(--accent-press);margin-top:10px;min-height:1em}
+  @media(max-width:420px){.bf-row{grid-template-columns:1fr}}
+  @media(max-width:820px){.book-grid{grid-template-columns:1fr}.book-side{display:none}}
+
+  /* faq */
+  .faq{max-width:var(--wrap-narrow);margin:0 auto}
+  details{border-bottom:1px solid var(--border)}
+  summary{list-style:none;cursor:pointer;font-family:var(--display);font-weight:700;font-size:1.18rem;padding:20px 44px 20px 0;position:relative;color:var(--ink)}
+  summary::-webkit-details-marker{display:none}
+  summary::after{content:"";position:absolute;right:8px;top:24px;width:16px;height:16px;background:no-repeat center/contain url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="%23F2641E" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>');transition:transform .25s}
+  details[open] summary::after{transform:rotate(135deg)}
+  .faq-body{display:grid;grid-template-rows:0fr;transition:grid-template-rows .3s ease}
+  details[open] .faq-body{grid-template-rows:1fr}
+  .faq-body>div{overflow:hidden}
+  .faq-body p{padding:0 0 22px;color:var(--ink-soft);font-size:16px}
+
+  /* final + footer */
+  .final{text-align:center}
+  .final h2{font-size:clamp(2rem,4.5vw,3.2rem);max-width:18ch;margin:0 auto 22px}
+  .final .hero-cta{justify-content:center}
+  footer{background:var(--trust);color:#cdd7e0}
+  .foot{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:32px;padding-block:clamp(44px,6vw,72px)}
+  footer .kicker{color:var(--accent)}
+  footer .brand{color:#fff;display:block;margin:10px 0 12px}
+  footer h4{color:#fff;font-size:14px;font-weight:600;margin-bottom:12px;letter-spacing:.02em}
+  footer a{color:#cdd7e0;font-size:15px;display:block;margin-bottom:8px}
+  footer a:hover{color:#fff}
+  .foot-bottom{border-top:1px solid rgba(255,255,255,.14);padding:20px 0;font-size:13px;color:#8ea3b5;display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}
+  @media(max-width:780px){.foot{grid-template-columns:1fr 1fr}}
+  @media(max-width:480px){.foot{grid-template-columns:1fr}}
+
+  /* mobile sticky cta */
+  .mcta{position:fixed;left:0;right:0;bottom:0;z-index:70;display:none;gap:12px;align-items:center;padding:12px 16px calc(12px + env(safe-area-inset-bottom));background:rgba(255,252,246,.97);border-top:1px solid var(--border);transform:translateY(110%);transition:transform .3s ease}
+  .mcta.show{transform:translateY(0)}
+  .mcta .price{font-family:var(--display);font-weight:800;font-size:18px;white-space:nowrap}
+  .mcta .price small{font-family:var(--sans);font-size:12px;font-weight:500;color:var(--ink-soft);display:block}
+  .mcta .btn{flex:1}
+  @media(max-width:880px){.mcta{display:flex}}
+
+  /* reveal */
+  .reveal{opacity:0;transform:translateY(22px);transition:opacity .6s cubic-bezier(.2,.7,.2,1),transform .6s cubic-bezier(.2,.7,.2,1);transition-delay:calc(var(--i,0)*70ms)}
+  .reveal.in{opacity:1;transform:none}
+  @media (prefers-reduced-motion: reduce){
+    *{scroll-behavior:auto}
+    .reveal{opacity:1;transform:none;transition:none}
+    .beat{animation:none}
+  }
+</style>
+</head>
+<body id="top">
+
+<nav>
+  <div class="wrap nav-in">
+    <a href="#top" class="brand">perki<b>.</b>pl</a>
+    <div class="nav-links">
+      <a href="#dla-kogo">Lekcje</a>
+      <a href="#cennik">Cennik</a>
+      <a href="#opinie">Opinie</a>
+      <a href="#faq">FAQ</a>
+    </div>
+    <div class="nav-right">
+      <a href="tel:+48737899928" class="nav-tel">737 899 928</a>
+      <a href="#booking" class="btn btn--primary">Zarezerwuj</a>
+      <button class="burger" aria-label="Menu" onclick="location.hash='#booking'">
+        <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<header class="hero wrap">
+  <div class="hero-grid">
+    <div>
+      <p class="kicker reveal">Lekcje perkusji w Poznaniu i online</p>
+      <h1 class="reveal" style="--i:1">Poczuj <span class="mark">groove</span>. Zagraj swoją pierwszą piosenkę na perkusji.</h1>
+      <p class="lead reveal" style="--i:2">Uczę 1 na 1: dzieci, dorosłych, wracających i zaawansowanych. Niezależnie od poziomu zaczynamy tam, gdzie jesteś, i już na pierwszej lekcji zagrasz coś, co brzmi jak muzyka.</p>
+      <div class="hero-cta reveal" style="--i:3">
+        <a href="#booking" class="btn btn--primary btn--lg beat">Zarezerwuj pierwszą lekcję, 150 zł</a>
+        <a href="https://perki.pl/gra/" class="btn btn--ghost btn--lg">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+          Zagraj w Drum Hero
+        </a>
+      </div>
+      <div class="reassurance reveal" style="--i:4">
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/></svg>Zaczynasz od jednej lekcji</span>
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Zmiana terminu do 24 h przed</span>
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M3 10h18"/></svg>BLIK, Przelewy24, karta</span>
+      </div>
+      <div class="pills reveal" style="--i:5">
+        <span class="pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M12 3v18" stroke-linecap="round"/></svg>Na żywo i online</span>
+        <span class="pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 20a8 8 0 0116 0" stroke-linecap="round"/></svg>Dzieci i dorośli</span>
+        <span class="pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5L20 7" stroke-linecap="round" stroke-linejoin="round"/></svg>Od podstaw</span>
+        <span class="pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18V6l10-2v12" stroke-linecap="round" stroke-linejoin="round"/><circle cx="6" cy="18" r="3"/><circle cx="19" cy="16" r="3"/></svg>Ulubione utwory</span>
+      </div>
+    </div>
+    <div class="hero-media reveal" style="--i:3">
+      <img src="https://perki.pl/wp-content/uploads/2026/06/perki-kit.jpg" alt="Zestaw perkusyjny w sali, w ktorej odbywaja sie lekcje" width="1600" height="984">
+      <div class="float">
+        <span class="tagchip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 3v18M5 8h6M5 14h9" stroke-linecap="round"/></svg>Centrum Poznania</span>
+        <span class="tagchip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="5" width="14" height="14" rx="2"/><path d="M17 9l4-2v10l-4-2" stroke-linejoin="round"/></svg>albo online</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section class="alt">
+  <div class="wrap">
+    <div class="stats">
+      <div class="stat reveal"><div class="big num" data-count="16">0</div><div class="lab">lat za zestawem</div></div>
+      <div class="stat reveal" style="--i:1"><div class="big num" data-count="45">0</div><div class="lab">minut skupionej lekcji 1 na 1</div></div>
+      <div class="stat reveal" style="--i:2"><div class="big num">2</div><div class="lab">sale w centrum plus online</div></div>
+      <div class="stat reveal" style="--i:3"><div class="big">TUGA</div><div class="lab">debiut LP w 2024</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="o-mnie">
+  <div class="wrap inst">
+    <div class="inst-photo reveal">
+      <img src="https://perki.pl/wp-content/uploads/2026/06/perki-kit.jpg" alt="Sala, w ktorej ucze gry na perkusji" width="1600" height="984" loading="lazy">
+    </div>
+    <div class="reveal" style="--i:1">
+      <div class="bar" style="width:42px;height:4px;background:var(--accent);border-radius:3px;margin-bottom:16px"></div>
+      <p class="kicker">Twój nauczyciel</p>
+      <h2>Uczy Cię czynny perkusista, a nie podręcznik.</h2>
+      <p class="q">Gram w zespole TUGA, koncertuję i prowadzę jam sessions w Poznaniu. Na lekcji dostajesz to, co naprawdę działa na scenie: groove, feeling i granie z ludźmi. Zaczynamy od tego, co lubisz grać, i budujemy konkret, lekcja po lekcji.</p>
+      <div class="badges">
+        <span class="tbadge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M9 12l2 2 4-4" stroke-linecap="round" stroke-linejoin="round"/></svg>Zespół TUGA, LP 2024</span>
+        <span class="tbadge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21V8l9-5 9 5v13" stroke-linejoin="round"/><path d="M9 21v-6h6v6" stroke-linecap="round"/></svg>Kramarska 33, Żydowska 35</span>
+        <span class="tbadge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="14" height="14" rx="2"/><path d="M17 9l4-2v10l-4-2" stroke-linejoin="round"/></svg>Online: Google Meet</span>
+        <span class="tbadge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l2.5 5 5.5.8-4 3.9 1 5.5-5-2.6-5 2.6 1-5.5-4-3.9 5.5-.8z" stroke-linejoin="round"/></svg>Mentor: Newman Taylor Baker</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="dla-kogo" class="alt">
+  <div class="wrap">
+    <div class="head reveal">
+      <div class="bar"></div>
+      <p class="kicker">Dla kogo</p>
+      <h2>Uczę od zera i pomagam ruszyć z miejsca</h2>
+      <p>Każdy poziom dostaje plan pod siebie. Zobacz, gdzie jesteś Ty.</p>
+    </div>
+    <div class="grid4">
+      <div class="card reveal"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M5 20a7 7 0 0114 0" stroke-linecap="round"/></svg></div><h3>Dzieci od 7 lat</h3><p>Nauka przez zabawę i pierwsze rytmy, które słychać. Cierpliwie, bez nudnej teorii.</p></div>
+      <div class="card reveal" style="--i:1"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18V5l12-2v13" stroke-linecap="round" stroke-linejoin="round"/><circle cx="6" cy="18" r="3"/><circle cx="21" cy="16" r="3"/></svg></div><h3>Dorośli hobbystycznie</h3><p>Marzenie z dzieciństwa albo odskocznia od pracy. Gramy do Twojej ulubionej muzyki.</p></div>
+      <div class="card reveal" style="--i:2"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 109-9" stroke-linecap="round"/><path d="M3 4v5h5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><h3>Wracający po przerwie</h3><p>Odświeżymy technikę i nadrobimy to, co przez lata urosło. Szybciej, niż myślisz.</p></div>
+      <div class="card reveal" style="--i:3"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 18V9l6-3 6 3 6-3v9" stroke-linecap="round" stroke-linejoin="round"/></svg></div><h3>Zaawansowani i zespoły</h3><p>Improwizacja, granie do podkładów, przygotowanie do prób i koncertów. Uczę scenicznie.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="jak">
+  <div class="wrap">
+    <div class="head reveal">
+      <div class="bar"></div>
+      <p class="kicker">Jak to działa</p>
+      <h2>Trzy kroki i grasz</h2>
+      <p>Resztę załatwiamy za Ciebie. Termin potwierdzasz płatnością, a zmienić go możesz do 24 h przed lekcją.</p>
+    </div>
+    <div class="steps">
+      <div class="step reveal"><div class="n">1</div><h3>Wybierz termin i zapłać</h3><p>Pojedyncza lekcja, karnet albo voucher. Szybka płatność: BLIK, Przelewy24 lub karta.</p></div>
+      <div class="step reveal" style="--i:1"><div class="n">2</div><h3>Dostajesz potwierdzenie</h3><p>Wpis trafia do kalendarza, a jeśli grasz online, dostajesz link do Google Meet.</p></div>
+      <div class="step reveal" style="--i:2"><div class="n">3</div><h3>Gramy</h3><p>Przychodzisz, gramy, wychodzisz z planem na kolejny tydzień. Termin zmienisz jednym kliknięciem do 24 h przed.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="cennik" class="alt">
+  <div class="wrap">
+    <div class="head center reveal">
+      <div class="bar"></div>
+      <p class="kicker">Cennik</p>
+      <h2>Im więcej lekcji, tym taniej za jedną</h2>
+      <p>Jedna cena online i stacjonarnie. Zaczynasz od jednej lekcji, bez karnetu na start.</p>
+    </div>
+    <div class="plans">
+      <div class="plan reveal">
+        <div class="pname">Pojedyncza</div>
+        <div class="per num">150<small> zł</small></div>
+        <div class="base">150 zł za lekcję, 45 min</div>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12l5 5L20 7" stroke-linecap="round" stroke-linejoin="round"/></svg>Bez karnetu na start</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12l5 5L20 7" stroke-linecap="round" stroke-linejoin="round"/></svg>Online lub w Poznaniu</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12l5 5L20 7" stroke-linecap="round" stroke-linejoin="round"/></svg>Idealna na start</li>
+        </ul>
+        <a href="#booking" class="btn btn--ghost btn--block" data-produkt="lekcja" data-cena="150">Wybierz</a>
+      </div>
+      <div class="plan reveal" style="--i:1">
+        <div class="pname">Karnet 4</div>
+        <div class="per num">142,50<small> zł/lekcja</small></div>
+        <div class="base"><s>600 zł</s> &nbsp;570 zł za 4 lekcje</div>
+        <span class="save">Oszczędzasz 30 zł</span>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12l5 5L20 7" stroke-linecap="round" stroke-linejoin="round"/></svg>Rabat 5%</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12l5 5L20 7" stroke-linecap="round" stroke-linejoin="round"/></svg>Regularny postęp</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12l5 5L20 7" stroke-linecap="round" stroke-linejoin="round"/></svg>Terminy ustalasz na bieżąco</li>
+        </ul>
+        <a href="#booking" class="btn btn--ghost btn--block" data-produkt="karnet4" data-cena="570">Wybierz</a>
+      </div>
+      <div class="plan plan--feat reveal" style="--i:2">
+        <span class="pop">Najpopularniejszy</span>
+        <div class="pname">Karnet 8</div>
+        <div class="per num">135<small> zł/lekcja</small></div>
+        <div class="base"><s>1200 zł</s> &nbsp;1080 zł za 8 lekcji</div>
+        <span class="save">Oszczędzasz 120 zł</span>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12l5 5L20 7" stroke-linecap="round" stroke-linejoin="round"/></svg>Rabat 10%</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12l5 5L20 7" stroke-linecap="round" stroke-linejoin="round"/></svg>Najlepszy stosunek ceny do efektu</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12l5 5L20 7" stroke-linecap="round" stroke-linejoin="round"/></svg>Realnie słychać różnicę</li>
+        </ul>
+        <a href="#booking" class="btn btn--primary btn--block" data-produkt="karnet8" data-cena="1080">Wybierz</a>
+      </div>
+      <div class="plan reveal" style="--i:3">
+        <div class="pname">Karnet 12</div>
+        <div class="per num">127,50<small> zł/lekcja</small></div>
+        <div class="base"><s>1800 zł</s> &nbsp;1530 zł za 12 lekcji</div>
+        <span class="save">Oszczędzasz 270 zł</span>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12l5 5L20 7" stroke-linecap="round" stroke-linejoin="round"/></svg>Rabat 15%, najtaniej za lekcję</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12l5 5L20 7" stroke-linecap="round" stroke-linejoin="round"/></svg>Dla zdeterminowanych</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12l5 5L20 7" stroke-linecap="round" stroke-linejoin="round"/></svg>Duży skok poziomu</li>
+        </ul>
+        <a href="#booking" class="btn btn--ghost btn--block" data-produkt="karnet12" data-cena="1530">Wybierz</a>
+      </div>
+    </div>
+    <div class="price-note reveal">
+      <span>Abonament miesięczny: <b>135 zł</b> za lekcję (-10%)</span>
+      <span>Lekcja 120 min: <b>wycena indywidualna</b></span>
+      <span>Voucher podarunkowy: <b>od 150 zł</b>, bez terminu ważności</span>
+    </div>
+  </div>
+</section>
+
+<section id="gwarancja">
+  <div class="wrap">
+    <div class="guarantee reveal">
+      <div class="shield"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg></div>
+      <div>
+        <h3>Pierwsza lekcja bez ryzyka</h3>
+        <p>Zaczynasz od jednej lekcji, bez abonamentu, którego nie da się anulować. Termin zmienisz bezpłatnie do 24 h przed. Chcę, żebyś po pierwszym spotkaniu wiedział, że to dla Ciebie, zanim w ogóle pomyślisz o karnecie.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="opinie" class="alt">
+  <div class="wrap">
+    <div class="head center reveal">
+      <div class="bar"></div>
+      <p class="kicker">Opinie</p>
+      <h2>Co mówią uczniowie</h2>
+    </div>
+    <div class="reviews">
+      <div class="review reveal"><div class="stars"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg></div><p>Tu pojawi się prawdziwa opinia ucznia, który zaczynał od zera.</p><div class="who"><span class="av">?</span><div><b>Imię ucznia</b><span>Poznań, gra od podstaw</span></div></div></div>
+      <div class="review reveal" style="--i:1"><div class="stars"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg></div><p>Tu pojawi się opinia ucznia, który wrócił do grania po latach.</p><div class="who"><span class="av">?</span><div><b>Imię ucznia</b><span>Poznań, wrócił po przerwie</span></div></div></div>
+      <div class="review reveal" style="--i:2"><div class="stars"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg></div><p>Tu pojawi się opinia ucznia, który zaczął grać w zespole.</p><div class="who"><span class="av">?</span><div><b>Imię ucznia</b><span>Poznań, gra w zespole</span></div></div></div>
+    </div>
+    <p class="reviews-note">Jesteś moim uczniem? Dodaj swoją opinię: <a href="mailto:jackeperki@gmail.com" style="color:var(--accent-press);font-weight:600">jackeperki@gmail.com</a></p>
+  </div>
+</section>
+
+<section id="booking">
+  <div class="wrap">
+    <div class="head reveal">
+      <div class="bar"></div>
+      <p class="kicker">Zarezerwuj</p>
+      <h2>Wybierz termin i potwierdź płatnością</h2>
+      <p>Termin staje się Twój od razu po opłaceniu, więc nikt go nie zajmie. Zmiana do 24 h przed lekcją, jednym kliknięciem.</p>
+    </div>
+    <div class="book-grid">
+      <div class="book-card reveal">
+        <div class="book-top">
+          <div class="seg" id="lenSeg" role="group" aria-label="Długość lekcji">
+            <button aria-pressed="true" data-len="45">45 min</button>
+            <button aria-pressed="false" data-len="60">60 min</button>
+            <button aria-pressed="false" data-len="90">90 min</button>
+          </div>
+          <span class="tz"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2" stroke-linecap="round"/></svg>Europa/Warszawa</span>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+          <strong id="monthLabel" style="font-family:var(--display);font-weight:700">&nbsp;</strong>
+        </div>
+        <div class="cal" id="cal"></div>
+        <div class="slots">
+          <h4 id="slotsLabel">Wybierz dzień, aby zobaczyć godziny</h4>
+          <div class="slot-row" id="slotRow"></div>
+        </div>
+        <div class="book-summary" id="bookSummary" style="display:none"></div>
+        <div class="book-form" id="bookForm" style="display:none">
+          <div class="bf-row">
+            <input id="bfName" type="text" placeholder="Imię" maxlength="80" autocomplete="name" aria-label="Imię">
+            <input id="bfPhone" type="tel" placeholder="Telefon (opcjonalnie)" maxlength="30" autocomplete="tel" aria-label="Telefon">
+          </div>
+          <input id="bfEmail" type="email" placeholder="Twój e-mail" maxlength="120" autocomplete="email" aria-label="E-mail">
+          <input id="bfHp" class="hp" type="text" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <button class="btn btn--trust btn--lg btn--block" id="bookCta" type="button">Wyślij prośbę o ten termin</button>
+          <p class="bf-note">Potwierdzę dostępność i wyślę link do płatności (BLIK, Przelewy24, karta). Termin staje się Twój po opłaceniu, a zmienisz go do 24 h przed lekcją.</p>
+          <p class="bf-status" id="bfStatus" role="status"></p>
+        </div>
+        <div class="paybar">
+          <span class="lock"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 018 0v3" stroke-linecap="round"/></svg>Bezpieczna płatność Stripe</span>
+          <span class="paymeth"><span>BLIK</span><span>P24</span><span>Visa</span><span>MC</span></span>
+        </div>
+      </div>
+      <aside class="book-side reveal" style="--i:1">
+        <div class="review">
+          <div class="stars" style="color:var(--gold);display:flex;gap:2px;margin-bottom:12px">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12 2l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12 2l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12 2l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12 2l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12 2l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg>
+          </div>
+          <p style="font-size:16px">Pierwsza lekcja to konkret od pierwszej minuty. Wychodzisz z planem, nie z notatkami.</p>
+          <p style="margin-top:12px;font-size:14px;color:var(--ink-soft)">Tak ma wyglądać Twoja pierwsza lekcja.</p>
+        </div>
+        <div class="paybar" style="margin-top:14px">
+          <span class="lock"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2" stroke-linecap="round"/></svg>Zmiana terminu</span>
+          <span>za darmo do 24 h przed lekcją</span>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section id="faq" class="alt">
+  <div class="wrap">
+    <div class="head center reveal">
+      <div class="bar"></div>
+      <p class="kicker">FAQ</p>
+      <h2>Wszystko przed pierwszą lekcją</h2>
+    </div>
+    <div class="faq">
+      <details open class="reveal"><summary>Czy muszę mieć własną perkusję?</summary><div class="faq-body"><div><p>Nie. Na lekcji stacjonarnej grasz na moim zestawie. Do domu na początek wystarczy pad treningowy i pałki, a podpowiem, co kupić na perki.pl.</p></div></div></details>
+      <details class="reveal"><summary>Od jakiego wieku uczysz dzieci?</summary><div class="faq-body"><div><p>Zwykle od 7 lat, ale więcej zależy od dziecka niż od metryki. Napisz wiek i doświadczenie muzyczne, a powiem szczerze, czy to już dobry moment.</p></div></div></details>
+      <details class="reveal"><summary>Online czy stacjonarnie, co lepsze?</summary><div class="faq-body"><div><p>Stacjonarnie jest najlepiej, bo grasz na żywym zestawie. Ale online przez Google Meet działa konkretnie, prowadzę tak od lat. Cena jest taka sama.</p></div></div></details>
+      <details class="reveal"><summary>Jak działa zmiana terminu?</summary><div class="faq-body"><div><p>Daj znać najpóźniej 24 h przed terminem, a przełożymy lekcję na inny dzień bezpłatnie, bez kombinowania. Jeśli odezwiesz się później albo nie dasz znać wcale, lekcja niestety przepada. To uczciwe w obie strony: rezerwuję dla Ciebie konkretny czas, więc jedna doba uprzedzenia wystarczy, żebym zdążył oddać go komuś innemu.</p></div></div></details>
+      <details class="reveal"><summary>Czym jest voucher i abonament?</summary><div class="faq-body"><div><p>Voucher to prezent bez terminu ważności: obdarowany sam wybiera dzień. Abonament miesięczny to stała cena 135 zł za lekcję (-10%) dla uczniów grających regularnie.</p></div></div></details>
+      <details class="reveal"><summary>Jak wygląda płatność?</summary><div class="faq-body"><div><p>Płacisz online przy rezerwacji: BLIK, Przelewy24 albo karta, przez bezpieczną bramkę Stripe. Termin jest Twój dopiero po opłaceniu, więc nikt Ci go nie zajmie.</p></div></div></details>
+    </div>
+  </div>
+</section>
+
+<section class="final">
+  <div class="wrap">
+    <h2 class="reveal">Gotowy, żeby usiąść za bębnami?</h2>
+    <div class="hero-cta reveal" style="--i:1">
+      <a href="#booking" class="btn btn--primary btn--lg">Zarezerwuj pierwszą lekcję, 150 zł</a>
+      <a href="tel:+48737899928" class="btn btn--ghost btn--lg">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 4h4l2 5-3 2a12 12 0 005 5l2-3 5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2z" stroke-linejoin="round"/></svg>
+        737 899 928
+      </a>
+    </div>
+    <div class="reassurance reveal" style="--i:2;justify-content:center">
+      <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/></svg>Zaczynasz od jednej lekcji</span>
+      <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Zmiana terminu do 24 h przed</span>
+      <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M3 10h18"/></svg>BLIK, Przelewy24, karta</span>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot">
+    <div>
+      <p class="kicker">Lekcje perkusji</p>
+      <span class="brand">perki<b style="color:var(--accent)">.</b>pl</span>
+      <p style="font-size:15px;max-width:34ch">Nauka gry na perkusji 1 na 1 w centrum Poznania i online. Prowadzi Jacke Sienkiewicz, perkusista zespołu TUGA.</p>
+    </div>
+    <div>
+      <h4>Oferta</h4>
+      <a href="#cennik">Pojedyncza lekcja</a>
+      <a href="#cennik">Karnety 4 / 8 / 12</a>
+      <a href="#cennik">Voucher podarunkowy</a>
+      <a href="https://perki.pl/gra/">Gra Drum Hero</a>
+    </div>
+    <div>
+      <h4>Kontakt</h4>
+      <a href="tel:+48737899928">737 899 928</a>
+      <a href="mailto:jackeperki@gmail.com">jackeperki@gmail.com</a>
+      <a>Kramarska 33, Poznań</a>
+      <a>Żydowska 35, Poznań</a>
+    </div>
+    <div>
+      <h4>Sieć</h4>
+      <a href="https://www.youtube.com/@jacke_skillovsky" target="_blank" rel="noopener">YouTube</a>
+      <a href="https://www.instagram.com/jacke_skillovsky" target="_blank" rel="noopener">Instagram</a>
+      <a href="https://perki.pl">Sklep perkusyjny</a>
+    </div>
+  </div>
+  <div class="wrap foot-bottom">
+    <span>perki.pl, lekcje gry na perkusji w Poznaniu i online</span>
+    <span>Zespół TUGA, debiut LP 2024</span>
+  </div>
+</footer>
+
+<div class="mcta" id="mcta">
+  <div class="price">od 150 zł<small>pierwsza lekcja</small></div>
+  <a href="#booking" class="btn btn--primary">Zarezerwuj lekcję</a>
+</div>
+
+<script>
+(function(){
+  var rm = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var API_PROSBA = 'https://perki.pl/wp-json/perki/v1/prosba';
+  var API_PING   = 'https://perki.pl/wp-json/perki/v1/lekcja-ping';
+
+  /* scroll reveal + stagger */
+  var revs = document.querySelectorAll('.reveal');
+  if(rm){ revs.forEach(function(e){ e.classList.add('in'); }); }
+  else {
+    var ro = new IntersectionObserver(function(es){
+      es.forEach(function(en){ if(en.isIntersecting){ en.target.classList.add('in'); ro.unobserve(en.target); } });
+    }, {threshold:.14, rootMargin:'0px 0px -8% 0px'});
+    revs.forEach(function(e){ ro.observe(e); });
+  }
+
+  /* counters */
+  var counted = document.querySelectorAll('[data-count]');
+  function countUp(el){
+    var target = parseInt(el.getAttribute('data-count'),10), start=null, dur=1100;
+    function step(t){ if(!start) start=t; var p=Math.min((t-start)/dur,1); var e=1-Math.pow(1-p,3);
+      el.textContent = Math.round(e*target); if(p<1) requestAnimationFrame(step); }
+    requestAnimationFrame(step);
+  }
+  if(rm){ counted.forEach(function(el){ el.textContent = el.getAttribute('data-count'); }); }
+  else {
+    var co = new IntersectionObserver(function(es){
+      es.forEach(function(en){ if(en.isIntersecting){ countUp(en.target); co.unobserve(en.target); } });
+    }, {threshold:.6});
+    counted.forEach(function(el){ co.observe(el); });
+  }
+
+  /* mobile sticky cta after hero */
+  var hero = document.querySelector('.hero'), mcta = document.getElementById('mcta');
+  if(hero && mcta){
+    var mo = new IntersectionObserver(function(es){
+      es.forEach(function(en){ mcta.classList.toggle('show', !en.isIntersecting); });
+    }, {threshold:0});
+    mo.observe(hero);
+  }
+
+  /* pricing pick -> remember choice */
+  document.querySelectorAll('[data-produkt]').forEach(function(b){
+    b.addEventListener('click',function(){
+      try{ sessionStorage.setItem('perkiProdukt', b.getAttribute('data-produkt'));
+        sessionStorage.setItem('perkiCena', b.getAttribute('data-cena')||''); }catch(e){}
+    });
+  });
+
+  /* length segmented */
+  var len = 45;
+  document.querySelectorAll('#lenSeg button').forEach(function(b){
+    b.addEventListener('click',function(){
+      document.querySelectorAll('#lenSeg button').forEach(function(x){ x.setAttribute('aria-pressed','false'); });
+      b.setAttribute('aria-pressed','true'); len=parseInt(b.getAttribute('data-len'),10);
+      if(selDay) renderSlots(selDay);
+    });
+  });
+
+  /* booking calendar (front-end prezentacja; backend WooCommerce+Stripe+Kalendarz dokladany osobno) */
+  var MN=['stycznia','lutego','marca','kwietnia','maja','czerwca','lipca','sierpnia','wrzesnia','pazdziernika','listopada','grudnia'];
+  var DOW=['pon','wt','sr','czw','pt','sob','ndz'];
+  var now=new Date(); var y=now.getFullYear(), m=now.getMonth();
+  var selDay=null, selSlot=null;
+  document.getElementById('monthLabel').textContent = (function(){var d=new Date(y,m,1);return d.toLocaleDateString('pl-PL',{month:'long',year:'numeric'});})();
+  var cal=document.getElementById('cal');
+  DOW.forEach(function(d){ var e=document.createElement('div'); e.className='dow'; e.textContent=d; cal.appendChild(e); });
+  var first=new Date(y,m,1); var lead=(first.getDay()+6)%7; var days=new Date(y,m+1,0).getDate();
+  for(var i=0;i<lead;i++){ var e=document.createElement('div'); e.className='empty'; cal.appendChild(e); }
+  var today=new Date(now.getFullYear(),now.getMonth(),now.getDate());
+  for(var d=1;d<=days;d++){
+    var btn=document.createElement('button'); btn.textContent=d;
+    var date=new Date(y,m,d); var dowN=(date.getDay()+6)%7;
+    var bookable = date>=today && dowN<6;
+    if(!bookable){ btn.disabled=true; }
+    else btn.addEventListener('click',(function(dd,bb){return function(){
+      cal.querySelectorAll('button').forEach(function(x){x.classList.remove('sel');}); bb.classList.add('sel');
+      selDay=dd; renderSlots(dd);
+    };})(d,btn));
+    cal.appendChild(btn);
+  }
+  /* godziny lekcyjne 12-20 jako preferencje; to PROSBA o termin, ktora Jacke
+     potwierdza (zero udawanej dostepnosci na zywej stronie) */
+  function renderSlots(d){
+    var row=document.getElementById('slotRow'); row.innerHTML='';
+    var date=new Date(y,m,d);
+    document.getElementById('slotsLabel').textContent = date.toLocaleDateString('pl-PL',{weekday:'long',day:'numeric',month:'long'})+', preferowana godzina';
+    for(var h=12;h<=20;h++){
+      var s=document.createElement('button'); s.className='slot'; s.textContent=(h<10?'0':'')+h+':00';
+      s.addEventListener('click',(function(hh,ss){return function(){
+        row.querySelectorAll('.slot').forEach(function(x){x.classList.remove('sel');}); ss.classList.add('sel');
+        selSlot=hh; updateSummary(d,hh);
+      };})(h,s));
+      row.appendChild(s);
+    }
+    selSlot=null; document.getElementById('bookSummary').style.display='none'; document.getElementById('bookForm').style.display='none';
+  }
+  function prodName(){
+    var prod=''; try{ prod=sessionStorage.getItem('perkiProdukt')||''; }catch(e){}
+    return {lekcja:'Pojedyncza lekcja',karnet4:'Karnet 4 lekcje',karnet8:'Karnet 8 lekcji',karnet12:'Karnet 12 lekcji',voucher:'Voucher'}[prod]||'Pojedyncza lekcja';
+  }
+  function updateSummary(d,h){
+    var date=new Date(y,m,d);
+    var sum=document.getElementById('bookSummary');
+    sum.style.display='block';
+    sum.innerHTML='<b>'+prodName()+'</b>, '+len+' min<br>'+date.toLocaleDateString('pl-PL',{weekday:'long',day:'numeric',month:'long'})+', preferowana godz. '+(h<10?'0':'')+h+':00';
+    document.getElementById('bookForm').style.display='block';
+  }
+  /* zapis prosby: wzorzec perki.pl (nonce z GET, potem POST z X-WP-Nonce, credentials omit) */
+  function postProsba(payload, cb){
+    var post=function(nonce){
+      var h={'Content-Type':'application/json'}; if(nonce) h['X-WP-Nonce']=nonce;
+      fetch(API_PROSBA,{method:'POST',headers:h,credentials:'omit',body:JSON.stringify(payload)})
+        .then(function(r){cb(r.ok);}).catch(function(){cb(false);});
+    };
+    fetch(API_PING,{credentials:'omit'}).then(function(r){return r.json();}).then(function(j){post(j&&j.nonce);}).catch(function(){post(null);});
+  }
+  document.getElementById('bookCta').addEventListener('click',function(){
+    var name=document.getElementById('bfName').value.trim();
+    var email=document.getElementById('bfEmail').value.trim();
+    var phone=document.getElementById('bfPhone').value.trim();
+    var st=document.getElementById('bfStatus'); var btn=this;
+    if(!name || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){ st.textContent='Podaj imię i poprawny e-mail.'; return; }
+    if(!selDay || selSlot===null){ st.textContent='Wybierz dzień i godzinę powyżej.'; return; }
+    var dateStr=new Date(y,m,selDay).toLocaleDateString('pl-PL',{weekday:'long',day:'numeric',month:'long'});
+    btn.disabled=true; st.textContent='Wysyłam...';
+    postProsba({name:name,email:email,phone:phone,produkt:prodName(),len:len,data:dateStr,godzina:(selSlot<10?'0':'')+selSlot+':00',forma:'',_hp:document.getElementById('bfHp').value},function(ok){
+      if(ok){
+        st.textContent='Dziękuję! Odezwę się, potwierdzę termin i wyślę link do płatności.';
+        ['bfName','bfPhone','bfEmail','bookCta'].forEach(function(id){ document.getElementById(id).style.display='none'; });
+        document.querySelector('.bf-note').style.display='none';
+      } else {
+        st.textContent='Nie udało się wysłać. Zadzwoń: 737 899 928.'; btn.disabled=false;
+      }
+    });
+  });
+})();
+</script>
+</body>
+</html>

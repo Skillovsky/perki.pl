@@ -1,0 +1,91 @@
+{
+  "systemProjektowy": {
+    "paleta": "KIERUNEK 'Studio Groove' - jasny, cieply, perkusyjny, ale z dyscyplina produktu SaaS. ROLE KOLOROW (zdefiniuj w :root jako custom properties - jedno zrodlo prawdy, odpowiedz na skarge 'bez spojnego szablonu'). Tlo strony --bg:#FFFCF6 (cieply krem, NIE czysta biel - daje ciepło perkusji przy zachowaniu JASNOSCI z briefu). Powierzchnie kart --surface:#FFFFFF. Powierzchnia alternatywna (sekcje przeplatane) --surface-alt:#F7F1E6. Atrament/tekst glowny --ink:#1A1714 (cieply grafit, nie zimna czern). Tekst drugorzedny --ink-soft:#6B6259. AKCENT GLOWNY (zabawa+energia, kolor talerza/blachy) --accent:#F2641E; hover --accent-press:#D44E0E; subtelne tlo akcentu --accent-tint:#FCE9DC. AKCENT ZAUFANIA (stanowczosc, granat) --trust:#15324B; tint --trust-tint:#E4EBF1. ZLOTO gwiazdek/odznak --gold:#E6A938. Stany: sukces --ok:#2E7D52 (tint #E2F2E9), uwaga --warn:#C8761B, blad --err:#C2402E. Granice: --border:#E9E0D2 (cieply 1px), --border-strong:#D8CBB6 (hover/wyroznienie). Jeden token cienia --shadow:0 8px 30px rgba(26,23,20,.10) tylko na hover kart i sticky CTA. ZASADY KONTRASTU: na --accent tekst #FFFFFF lub --ink; na --accent-tint tekst --accent-press; na --trust tekst kremowy; gwiazdki --gold na kremie. Akcent uzywaj OSZCZEDNIE: CTA, badge 'najpopularniejsze', numery krokow, podkreslenia slow-kluczy - nie jako tlo duzych plaszczyzn (utrzymanie jasnosci).",
+    "typografia": "PARA FONTOW (Google Fonts, 2 rodziny). DISPLAY/naglowki: 'Bricolage Grotesque' wagi 700/800 - groteska o charakterze, plakatowa, mloda ale powazna (awaryjnie: 'Anton' na H1 + 'Sora' 700; rekomendacja glowna Bricolage dla spojnosci na wszystkich poziomach). TEKST/UI: 'Inter' wagi 400/500/600 - czytelny, swietny w formularzach i cenniku. Wczytaj z display=swap, subset latin+latin-ext (polskie znaki ą ę ś ł ż ź ć ó ń). SKALA (clamp, baza 16px): H1 hero clamp(2.6rem,6vw,4.6rem)/lh 0.98/letter-spacing -0.02em/waga 800; H2 clamp(1.9rem,4vw,2.9rem)/lh 1.05/800; H3 clamp(1.2rem,2.2vw,1.5rem)/700; kicker (etykieta nad H2) 0.8rem/600/letter-spacing 0.14em/UPPERCASE/--accent; lead hero clamp(1.05rem,1.6vw,1.3rem)/lh 1.55/--ink-soft; body 17px/lh 1.7; small 13px/--ink-soft; cyfry statystyk i ceny clamp(2.2rem,4vw,3.2rem)/800/font-variant-numeric:tabular-nums (zeby liczniki i cennik nie skakaly). ZASADY: sentence case (nie Title Case, nie CAPS - wyjatek kicker i mikro-badge), max szerokosc czytanego tekstu 62ch (--measure), liczby zawsze tabular-nums, polskie znaki sprawdzone w obu fontach.",
+    "przestrzen": "SKALA ODSTEPOW (8px base, custom properties --s1:8 --s2:16 --s3:24 --s4:32 --s5:48 --s6:64 --s7:96 --s8:128 px). Rytm sekcji: padding-block clamp(64px,9vw,128px) - duzy oddech = 'poziom liderow'. SZEROKOSCI: --wrap:1200px glowny kontener, --wrap-narrow:760px dla FAQ/tekstu, gutter clamp(20px,5vw,48px). PROMIENIE (spojnie): --r-sm:10px (pigulki, inputy), --r-md:16px (przyciski, badge), --r-lg:22px (karty), --r-xl:32px (hero media, duze bloki), --r-pill:999px (chipy, taby). SIATKA: glowny grid 12-kol uzywany pragmatycznie. ASYMETRIA jako sygnatura 'nie-mega-prosty': hero 7/5 (tekst lewo szerszy, media prawo), naglowki sekcji do lewej z kickerem, karty opinii rozne wysokosci (align-items:start). Sekcje przeplatane tlem --bg -> --surface-alt -> --bg. Cienka linia-palka (4px --accent) jako 'palkowy' separator nad wybranymi naglowkami zamiast pelnego dividera.",
+    "komponenty": "SPOJNY ZESTAW (jeden szablon, wszystko z tych samych tokenow). PRZYCISKI .btn (Inter 600, padding 14px 26px, --r-md, transition .18s, focus-visible: outline 3px --accent-tint + 2px offset). Warianty: --primary (tlo --accent, biały, hover --accent-press + translateY(-2px) + --shadow, active scale .98), --trust (tlo --trust, biały - 'Zarezerwuj' w bookingu), --ghost (transparent, border 1.5px --border-strong, hover tlo --accent-tint + border --accent - drugie CTA 'Zobacz jak ucze 2 min' z ikona play), --lg, --block (100% w cenniku). KAZDY primary CTA ma pod soba .reassurance (3 mikro-sygnaly inline SVG: tarcza 'Pierwsza lekcja bez ryzyka' / zegar 'Zmiana terminu do 24h' / karta 'BLIK i Przelewy24'). PILL korzysci .pill: inline-flex, --r-pill, border 1px --border, ikona 16px + tekst 13px - rzad 4 pod hero. KARTA .card: --surface, border 1px --border, --r-lg, padding --s4, hover border --border-strong + --shadow + translateY(-4px). BADGE .badge: --r-md, 12px/600/UPPERCASE/letter-spacing .08em; --pop (tlo --accent biały 'NAJPOPULARNIEJSZE', absolutnie pozycjonowany top:-12px) i --soft (tlo --accent-tint, tekst --accent-press). CENNIK .plan: .card + cena tabular-nums + linia 'X zl/lekcja po rabacie' z przekreslona baza <s> + lista cech z check --ok + .btn--primary.btn--block + pasek .plan__save (tlo --ok-tint, tekst --ok); karta srodkowa .plan--featured (border 2px --accent, scale 1.04, --shadow staly, badge POP). OPINIA .review: avatar 48px okragly, 5 gwiazdek inline SVG --gold, cytat Inter 400, podpis 'Imie, Poznan'; nad sekcja duzy 'Google 4.9/5'. STATYSTYKA .stat: wielka cyfra tabular-nums 800 + maly podpis, licznik animowany od 0. ODZNAKA-ZAUFANIA .trust-badge: ikona + tekst, tlo --trust-tint, --r-sm (TUGA / LP 2024 / Kramarska 33 / online Meet / mentor NTB). KROK .step: cyfra w kolku 60px border 2px --accent + ikona + opis. NAV sticky top: tlo --bg + blur (backdrop-filter, fallback solid), logo lewo, linki srodek, .btn--primary prawo; mobile hamburger <details> + dolny .cta-bar 'od 150 zl + Zarezerwuj' pojawiajacy sie po hero (IntersectionObserver -> .visible). FAQ .faq: natywne <details><summary> (zero JS, dostepne klawiatura), custom strzalka summary::after (+/x) obracana w [open], plynne rozwijanie grid-template-rows 0fr->1fr, border-bottom 1px --border. BOOKING .booking: grid 2-kol (mini-kalendarz 7-kol <button> dni / lista slotow), pasek strefy 'Europa/Warszawa (GMT+2)' + selektor dlugosci 30/60/90 radio-pills; slot .slot button --r-sm, .slot--taken (disabled, przekreslony, aria-disabled), .slot.is-selected (tlo --accent biały); uczciwy scarcity badge tylko gdy <=5 wolnych; pas zaufania platnosci (klodka Stripe + BLIK/P24/Visa/MC inline SVG + pill polityki 24h). STOPKA tlo --trust, tekst kremowy, 3-4 kolumny (oferta / kontakt Kramarska+Zydowska / TUGA+social / nota), kicker --accent.",
+    "motion": "MIKROINTERAKCJE czysty CSS/JS, zero bibliotek, wszystko respektuje @media (prefers-reduced-motion: reduce){ wylacz }. 1) SCROLL-REVEAL: IntersectionObserver dodaje .in-view, CSS opacity 0->1 + translateY(20px)->0, transition .6s cubic-bezier(.2,.7,.2,1); STAGGER kart przez --i (transition-delay: calc(var(--i)*70ms)). 2) LICZNIKI: IntersectionObserver -> requestAnimationFrame easeOutCubic od 0, ~25 linii, tabular-nums. 3) CTA 'BEAT' (sygnatura perkusyjna): @keyframes pulse scale(1)->scale(1.025) co ~1.4s na glownym .btn--primary w hero - rytm metronomu, subtelny, wylaczany przy reduced-motion i pauza na :hover. 4) HOVER KART: translateY(-4px) + --shadow + border --border-strong, .2s. 5) FAQ: grid-template-rows 0fr->1fr .35s + obrot ikony. 6) HERO MEDIA: <video autoplay muted loop playsinline poster=hero.jpg preload=none> z Media Library, play odpalany IntersectionObserverem (oszczednosc LCP), nakladka gradientowa ::after dla czytelnosci. 7) STICKY CTA MOBILE: translateY(100%)->0 .3s po wyjsciu hero. 8) BOOKING: slot hover scale(1.03)+border --accent, is-selected natychmiastowy fill. 9) SMOOTH SCROLL na kotwicach CTA->#booking. ZASADA: animacje subtelne (<.6s), nie blokuja interakcji, nie animuja wysokosci layoutu poza FAQ; IntersectionObservery rozlaczane po odpaleniu (unobserve)."
+  },
+  "blueprintSekcji": [
+    {
+      "sekcja": "0. Sticky nav + (mobile) sticky CTA bar",
+      "cel": "Stala dostepnosc konwersji i orientacja",
+      "uklad": "Gora: logo 'perki.pl' lewo, linki (Lekcje / Cennik / Opinie / FAQ) srodek, .btn--primary 'Zarezerwuj' prawo; tlo --bg z blur. Mobile: hamburger <details> + dolny .cta-bar 'od 150 zl + Zarezerwuj lekcje' pojawiajacy sie po hero przez IntersectionObserver."
+    },
+    {
+      "sekcja": "1. Hero - obietnica rezultatu",
+      "cel": "W 3 sekundy: rezultat + wiarygodnosc + dwie sciezki CTA",
+      "uklad": "Asymetryczny grid 7/5. Lewo: kicker 'LEKCJE PERKUSJI W POZNANIU I ONLINE', H1 'Poczuj groove. Zagraj swoja pierwsza piosenke.' (display 800, slowo 'groove' podkreslone akcentem), lead 'Ucze 1-na-1 - dzieci, dorosli, wracajacy i zaawansowani. Niezaleznie od poziomu zaczynamy tam, gdzie jestes.', rzad 2 CTA: .btn--primary--lg 'Zarezerwuj pierwsza lekcje (150 zl)' (beat-pulse, scroll do #booking) + .btn--ghost z play 'Zobacz jak ucze (2 min)' (modal wideo). Pod CTA .reassurance (3 mikro-sygnaly). Pod tym rzad 4 .pill korzysci (na zywo i online / dzieci i dorosli / od podstaw / popularne utwory). Prawo: --r-xl media - autoodtwarzane wyciszone loop wideo Jacke przy bebnach (poster=foto), nakladka gradientowa."
+    },
+    {
+      "sekcja": "2. Pasek dowodu - animowane liczniki",
+      "cel": "Natychmiastowa wiarygodnosc liczbami (luka konkurencji)",
+      "uklad": "Wezki pas na --surface-alt, grid auto-fit 4 .stat z licznikami od 0: '16 lat grania', '300+ przeprowadzonych lekcji', '4.9/5 w Google', 'debiut LP 2024 z TUGA'. Wielkie cyfry tabular-nums, male podpisy."
+    },
+    {
+      "sekcja": "3. O prowadzacym - jedno mocne zdanie + odznaki",
+      "cel": "Zamienic anonimowa szkole w konkretnego, wiarygodnego mentora",
+      "uklad": "Grid 5/7: lewo foto Jacke przy bebnach (--r-lg). Prawo: kicker 'TWOJ NAUCZYCIEL', jedno mocne zdanie 'Uczy Cie czynny perkusista zespolu TUGA - 16 lat na scenie, gospodarz jam sessions w Poznaniu, mentor Newman Taylor Baker.', rzad .trust-badge (TUGA - Nowa Fala Polskiego Big Beatu / LP 2024 / Kramarska 33 i Zydowska 35 / online Google Meet / mentor NTB), cieply 1-akapit glosem Jacke."
+    },
+    {
+      "sekcja": "4. Dla kogo - segmenty grupy docelowej",
+      "cel": "Kazdy z 4 segmentow widzi siebie i swoja sciezke",
+      "uklad": "Grid auto-fit 4 .card z ikona: Dzieci (od 7 lat) / Dorosli hobbystycznie / Wracajacy po przerwie / Zaawansowani i zespoly. Kazda: ikona, H3, 1 zdanie korzysci-transformacji (jak School of Rock: pewnosc, scena, granie z innymi - nie technika), mini-link 'Zacznij ->'."
+    },
+    {
+      "sekcja": "5. Jak to dziala - 3 kroki (redukcja tarcia)",
+      "cel": "Pokazac ze zapis jest prosty i bezpieczny",
+      "uklad": "Rzad 3 .step z duzymi numerami w kolkach (akcent): 1) Wybierz termin i zaplac (BLIK/karta) 2) Dostajesz wpis w kalendarzu + link do Meet lub adres 3) Gramy - termin zmienisz do 24h przed. Linia-palka laczaca numery. Jawne 'zmiana terminu do 24h - jednym klikiem'."
+    },
+    {
+      "sekcja": "6. Cennik - karnety z wyroznieniem",
+      "cel": "Glowna konwersja, redukcja decision fatigue (+18%)",
+      "uklad": "Grid 4 .plan: Pojedyncza 150 zl / Karnet 4 (-5%) / Karnet 8 (-10%, .plan--featured + badge NAJPOPULARNIEJSZE) / Karnet 12 (-15%). Trik Drumeo: duza cena ZA LEKCJE po rabacie (np. 128 zl/lekcja) + przekreslona 150 zl + suma drobnym + pasek 'Oszczedzasz 270 zl'. Lista cech z check (--ok). Kazda .btn--primary.btn--block 'Wybierz' -> #booking. Pod cennikiem wzmianka o voucherach i abonamencie + .reassurance."
+    },
+    {
+      "sekcja": "7. Gwarancja pierwszej lekcji",
+      "cel": "Najsilniejsza dzwignia konwersji (+12-18%)",
+      "uklad": "Wezki blok na --accent-tint, --r-xl, ikona tarczy --accent: 'Pierwsza lekcja nie spelni oczekiwan? Umawiamy inny termin lub zwracamy.' + krotkie uczciwe warunki (lekcja z MasterClass/Trustpilot: realnie egzekwowalne). Cieply ton."
+    },
+    {
+      "sekcja": "8. Opinie - dowod spoleczny",
+      "cel": "Wiarygodnosc przez prawdziwych uczniow (luka konkurencji)",
+      "uklad": "Nad sekcja duzy 'Google 4.9/5' z gwiazdkami --gold. Siatka .review (avatar + 5 gwiazdek + cytat-transformacja 'po 3 miesiacach zagralem pierwszy koncert' + 'Imie, Poznan'). Mobile: scroll-snap poziomy (overflow-x:auto; scroll-snap-type:x mandatory) zamiast slidera. Opcjonalnie 1 miniatura wideo-opinii z play."
+    },
+    {
+      "sekcja": "9. Booking - kalendarz + platnosc na jednym ekranie",
+      "cel": "Domkniecie konwersji w punkcie tarcia (wzorzec Calendly)",
+      "uklad": "id=booking. Grid 2-kol: lewo mini-kalendarz miesiaca (7-kol <button> dni), prawo lista slotow wybranego dnia. Nad slotami pasek strefy 'Europa/Warszawa (GMT+2)' + selektor dlugosci 30/60/90 (radio-pills). Uczciwy scarcity badge gdy <=5 wolnych. OBOK widgetu (przy tarciu) 1 karta-opinia + pas zaufania platnosci (Stripe klodka + BLIK/P24/Visa/MC inline SVG + pill 'zmiana do 24h'). Sekwencja: slot -> imie+email (minimum pol) -> Stripe checkout -> thank-you. Stan w sessionStorage."
+    },
+    {
+      "sekcja": "10. FAQ - accordion (luka konkurencji)",
+      "cel": "Rozbic ostatnie obiekcje, przewaga nad lokalna konkurencja",
+      "uklad": "Kontener --wrap-narrow. Natywne <details><summary> (zero JS, dostepne klawiatura). Pytania: czy potrzebuje wlasnej perkusji / dla dzieci od ilu lat / online czy stacjonarnie / jak dziala zmiana terminu / czym jest voucher i abonament / jak wyglada platnosc (BLIK/P24/karta). Custom strzalka +/x, plynne rozwijanie grid-rows."
+    },
+    {
+      "sekcja": "11. Finalne CTA + stopka",
+      "cel": "Ostatnie wezwanie + kontakt/zaufanie",
+      "uklad": "Wezki blok finalnego CTA (powtorzenie hero CTA + .reassurance) na --surface-alt: 'Gotowy, zeby usiasc za bebnami?'. Stopka na --trust (kremowy tekst): kolumny Oferta / Kontakt (Kramarska 33, Zydowska 35, online Meet) / TUGA + social / nota. CTA powtarzane po: hero, dowodzie, cenniku, opiniach, FAQ - jak liderzy."
+    }
+  ],
+  "elementyWow": [
+    "Perkusyjny 'beat' na glownym CTA: subtelny CSS @keyframes puls scale(1->1.025) w rytmie ~1.4s jak metronom - tematyczny, rozpoznawalny, wylaczany przy prefers-reduced-motion i na hover. Drobiazg ktory natychmiast komunikuje 'perkusja' i 'zabawe' bez tandety.",
+    "Hero z autoodtwarzanym wyciszonym loopem wideo Jacke przy bebnach (video muted loop playsinline, poster-foto, play przez IntersectionObserver dla wydajnosci) + nakladka gradientowa - daje energie i ruch, ktorego nie ma zadna lokalna konkurencja.",
+    "Animowane liczniki od 0 (16 lat / 300+ lekcji / 4.9 Google / LP 2024) odpalane przy wejsciu w viewport - chwyt jak Drum Academy, tabular-nums zeby nie skakaly.",
+    "Cennik z trikiem Drumeo: pokazana cena ZA LEKCJE po rabacie (np. 128 zl/lekcja) z przekreslona 150 zl + pasek 'Oszczedzasz 270 zl' + badge NAJPOPULARNIEJSZE na karcie 8 (scale 1.04, akcentowy border 2px) - obniza percepcje ceny i redukuje decision fatigue.",
+    "Booking jak Calendly na JEDNYM ekranie (kalendarz + sloty obok) z jawna strefa czasowa, selektorem dlugosci 30/60/90 i UCZCIWYM scarcity 'zostaly 3 wolne w tym tygodniu' tylko gdy realnie <=5 - przejrzystosc buduje zaufanie zamiast manipulowac.",
+    "Scroll-reveal sekcji ze staggerem kart (--i*70ms, IntersectionObserver + CSS) + accordion FAQ na natywnych <details> (zero JS, pelna dostepnosc) - 'produkcyjny' feel liderow przy 100% czystym HTML/CSS/JS."
+  ],
+  "copy": {
+    "hero": "Poczuj groove. Zagraj swoja pierwsza piosenke na perkusji. | Ucze 1-na-1 w centrum Poznania i online - dzieci, dorosli, wracajacy i zaawansowani. Niezaleznie od poziomu zaczynamy tam, gdzie jestes.",
+    "cta": [
+      "Zarezerwuj pierwsza lekcje (150 zl)",
+      "Zobacz jak ucze (2 min)",
+      "Wybierz karnet",
+      "Zarezerwuj termin",
+      "Umow lekcje probna"
+    ],
+    "sekcjeCopy": "Pasek dowodu: '16 lat na scenie, setki przeprowadzonych lekcji'. O prowadzacym: 'Uczy Cie czynny perkusista zespolu TUGA - mentor Newman Taylor Baker, gospodarz jam sessions w Poznaniu'. Kroki: 'Trzy kroki i grasz - reszte zalatwiamy za Ciebie'. Cennik: 'Im wiecej lekcji, tym taniej za jedna - bez zobowiazan na dluzej'. Gwarancja: 'Pierwsza lekcja nie spelni oczekiwan? Umawiamy inny termin lub zwracamy'. Opinie: 'Ocena 4.9/5 w Google'. FAQ: 'Wszystko, co chcesz wiedziec przed pierwsza lekcja'. Finalne CTA: 'Gotowy, zeby usiasc za bebnami?'"
+  },
+  "ryzyka": "CZEGO UNIKAC: 1) Nadmiaru akcentu - bursztyn tylko na CTA/badge/numery/podkreslenia, NIGDY jako tlo duzych plaszczyzn (zlamie 'jasny' z briefu i zmeczy oko). 2) Wielu fontow/wag - 2 rodziny (Bricolage Grotesque + Inter), max 3 wagi; kazda dodatkowa wczytana waga to wolniejsze ladowanie. 3) Falszywego scarcity i niewykonalnych gwarancji - lekcja z MasterClass/Trustpilot: pokazuj liczbe wolnych slotow tylko gdy PRAWDZIWA (<=5), a gwarancje pierwszej lekcji egzekwuj realnie, bo pusta obietnica niszczy zaufanie szybciej niz jej brak. 4) Ciezkich sliderow/karuzeli na JS - opinie i mobile to scroll-snap, FAQ to natywne <details>; lzejsze, dostepne, mniej kodu. WYDAJNOSC (krytyczne bez buildu/frameworka): fonty z font-display:swap i preconnect do fonts.gstatic.com; obrazy z Media Library w WebP + width/height (zero CLS) + loading=lazy poza hero + srcset dla mobile; hero-wideo preload=none, autoplay muted loop playsinline, play dopiero przez IntersectionObserver (nie blokuj LCP); caly JS jeden plik defer, IntersectionObservery rozlaczane po odpaleniu (unobserve); zero zaleznosci zewnetrznych. DOSTEPNOSC: kontrast tekst/tlo min 4.5:1 (sprawdz --ink-soft na --surface-alt i tekst na --accent), focus-visible widoczny na wszystkich interaktywnych (outline 3px --accent-tint), aria-disabled na zajetych slotach, aria-label na ikonowych przyciskach, alt na zdjeciach, summary obslugiwane klawiatura, prefers-reduced-motion wylacza wszystkie transformacje/puls/reveal, semantyczna struktura naglowkow (jeden H1, sekcje H2), strefa czasowa i polityka 24h jawne przy platnosci. SEO/lokalne: schema LocalBusiness + adresy Kramarska 33 / Zydowska 35, lang=pl, mozliwy wariant EN bez duplikacji systemu projektowego.\""
+}
