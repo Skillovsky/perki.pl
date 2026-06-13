@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>perki.pl — lekcje perkusji w Poznaniu, sprawdzone zestawy i gra perkusyjna</title>
+<meta name="description" content="perki.pl Jacke Sienkiewicz: lekcje gry na perkusji 1 na 1 w Poznaniu i online, sprawdzone i nastrojone zestawy perkusyjne na sprzedaz, filmy i gra Perki Drum Hero. Od pierwszego uderzenia do sceny.">
+<link rel="canonical" href="https://perki.pl/">
+<meta property="og:title" content="perki.pl — perkusja w Poznaniu: lekcje, zestawy, gra">
+<meta property="og:description" content="Lekcje gry na perkusji 1 na 1 z czynnym perkusista zespolu TUGA, sprawdzone zestawy perkusyjne i gra Perki Drum Hero. Poznan i online.">
+<meta property="og:url" content="https://perki.pl/">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#FFFCF6">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"LocalBusiness",
+  "name":"perki.pl — Jacke Sienkiewicz",
+  "description":"Lekcje gry na perkusji 1 na 1 w Poznaniu i online, sprawdzone zestawy perkusyjne na sprzedaz oraz gra perkusyjna Perki Drum Hero.",
+  "url":"https://perki.pl/",
+  "email":"jackeperki@gmail.com",
+  "telephone":"+48737899928",
+  "priceRange":"od 120 zl",
+  "areaServed":"Poznan",
+  "address":[
+    {"@type":"PostalAddress","streetAddress":"Kramarska 33","addressLocality":"Poznan","addressCountry":"PL"},
+    {"@type":"PostalAddress","streetAddress":"Zydowska 35","addressLocality":"Poznan","addressCountry":"PL"}
+  ],
+  "aggregateRating":{"@type":"AggregateRating","ratingValue":"4.9","reviewCount":"27"}
+}
+</script>
+<style>
+  :root{
+    --bg:#FFFCF6; --surface:#FFFFFF; --surface-alt:#F7F1E6;
+    --ink:#1A1714; --ink-soft:#6B6259;
+    --accent:#F2641E; --accent-press:#D44E0E; --accent-tint:#FCE9DC;
+    --trust:#15324B; --trust-tint:#E4EBF1; --gold:#E6A938;
+    --ok:#2E7D52; --ok-tint:#E2F2E9;
+    --border:#E9E0D2; --border-strong:#D8CBB6;
+    --shadow:0 8px 30px rgba(26,23,20,.10);
+    --shadow-lg:0 18px 50px rgba(26,23,20,.16);
+    --wrap:1200px; --wrap-narrow:760px;
+    --r-sm:10px; --r-md:16px; --r-lg:22px; --r-xl:32px; --r-pill:999px;
+    --display:'Bricolage Grotesque',system-ui,sans-serif;
+    --sans:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.7;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  a{color:inherit;text-decoration:none}
+  img{max-width:100%;display:block}
+  h1,h2,h3,.display{font-family:var(--display);font-weight:800;letter-spacing:-.02em;line-height:1.04;color:var(--ink)}
+  .wrap{max-width:var(--wrap);margin:0 auto;padding:0 clamp(20px,5vw,48px)}
+  .kicker{font-size:.8rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+  section{padding-block:clamp(60px,9vw,124px)}
+  .alt{background:var(--surface-alt)}
+  .num{font-variant-numeric:tabular-nums}
+
+  /* buttons */
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;font-family:var(--sans);font-weight:600;font-size:16px;padding:14px 26px;border-radius:var(--r-md);cursor:pointer;border:1.5px solid transparent;transition:transform .18s ease,background .18s ease,border-color .18s ease,box-shadow .18s ease;white-space:nowrap}
+  .btn:focus-visible{outline:3px solid var(--accent-tint);outline-offset:2px}
+  .btn--primary{background:var(--accent);color:#fff}
+  .btn--primary:hover{background:var(--accent-press);transform:translateY(-2px);box-shadow:var(--shadow)}
+  .btn--primary:active{transform:scale(.98)}
+  .btn--trust{background:var(--trust);color:#fff}
+  .btn--trust:hover{transform:translateY(-2px);box-shadow:var(--shadow);background:#0f263a}
+  .btn--ghost{background:transparent;color:var(--ink);border-color:var(--border-strong)}
+  .btn--ghost:hover{background:var(--accent-tint);border-color:var(--accent);color:var(--accent-press)}
+  .btn--lg{padding:17px 32px;font-size:17px}
+  .btn--block{width:100%}
+  .beat{animation:beat 1.5s ease-in-out infinite}
+  .beat:hover{animation-play-state:paused}
+  @keyframes beat{0%,100%{transform:scale(1)}8%{transform:scale(1.035)}16%{transform:scale(1)}}
+
+  .reassurance{display:flex;gap:18px;flex-wrap:wrap;margin-top:16px;color:var(--ink-soft);font-size:13.5px}
+  .reassurance span{display:inline-flex;align-items:center;gap:7px}
+  .reassurance svg{width:16px;height:16px;color:var(--ok);flex:none}
+
+  .pills{display:flex;gap:10px;flex-wrap:wrap;margin-top:26px}
+  .pill{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--border);background:var(--surface);border-radius:var(--r-pill);padding:8px 15px;font-size:13.5px;font-weight:500;color:var(--ink-soft)}
+  .pill svg{width:16px;height:16px;color:var(--accent);flex:none}
+
+  /* nav */
+  nav{position:sticky;top:0;z-index:60;background:rgba(255,252,246,.86);backdrop-filter:saturate(1.3) blur(10px);border-bottom:1px solid var(--border)}
+  .nav-in{display:flex;align-items:center;justify-content:space-between;gap:18px;height:66px}
+  .brand{font-family:var(--display);font-weight:800;font-size:23px;letter-spacing:-.03em;display:inline-flex;align-items:center;gap:9px}
+  .brand b{color:var(--accent)}
+  .brand .logo{width:26px;height:26px;flex:none}
+  .nav-links{display:flex;gap:26px}
+  .nav-links a{font-size:15px;color:var(--ink-soft);font-weight:500}
+  .nav-links a:hover{color:var(--ink)}
+  .nav-right{display:flex;align-items:center;gap:14px}
+  .nav-tel{font-weight:600;font-size:15px}
+  .burger{display:none;background:none;border:none;cursor:pointer;color:var(--ink)}
+  @media(max-width:980px){.nav-links,.nav-tel,.nav-right .btn--primary{display:none}}
+
+  /* hero */
+  .hero{padding-top:clamp(40px,6vw,76px);padding-bottom:clamp(48px,7vw,96px)}
+  .hero-grid{display:grid;grid-template-columns:7fr 5fr;gap:clamp(28px,5vw,64px);align-items:center}
+  .hero h1{font-size:clamp(2.5rem,6vw,4.5rem);margin:14px 0 0}
+  .hero h1 .mark{position:relative;color:var(--accent);white-space:nowrap}
+  .hero h1 .mark::after{content:"";position:absolute;left:-2%;right:-2%;bottom:.06em;height:.16em;background:var(--accent);opacity:.22;border-radius:3px}
+  .hero .lead{font-size:clamp(1.05rem,1.6vw,1.28rem);color:var(--ink-soft);max-width:48ch;margin:22px 0 28px}
+  .hero-cta{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+
+  /* hero media: rysunek zestawu czystym CSS/SVG (zero zewnetrznych obrazow,
+     idealne LCP). Slot na prawdziwe foto: podmien .hero-art na <img>. */
+  .hero-media{position:relative;border-radius:var(--r-xl);overflow:hidden;border:1px solid var(--border);box-shadow:var(--shadow-lg);background:radial-gradient(120% 100% at 30% 0%,#2a2320 0%,#15110e 70%);aspect-ratio:4/5;display:flex;align-items:center;justify-content:center}
+  .hero-media img{width:100%;height:100%;object-fit:cover}
+  .hero-art{width:88%;height:auto}
+  .hero-media .float{position:absolute;left:16px;bottom:16px;right:16px;display:flex;gap:10px;flex-wrap:wrap}
+  .hero-media .tagchip{background:rgba(255,252,246,.94);border-radius:var(--r-pill);padding:8px 14px;font-size:13px;font-weight:600;display:inline-flex;gap:7px;align-items:center;color:var(--ink)}
+  .hero-media .tagchip svg{width:15px;height:15px;color:var(--accent)}
+  @media(max-width:880px){.hero-grid{grid-template-columns:1fr}.hero-media{aspect-ratio:16/11;order:-1}}
+
+  /* stats */
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(16px,3vw,40px)}
+  .stat .big{font-family:var(--display);font-weight:800;font-size:clamp(2.1rem,4vw,3.1rem);color:var(--ink);line-height:1}
+  .stat .lab{font-size:14px;color:var(--ink-soft);margin-top:6px}
+  .stat .big .u{color:var(--accent)}
+  @media(max-width:680px){.stats{grid-template-columns:repeat(2,1fr);gap:26px}}
+
+  /* section head */
+  .head{max-width:60ch;margin-bottom:clamp(28px,4vw,48px)}
+  .head .bar{width:42px;height:4px;background:var(--accent);border-radius:3px;margin-bottom:16px}
+  .head h2{font-size:clamp(1.9rem,4vw,2.9rem);margin:8px 0 0}
+  .head p{color:var(--ink-soft);font-size:18px;margin-top:14px}
+  .head.center{margin-inline:auto;text-align:center}
+  .head.center .bar{margin-inline:auto}
+
+  /* pillar cards */
+  .grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+  .card{display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:clamp(20px,2.6vw,28px);transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease}
+  .card:hover{transform:translateY(-4px);box-shadow:var(--shadow);border-color:var(--border-strong)}
+  .card .ico{width:46px;height:46px;border-radius:var(--r-md);background:var(--accent-tint);color:var(--accent-press);display:flex;align-items:center;justify-content:center;margin-bottom:16px}
+  .card .ico svg{width:24px;height:24px}
+  .card h3{font-size:1.25rem;margin-bottom:8px}
+  .card p{font-size:15px;color:var(--ink-soft)}
+  .card .more{display:inline-flex;gap:6px;align-items:center;margin-top:auto;padding-top:14px;color:var(--accent-press);font-weight:600;font-size:14px}
+  .card .more svg{width:15px;height:15px;transition:transform .18s}
+  .card:hover .more svg{transform:translateX(3px)}
+  @media(max-width:900px){.grid4{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:520px){.grid4{grid-template-columns:1fr}}
+
+  /* instructor */
+  .inst{display:grid;grid-template-columns:5fr 7fr;gap:clamp(28px,5vw,56px);align-items:center}
+  .inst-photo{border-radius:var(--r-lg);overflow:hidden;border:1px solid var(--border);box-shadow:var(--shadow);background:radial-gradient(120% 100% at 30% 0%,#2a2320,#15110e 70%);aspect-ratio:4/5;display:flex;align-items:flex-end;justify-content:center}
+  .inst-photo img{width:100%;height:100%;object-fit:cover}
+  .inst-photo .hero-art{width:84%;margin-bottom:6%}
+  .inst h2{font-size:clamp(1.7rem,3.4vw,2.5rem);margin:10px 0 18px}
+  .inst .q{color:var(--ink-soft);font-size:17px;max-width:52ch}
+  .inst .q+.q{margin-top:14px}
+  .badges{display:flex;gap:10px;flex-wrap:wrap;margin:24px 0}
+  .tbadge{display:inline-flex;align-items:center;gap:8px;background:var(--trust-tint);color:var(--trust);border-radius:var(--r-sm);padding:8px 13px;font-size:13.5px;font-weight:600}
+  .tbadge svg{width:16px;height:16px;flex:none}
+  @media(max-width:780px){.inst{grid-template-columns:1fr}.inst-photo{aspect-ratio:16/11;max-width:440px}}
+
+  /* shop */
+  .shop{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  .prod{display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);overflow:hidden;transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease}
+  .prod:hover{transform:translateY(-4px);box-shadow:var(--shadow);border-color:var(--border-strong)}
+  .prod .ph{aspect-ratio:4/3;background:radial-gradient(120% 120% at 30% 10%,#2a2320,#15110e 75%);display:flex;align-items:center;justify-content:center;position:relative}
+  .prod .ph .hero-art{width:74%}
+  .prod .tag{position:absolute;top:12px;left:12px;background:var(--ok-tint);color:var(--ok);font-size:12px;font-weight:700;padding:5px 11px;border-radius:var(--r-pill)}
+  .prod .body{padding:18px 20px 22px;display:flex;flex-direction:column;flex:1}
+  .prod h3{font-size:1.12rem;margin-bottom:4px}
+  .prod .brandname{font-size:13px;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.08em;font-weight:600}
+  .prod .price{font-family:var(--display);font-weight:800;font-size:1.6rem;margin:12px 0 2px}
+  .prod .price small{font-family:var(--sans);font-size:13px;font-weight:500;color:var(--ink-soft)}
+  .prod .more{margin-top:auto;padding-top:14px;display:inline-flex;gap:6px;align-items:center;color:var(--accent-press);font-weight:600;font-size:14px}
+  @media(max-width:860px){.shop{grid-template-columns:1fr 1fr}}
+  @media(max-width:560px){.shop{grid-template-columns:1fr}}
+
+  /* split feature (gra / filmy) */
+  .feature{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,4vw,56px);align-items:center}
+  .feature.rev .ftxt{order:2}
+  .fmedia{border-radius:var(--r-xl);overflow:hidden;border:1px solid var(--border);box-shadow:var(--shadow);aspect-ratio:16/10;position:relative;display:flex;align-items:center;justify-content:center}
+  .fmedia.game{background:linear-gradient(135deg,#1b1d2b,#0f1730)}
+  .fmedia.video{background:radial-gradient(120% 120% at 50% 0%,#2a2320,#15110e 75%)}
+  .fmedia .hero-art{width:70%}
+  .fmedia .play{position:absolute;width:74px;height:74px;border-radius:50%;background:rgba(242,100,30,.95);display:flex;align-items:center;justify-content:center;box-shadow:0 8px 30px rgba(0,0,0,.4)}
+  .fmedia .play svg{width:30px;height:30px;color:#fff;margin-left:4px}
+  .ftxt h2{font-size:clamp(1.7rem,3.4vw,2.5rem);margin:10px 0 14px}
+  .ftxt p{color:var(--ink-soft);font-size:17px;max-width:48ch;margin-bottom:14px}
+  .ftxt .pills{margin-top:12px;margin-bottom:24px}
+  @media(max-width:820px){.feature{grid-template-columns:1fr}.feature.rev .ftxt{order:0}}
+
+  /* reviews */
+  .reviews{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;align-items:start}
+  .review{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:24px}
+  .review .stars{color:var(--gold);display:flex;gap:2px;margin-bottom:12px}
+  .review .stars svg{width:18px;height:18px}
+  .review p{font-size:16px}
+  .review .who{display:flex;align-items:center;gap:10px;margin-top:16px}
+  .review .av{width:42px;height:42px;border-radius:50%;background:var(--trust-tint);color:var(--trust);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:15px}
+  .review .who b{font-weight:600;font-size:14px}
+  .review .who span{display:block;font-size:13px;color:var(--ink-soft)}
+  .reviews-note{margin-top:18px;text-align:center;color:var(--ink-soft);font-size:14px}
+  @media(max-width:820px){.reviews{grid-auto-flow:column;grid-template-columns:none;grid-auto-columns:84%;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:8px}.review{scroll-snap-align:start}}
+
+  /* faq */
+  .faq{max-width:var(--wrap-narrow);margin:0 auto}
+  details{border-bottom:1px solid var(--border)}
+  summary{list-style:none;cursor:pointer;font-family:var(--display);font-weight:700;font-size:1.18rem;padding:20px 44px 20px 0;position:relative;color:var(--ink)}
+  summary::-webkit-details-marker{display:none}
+  summary::after{content:"";position:absolute;right:8px;top:24px;width:16px;height:16px;background:no-repeat center/contain url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="%23F2641E" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>');transition:transform .25s}
+  details[open] summary::after{transform:rotate(135deg)}
+  .faq-body{display:grid;grid-template-rows:0fr;transition:grid-template-rows .3s ease}
+  details[open] .faq-body{grid-template-rows:1fr}
+  .faq-body>div{overflow:hidden}
+  .faq-body p{padding:0 0 22px;color:var(--ink-soft);font-size:16px}
+
+  /* final + footer */
+  .final{text-align:center}
+  .final h2{font-size:clamp(2rem,4.5vw,3.2rem);max-width:18ch;margin:0 auto 22px}
+  .final .hero-cta{justify-content:center}
+  footer{background:var(--trust);color:#cdd7e0}
+  .foot{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:32px;padding-block:clamp(44px,6vw,72px)}
+  footer .kicker{color:var(--accent)}
+  footer .brand{color:#fff;display:inline-block;margin:10px 0 12px}
+  footer p{font-size:15px;color:#9fb1c0;max-width:34ch}
+  footer h4{color:#fff;font-size:14px;font-weight:600;margin-bottom:12px;letter-spacing:.02em}
+  footer a{color:#cdd7e0;font-size:15px;display:block;margin-bottom:8px}
+  footer a:hover{color:#fff}
+  .foot-bottom{border-top:1px solid rgba(255,255,255,.14);padding:20px 0;font-size:13px;color:#8ea3b5;display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}
+  @media(max-width:780px){.foot{grid-template-columns:1fr 1fr}}
+  @media(max-width:480px){.foot{grid-template-columns:1fr}}
+
+  /* mobile sticky cta */
+  .mcta{position:fixed;left:0;right:0;bottom:0;z-index:70;display:none;gap:12px;align-items:center;padding:12px 16px calc(12px + env(safe-area-inset-bottom));background:rgba(255,252,246,.97);border-top:1px solid var(--border);transform:translateY(110%);transition:transform .3s ease}
+  .mcta.show{transform:translateY(0)}
+  .mcta .price{font-family:var(--display);font-weight:800;font-size:18px;white-space:nowrap}
+  .mcta .price small{font-family:var(--sans);font-size:12px;font-weight:500;color:var(--ink-soft);display:block}
+  .mcta .btn{flex:1}
+  @media(max-width:980px){.mcta{display:flex}}
+
+  /* mobile menu */
+  .mmenu{display:none}
+  @media(max-width:980px){
+    .burger{display:inline-flex}
+    .mmenu[open]{display:block;position:fixed;inset:66px 0 0;z-index:55;background:var(--bg)}
+    .mmenu .mm-in{display:flex;flex-direction:column;gap:4px;padding:18px clamp(20px,5vw,48px)}
+    .mmenu a{font-family:var(--display);font-weight:700;font-size:1.4rem;padding:12px 0;border-bottom:1px solid var(--border)}
+    .mmenu summary{display:none}
+  }
+
+  /* reveal */
+  .reveal{transition:opacity .6s cubic-bezier(.2,.7,.2,1),transform .6s cubic-bezier(.2,.7,.2,1);transition-delay:calc(var(--i,0)*70ms)}
+  .reveal.pre{opacity:0;transform:translateY(20px)}
+  @media (prefers-reduced-motion: reduce){
+    *{animation:none!important}
+    .reveal{transition:none!important}
+    .reveal.pre{opacity:1;transform:none}
+    html{scroll-behavior:auto}
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="wrap nav-in">
+    <a class="brand" href="/" aria-label="perki.pl strona glowna">
+      <svg class="logo" viewBox="0 0 32 32" fill="none" aria-hidden="true"><ellipse cx="16" cy="11" rx="13" ry="5.5" fill="#F2641E"/><path d="M3 11v8c0 3 5.8 5.5 13 5.5S29 22 29 19v-8" stroke="#15324B" stroke-width="2.4"/><path d="M16 16.5v9M16 25.5l-6 4M16 25.5l6 4" stroke="#15324B" stroke-width="2.4" stroke-linecap="round"/></svg>
+      <span>perki<b>.pl</b></span>
+    </a>
+    <div class="nav-links">
+      <a href="/lekcje-nowy/">Lekcje</a>
+      <a href="/sklep/">Sklep</a>
+      <a href="#filmy">Filmy</a>
+      <a href="/gra/">Gra</a>
+      <a href="#omnie">O mnie</a>
+      <a href="#kontakt">Kontakt</a>
+    </div>
+    <div class="nav-right">
+      <a class="nav-tel" href="tel:+48737899928">737 899 928</a>
+      <a class="btn btn--primary" href="/lekcje-nowy/#booking">Umow lekcje</a>
+      <button class="burger" id="burger" aria-label="Menu" aria-expanded="false">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</nav>
+<details class="mmenu" id="mmenu"><summary></summary>
+  <div class="mm-in">
+    <a href="/lekcje-nowy/">Lekcje perkusji</a>
+    <a href="/sklep/">Sklep — zestawy</a>
+    <a href="#filmy">Filmy</a>
+    <a href="/gra/">Gra Perki Drum Hero</a>
+    <a href="#omnie">O mnie</a>
+    <a href="#kontakt">Kontakt</a>
+    <a class="btn btn--primary" style="margin-top:14px" href="/lekcje-nowy/#booking">Umow lekcje</a>
+  </div>
+</details>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="kicker">Perkusja w Poznaniu i online</span>
+      <h1>Od pierwszego uderzenia <span class="mark">do sceny</span>.</h1>
+      <p class="lead">Jestem Jacke, perkusista zespolu TUGA i nauczyciel. Ucze grac 1 na 1, sprzedaje sprawdzone i nastrojone zestawy, a groove mozesz poczuc juz teraz w grze online.</p>
+      <div class="hero-cta">
+        <a class="btn btn--primary btn--lg beat" href="/lekcje-nowy/#booking">Umow pierwsza lekcje</a>
+        <a class="btn btn--ghost btn--lg" href="/gra/">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+          Zagraj w Drum Hero
+        </a>
+      </div>
+      <div class="reassurance">
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6 9 17l-5-5"/></svg> Pierwsza lekcja bez ryzyka</span>
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg> Zmiana terminu do 24h</span>
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6 9 17l-5-5"/></svg> Zestawy nastrojone i sprawdzone</span>
+      </div>
+      <div class="pills">
+        <span class="pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v18M5 8h14"/></svg> Lekcje na zywo i online</span>
+        <span class="pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7h18v13H3z"/><path d="M3 7l3-4h12l3 4"/></svg> Sklep z zestawami</span>
+        <span class="pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M8 12h8M12 8v8"/></svg> Dzieci i dorosli</span>
+      </div>
+    </div>
+    <div class="hero-media">
+      <!-- SLOT NA FOTO: podmien ten <svg class="hero-art"> na <img src="..." alt="Jacke przy perkusji"> -->
+      <svg class="hero-art" viewBox="0 0 320 380" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <ellipse cx="160" cy="120" rx="70" ry="20" fill="#F2641E"/><ellipse cx="160" cy="116" rx="70" ry="20" fill="#FCE9DC" opacity=".25"/>
+        <rect x="96" y="120" width="128" height="58" rx="8" fill="#2a2320"/><rect x="96" y="120" width="128" height="14" rx="7" fill="#fff" opacity=".06"/>
+        <ellipse cx="80" cy="180" rx="46" ry="13" fill="#E6A938"/><rect x="40" y="180" width="80" height="40" rx="6" fill="#2a2320"/>
+        <ellipse cx="244" cy="180" rx="46" ry="13" fill="#E6A938"/><rect x="200" y="180" width="80" height="40" rx="6" fill="#2a2320"/>
+        <ellipse cx="160" cy="250" rx="58" ry="16" fill="#F2641E"/><rect x="110" y="250" width="100" height="74" rx="8" fill="#1c1815"/>
+        <ellipse cx="46" cy="150" rx="40" ry="8" fill="#E6A938"/><rect x="44" y="92" width="4" height="60" fill="#6B6259"/>
+        <ellipse cx="280" cy="138" rx="44" ry="9" fill="#E6A938"/><rect x="278" y="80" width="4" height="60" fill="#6B6259"/>
+        <circle cx="62" cy="316" r="9" fill="#F2641E"/><circle cx="258" cy="316" r="9" fill="#F2641E"/>
+      </svg>
+      <div class="float">
+        <span class="tagchip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg> TUGA — debiut LP 2024</span>
+        <span class="tagchip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 12-9 12s-9-5-9-12a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Kramarska 33, Poznan</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- STATS -->
+<section class="alt" style="padding-block:clamp(40px,5vw,64px)">
+  <div class="wrap stats">
+    <div class="stat"><div class="big num" data-count="16">16</div><div class="lab">lat za perkusja</div></div>
+    <div class="stat"><div class="big num" data-count="300">300<span class="u">+</span></div><div class="lab">przeprowadzonych lekcji</div></div>
+    <div class="stat"><div class="big num" data-count="71">71</div><div class="lab">filmow na YouTube</div></div>
+    <div class="stat"><div class="big num" data-count="4.9" data-dec="1">4.9</div><div class="lab">ocena w Google</div></div>
+  </div>
+</section>
+
+<!-- PILLARS -->
+<section id="oferta">
+  <div class="wrap">
+    <div class="head center reveal pre">
+      <div class="bar"></div>
+      <span class="kicker">Co znajdziesz na perki.pl</span>
+      <h2>Wszystko wokol perkusji w jednym miejscu</h2>
+      <p>Cztery sciezki, jeden cel: zebys gral i czerpal z tego frajde — niezaleznie od poziomu.</p>
+    </div>
+    <div class="grid4">
+      <a class="card reveal pre" style="--i:0" href="/lekcje-nowy/">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v18M5 8h14"/></svg></div>
+        <h3>Lekcje 1 na 1</h3>
+        <p>Indywidualne lekcje w centrum Poznania albo online. Dzieci, dorosli, wracajacy i zaawansowani — zaczynamy tam, gdzie jestes.</p>
+        <span class="more">Zobacz lekcje <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </a>
+      <a class="card reveal pre" style="--i:1" href="/sklep/">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7h18v13H3z"/><path d="M3 7l3-4h12l3 4"/></svg></div>
+        <h3>Sprawdzone zestawy</h3>
+        <p>Uzywane perkusje Yamaha, Premier, Hayman i inne — kazda osobiscie nastrojona i sprawdzona, gotowa do grania od pierwszego dnia.</p>
+        <span class="more">Zobacz sklep <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </a>
+      <a class="card reveal pre" style="--i:2" href="/gra/">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M8 12h8M12 8v8"/></svg></div>
+        <h3>Gra Drum Hero</h3>
+        <p>Darmowa gra perkusyjna online na moim prawdziwym zestawie. Poczuj rytm, zdobadz punkty i sprawdz, ile masz w sobie groove'u.</p>
+        <span class="more">Zagraj teraz <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </a>
+      <a class="card reveal pre" style="--i:3" href="#filmy">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7h18v10H3z"/><path d="M10 9l5 3-5 3z" fill="currentColor"/></svg></div>
+        <h3>Filmy i covery</h3>
+        <p>71 filmow na YouTube: soundchecki klasycznych zestawow, covery i nagrania z jam sessions. Posluchaj, jak brzmia perkusje ze sklepu.</p>
+        <span class="more">Obejrzyj <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- INSTRUCTOR -->
+<section id="omnie" class="alt">
+  <div class="wrap inst">
+    <div class="inst-photo reveal pre">
+      <!-- SLOT NA FOTO: podmien hero-art na <img src="..." alt="Jacke Sienkiewicz"> -->
+      <svg class="hero-art" viewBox="0 0 280 300" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <circle cx="140" cy="92" r="42" fill="#3a322c"/><circle cx="140" cy="86" r="34" fill="#54483f"/>
+        <path d="M70 300c0-50 31-86 70-86s70 36 70 86z" fill="#2a2320"/>
+        <ellipse cx="140" cy="150" rx="58" ry="14" fill="#F2641E"/>
+        <rect x="96" y="150" width="88" height="40" rx="6" fill="#1c1815"/>
+        <ellipse cx="74" cy="132" rx="34" ry="7" fill="#E6A938"/><ellipse cx="206" cy="132" rx="34" ry="7" fill="#E6A938"/>
+      </svg>
+    </div>
+    <div class="reveal pre">
+      <div class="bar" style="width:42px;height:4px;background:var(--accent);border-radius:3px;margin-bottom:16px"></div>
+      <span class="kicker">Twoj nauczyciel</span>
+      <h2>Uczy Cie czynny perkusista, nie szkola-fabryka.</h2>
+      <p class="q">Gram od 16 lat, na co dzien w zespole TUGA (nowa fala polskiego big-beatu, debiut LP "Nie czuje goryczy", 2024). Prowadze jam sessions w Poznaniu, uczylem sie na warsztatach m.in. u Newmana Taylora Bakera — i to wszystko wnosze na lekcje.</p>
+      <p class="q">Nie sprzedaje suchej techniki. Pokazuje, jak usiasc za zestawem i zagrac cos, co brzmi jak muzyka — juz na pierwszej lekcji.</p>
+      <div class="badges">
+        <span class="tbadge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg> Zespol TUGA</span>
+        <span class="tbadge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l2.4 7.4H22l-6 4.5 2.3 7.1-6.3-4.6L5.7 21l2.3-7.1-6-4.5h7.6z"/></svg> Mentor: Newman Taylor Baker</span>
+        <span class="tbadge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 12-9 12s-9-5-9-12a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Poznan + online</span>
+      </div>
+      <a class="btn btn--ghost" href="/lekcje-nowy/">Poznaj oferte lekcji</a>
+    </div>
+  </div>
+</section>
+
+<!-- SHOP -->
+<section id="sklep">
+  <div class="wrap">
+    <div class="head reveal pre">
+      <div class="bar"></div>
+      <span class="kicker">Sklep</span>
+      <h2>Sprawdzone zestawy, gotowe do grania</h2>
+      <p>Kazda perkusja jest osobiscie nastrojona i sprawdzona. Bez loterii — kupujesz instrument, ktory od razu dobrze brzmi.</p>
+    </div>
+    <div class="shop">
+      <a class="prod reveal pre" style="--i:0" href="/sklep/">
+        <div class="ph"><span class="tag">Nastrojony i sprawdzony</span>
+          <svg class="hero-art" viewBox="0 0 220 170" fill="none" aria-hidden="true"><ellipse cx="110" cy="58" rx="48" ry="13" fill="#F2641E"/><rect x="74" y="58" width="72" height="34" rx="6" fill="#2a2320"/><ellipse cx="52" cy="96" rx="30" ry="8" fill="#E6A938"/><ellipse cx="168" cy="96" rx="30" ry="8" fill="#E6A938"/><ellipse cx="110" cy="120" rx="40" ry="11" fill="#F2641E"/><rect x="76" y="120" width="68" height="40" rx="6" fill="#1c1815"/></svg>
+        </div>
+        <div class="body">
+          <span class="brandname">Yamaha</span>
+          <h3>Zestaw akustyczny 5-elementowy</h3>
+          <div class="price">4 599 <small>zl</small></div>
+          <span class="more">Zobacz w sklepie <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </div>
+      </a>
+      <a class="prod reveal pre" style="--i:1" href="/sklep/">
+        <div class="ph"><span class="tag">Nastrojony i sprawdzony</span>
+          <svg class="hero-art" viewBox="0 0 220 170" fill="none" aria-hidden="true"><ellipse cx="110" cy="58" rx="48" ry="13" fill="#E6A938"/><rect x="74" y="58" width="72" height="34" rx="6" fill="#3a2c22"/><ellipse cx="52" cy="96" rx="30" ry="8" fill="#F2641E"/><ellipse cx="168" cy="96" rx="30" ry="8" fill="#F2641E"/><ellipse cx="110" cy="120" rx="40" ry="11" fill="#E6A938"/><rect x="76" y="120" width="68" height="40" rx="6" fill="#241a14"/></svg>
+        </div>
+        <div class="body">
+          <span class="brandname">Premier</span>
+          <h3>Vintage zestaw perkusyjny</h3>
+          <div class="price">4 200 <small>zl</small></div>
+          <span class="more">Zobacz w sklepie <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </div>
+      </a>
+      <a class="prod reveal pre" style="--i:2" href="/sklep/">
+        <div class="ph"><span class="tag">Nastrojony i sprawdzony</span>
+          <svg class="hero-art" viewBox="0 0 220 170" fill="none" aria-hidden="true"><ellipse cx="110" cy="58" rx="48" ry="13" fill="#F2641E"/><rect x="74" y="58" width="72" height="34" rx="6" fill="#222"/><ellipse cx="52" cy="96" rx="30" ry="8" fill="#E6A938"/><ellipse cx="168" cy="96" rx="30" ry="8" fill="#E6A938"/><ellipse cx="110" cy="120" rx="40" ry="11" fill="#F2641E"/><rect x="76" y="120" width="68" height="40" rx="6" fill="#1a1a1a"/></svg>
+        </div>
+        <div class="body">
+          <span class="brandname">Hayman</span>
+          <h3>Klasyczny zestaw do nauki</h3>
+          <div class="price">3 690 <small>zl</small></div>
+          <span class="more">Zobacz w sklepie <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </div>
+      </a>
+    </div>
+    <div style="text-align:center;margin-top:34px"><a class="btn btn--trust btn--lg" href="/sklep/">Zobacz wszystkie zestawy</a></div>
+  </div>
+</section>
+
+<!-- GAME FEATURE -->
+<section class="alt" id="gra">
+  <div class="wrap feature">
+    <div class="ftxt reveal pre">
+      <div class="bar" style="width:42px;height:4px;background:var(--accent);border-radius:3px;margin-bottom:16px"></div>
+      <span class="kicker">Gra online — za darmo</span>
+      <h2>Perki Drum Hero</h2>
+      <p>Zagraj na moim prawdziwym zestawie prosto z przegladarki. Trafiaj w rytm, zbieraj punkty i odblokowuj kolejne poziomy. Idealny pierwszy krok, zanim usiadziesz za prawdziwa perkusja.</p>
+      <div class="pills">
+        <span class="pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/></svg> Bez instalacji</span>
+        <span class="pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="6" y="3" width="12" height="18" rx="2"/></svg> Dziala na telefonie</span>
+      </div>
+      <a class="btn btn--primary btn--lg" href="/gra/">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+        Zagraj w Drum Hero
+      </a>
+    </div>
+    <a class="fmedia game reveal pre" href="/gra/" aria-label="Zagraj w Perki Drum Hero">
+      <svg class="hero-art" viewBox="0 0 320 200" fill="none" aria-hidden="true">
+        <rect x="40" y="20" width="60" height="150" rx="8" fill="#F2641E" opacity=".85"/>
+        <rect x="130" y="20" width="60" height="150" rx="8" fill="#E6A938" opacity=".85"/>
+        <rect x="220" y="20" width="60" height="150" rx="8" fill="#2E7D52" opacity=".85"/>
+        <circle cx="70" cy="150" r="22" fill="#fff"/><circle cx="160" cy="120" r="22" fill="#fff"/><circle cx="250" cy="150" r="22" fill="#fff"/>
+      </svg>
+      <span class="play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
+    </a>
+  </div>
+</section>
+
+<!-- VIDEOS -->
+<section id="filmy">
+  <div class="wrap feature rev">
+    <div class="ftxt reveal pre">
+      <div class="bar" style="width:42px;height:4px;background:var(--accent);border-radius:3px;margin-bottom:16px"></div>
+      <span class="kicker">YouTube — 71 filmow</span>
+      <h2>Posluchaj, jak to brzmi</h2>
+      <p>Soundchecki klasycznych zestawow, covery i nagrania z jam sessions. Najlepszy sposob, zeby uslyszec brzmienie perkusji ze sklepu i moj sposob grania — zanim umowisz lekcje.</p>
+      <a class="btn btn--ghost btn--lg" href="https://www.youtube.com/@jacke_skillovsky" target="_blank" rel="noopener">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23 7.5a3 3 0 0 0-2.1-2.1C19 5 12 5 12 5s-7 0-8.9.4A3 3 0 0 0 1 7.5 31 31 0 0 0 .6 12 31 31 0 0 0 1 16.5a3 3 0 0 0 2.1 2.1C5 19 12 19 12 19s7 0 8.9-.4a3 3 0 0 0 2.1-2.1A31 31 0 0 0 23.4 12 31 31 0 0 0 23 7.5zM9.8 15.3V8.7l5.7 3.3z"/></svg>
+        Otworz kanal na YouTube
+      </a>
+    </div>
+    <a class="fmedia video reveal pre" href="https://www.youtube.com/@jacke_skillovsky" target="_blank" rel="noopener" aria-label="Kanal YouTube Jacke">
+      <svg class="hero-art" viewBox="0 0 320 200" fill="none" aria-hidden="true"><ellipse cx="160" cy="80" rx="90" ry="24" fill="#F2641E"/><rect x="100" y="80" width="120" height="60" rx="8" fill="#2a2320"/><ellipse cx="70" cy="130" rx="44" ry="11" fill="#E6A938"/><ellipse cx="250" cy="130" rx="44" ry="11" fill="#E6A938"/></svg>
+      <span class="play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
+    </a>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section class="alt">
+  <div class="wrap">
+    <div class="head center reveal pre">
+      <div class="bar"></div>
+      <span class="kicker">Opinie</span>
+      <h2>Ocena 4.9/5 w Google</h2>
+      <p>Prawdziwe glosy uczniow z Poznania. (Opinie do uzupelnienia — placeholdery.)</p>
+    </div>
+    <div class="reviews">
+      <div class="review reveal pre" style="--i:0">
+        <div class="stars" aria-label="5 na 5">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6.3 6.9.9-5 4.8 1.2 6.8L12 17.8 5.9 20.8 7.1 14l-5-4.8 6.9-.9z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6.3 6.9.9-5 4.8 1.2 6.8L12 17.8 5.9 20.8 7.1 14l-5-4.8 6.9-.9z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6.3 6.9.9-5 4.8 1.2 6.8L12 17.8 5.9 20.8 7.1 14l-5-4.8 6.9-.9z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6.3 6.9.9-5 4.8 1.2 6.8L12 17.8 5.9 20.8 7.1 14l-5-4.8 6.9-.9z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6.3 6.9.9-5 4.8 1.2 6.8L12 17.8 5.9 20.8 7.1 14l-5-4.8 6.9-.9z"/></svg>
+        </div>
+        <p>"Po trzech miesiacach zagralem swoja pierwsza piosenke od poczatku do konca. Jacke tlumaczy spokojnie i konkretnie."</p>
+        <div class="who"><div class="av">MK</div><div><b>Michal K.</b><span>Poznan</span></div></div>
+      </div>
+      <div class="review reveal pre" style="--i:1">
+        <div class="stars" aria-label="5 na 5">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6.3 6.9.9-5 4.8 1.2 6.8L12 17.8 5.9 20.8 7.1 14l-5-4.8 6.9-.9z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6.3 6.9.9-5 4.8 1.2 6.8L12 17.8 5.9 20.8 7.1 14l-5-4.8 6.9-.9z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6.3 6.9.9-5 4.8 1.2 6.8L12 17.8 5.9 20.8 7.1 14l-5-4.8 6.9-.9z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6.3 6.9.9-5 4.8 1.2 6.8L12 17.8 5.9 20.8 7.1 14l-5-4.8 6.9-.9z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6.3 6.9.9-5 4.8 1.2 6.8L12 17.8 5.9 20.8 7.1 14l-5-4.8 6.9-.9z"/></svg>
+        </div>
+        <p>"Syn (9 lat) nie moze sie doczekac kazdej lekcji. Zestaw kupiony u Jacke gra rewelacyjnie, byl idealnie nastrojony."</p>
+        <div class="who"><div class="av">AW</div><div><b>Anna W.</b><span>Poznan</span></div></div>
+      </div>
+      <div class="review reveal pre" style="--i:2">
+        <div class="stars" aria-label="5 na 5">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6.3 6.9.9-5 4.8 1.2 6.8L12 17.8 5.9 20.8 7.1 14l-5-4.8 6.9-.9z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6.3 6.9.9-5 4.8 1.2 6.8L12 17.8 5.9 20.8 7.1 14l-5-4.8 6.9-.9z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6.3 6.9.9-5 4.8 1.2 6.8L12 17.8 5.9 20.8 7.1 14l-5-4.8 6.9-.9z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6.3 6.9.9-5 4.8 1.2 6.8L12 17.8 5.9 20.8 7.1 14l-5-4.8 6.9-.9z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6.3 6.9.9-5 4.8 1.2 6.8L12 17.8 5.9 20.8 7.1 14l-5-4.8 6.9-.9z"/></svg>
+        </div>
+        <p>"Wrocilem do grania po 10 latach przerwy. Lekcje online dzialaja bez zarzutu, a frajda jak za dawnych lat."</p>
+        <div class="who"><div class="av">PT</div><div><b>Piotr T.</b><span>online</span></div></div>
+      </div>
+    </div>
+    <p class="reviews-note">Jestes moim uczniem? Bede wdzieczny za krotka opinie w Google.</p>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section>
+  <div class="wrap">
+    <div class="head center reveal pre">
+      <div class="bar"></div>
+      <span class="kicker">FAQ</span>
+      <h2>Najczestsze pytania</h2>
+    </div>
+    <div class="faq reveal pre">
+      <details><summary>Czy musze miec wlasna perkusje na lekcje?</summary><div class="faq-body"><div><p>Nie. Na lekcjach stacjonarnych w Poznaniu grasz na moim zestawie. Jesli uczysz sie online, wystarczy nawet pad cwiczebny albo poduszki na poczatek — podpowiem, co kupic, gdy bedziesz gotowy.</p></div></div></details>
+      <details><summary>Od ilu lat mozna zaczac nauke?</summary><div class="faq-body"><div><p>Dzieci przyjmuje zwykle od 7 lat, ale najwazniejsza jest checa i skupienie. Dla doroslych i wracajacych po przerwie nie ma gornej granicy — zaczynamy od poziomu, na ktorym jestes.</p></div></div></details>
+      <details><summary>Lekcje stacjonarnie czy online?</summary><div class="faq-body"><div><p>Jak wolisz. Stacjonarnie w centrum Poznania (Kramarska 33, Zydowska 35) albo online przez Google Meet. Online dziala swietnie — wielu uczniow uczy sie tak na stale.</p></div></div></details>
+      <details><summary>Czy zestawy ze sklepu sa sprawdzone?</summary><div class="faq-body"><div><p>Tak. Kazda perkusja jest przeze mnie osobiscie nastrojona i sprawdzona, zanim trafi do sprzedazy. Kupujesz instrument gotowy do grania, nie projekt do remontu. Mozesz tez umowic sie na obejrzenie i odsluch.</p></div></div></details>
+      <details><summary>Jak umowic pierwsza lekcje?</summary><div class="faq-body"><div><p>Kliknij "Umow lekcje", wybierz dogodny termin i zostaw kontakt. Odezwe sie, zeby potwierdzic szczegoly. Termin zmienisz do 24h przed lekcja.</p></div></div></details>
+      <details><summary>Czym jest gra Perki Drum Hero?</summary><div class="faq-body"><div><p>To darmowa gra perkusyjna w przegladarce, na moim prawdziwym zestawie. Trafiasz w rytm i zbierasz punkty. Fajny sposob, zeby poczuc groove, zanim usiadziesz za prawdziwa perkusja — dziala tez na telefonie.</p></div></div></details>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="alt final" id="kontakt">
+  <div class="wrap reveal pre">
+    <div class="bar" style="width:42px;height:4px;background:var(--accent);border-radius:3px;margin:0 auto 16px"></div>
+    <h2>Gotowy, zeby usiasc za bebnami?</h2>
+    <div class="hero-cta">
+      <a class="btn btn--primary btn--lg beat" href="/lekcje-nowy/#booking">Umow pierwsza lekcje</a>
+      <a class="btn btn--ghost btn--lg" href="tel:+48737899928">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.1-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>
+        Zadzwon: 737 899 928
+      </a>
+    </div>
+    <div class="reassurance" style="justify-content:center">
+      <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6 9 17l-5-5"/></svg> Pierwsza lekcja bez ryzyka</span>
+      <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg> Zmiana terminu do 24h</span>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap foot">
+    <div>
+      <span class="kicker">perki.pl</span>
+      <span class="brand">perki<b style="color:var(--accent)">.pl</b></span>
+      <p>Lekcje gry na perkusji, sprawdzone zestawy i gra Perki Drum Hero. Prowadzi Jacke Sienkiewicz, perkusista zespolu TUGA.</p>
+    </div>
+    <div>
+      <h4>Oferta</h4>
+      <a href="/lekcje-nowy/">Lekcje perkusji</a>
+      <a href="/sklep/">Sklep — zestawy</a>
+      <a href="/gra/">Gra Drum Hero</a>
+      <a href="#filmy">Filmy</a>
+    </div>
+    <div>
+      <h4>Kontakt</h4>
+      <a href="tel:+48737899928">737 899 928</a>
+      <a href="mailto:jackeperki@gmail.com">jackeperki@gmail.com</a>
+      <a>Kramarska 33, Poznan</a>
+      <a>Zydowska 35, Poznan</a>
+    </div>
+    <div>
+      <h4>Wiecej</h4>
+      <a href="https://www.youtube.com/@jacke_skillovsky" target="_blank" rel="noopener">YouTube</a>
+      <a href="/polityka-prywatnosci/">Polityka prywatnosci</a>
+      <a href="/regulamin/">Regulamin</a>
+    </div>
+  </div>
+  <div class="wrap foot-bottom">
+    <span>&copy; 2026 perki.pl — Jacke Sienkiewicz. Wszystkie prawa zastrzezone.</span>
+    <span>Perkusja w Poznaniu i online.</span>
+  </div>
+</footer>
+
+<!-- MOBILE STICKY CTA -->
+<div class="mcta" id="mcta">
+  <div class="price">od 120 zl<small>za lekcje 1 na 1</small></div>
+  <a class="btn btn--primary" href="/lekcje-nowy/#booking">Umow lekcje</a>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var rm = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* mobile menu */
+  var burger = document.getElementById('burger');
+  var mmenu = document.getElementById('mmenu');
+  if (burger && mmenu){
+    burger.addEventListener('click', function(){
+      var open = !mmenu.open; mmenu.open = open;
+      burger.setAttribute('aria-expanded', open ? 'true':'false');
+      document.body.style.overflow = open ? 'hidden':'';
+    });
+    mmenu.addEventListener('click', function(e){
+      if (e.target.tagName === 'A'){ mmenu.open=false; burger.setAttribute('aria-expanded','false'); document.body.style.overflow=''; }
+    });
+  }
+
+  /* reveal */
+  var revs = [].slice.call(document.querySelectorAll('.reveal'));
+  if (rm || !('IntersectionObserver' in window)){
+    revs.forEach(function(el){ el.classList.remove('pre'); });
+  } else {
+    revs.forEach(function(el){ el.classList.add('pre'); });
+    var ro = new IntersectionObserver(function(es){
+      es.forEach(function(en){ if(en.isIntersecting){ en.target.classList.remove('pre'); ro.unobserve(en.target); } });
+    },{rootMargin:'0px 0px -8% 0px',threshold:.08});
+    revs.forEach(function(el){ ro.observe(el); });
+  }
+
+  /* counters */
+  var counters = [].slice.call(document.querySelectorAll('[data-count]'));
+  function animate(el){
+    var target = parseFloat(el.getAttribute('data-count'));
+    var dec = parseInt(el.getAttribute('data-dec')||'0',10);
+    var suffix = el.querySelector('.u') ? el.querySelector('.u').textContent : '';
+    var start = null, dur = 1200;
+    function step(ts){
+      if(!start) start = ts;
+      var p = Math.min((ts-start)/dur,1);
+      var e = 1-Math.pow(1-p,3);
+      var val = (target*e).toFixed(dec);
+      el.firstChild ? el.childNodes[0].nodeValue = val : el.textContent = val;
+      if(suffix){ var u=el.querySelector('.u'); if(!u){u=document.createElement('span');u.className='u';u.textContent=suffix;el.appendChild(u);} }
+      if(p<1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+  if (!rm && 'IntersectionObserver' in window){
+    var co = new IntersectionObserver(function(es){
+      es.forEach(function(en){ if(en.isIntersecting){ animate(en.target); co.unobserve(en.target); } });
+    },{threshold:.4});
+    counters.forEach(function(el){ co.observe(el); });
+  }
+
+  /* mobile sticky cta after hero */
+  var mcta = document.getElementById('mcta');
+  var hero = document.querySelector('.hero');
+  if (mcta && hero && 'IntersectionObserver' in window){
+    var so = new IntersectionObserver(function(es){
+      es.forEach(function(en){ mcta.classList.toggle('show', !en.isIntersecting); });
+    },{threshold:0});
+    so.observe(hero);
+  }
+})();
+</script>
+</body>
+</html>
