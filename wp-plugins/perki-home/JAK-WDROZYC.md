@@ -26,13 +26,33 @@ Dokument bedzie serwowany rowniez na `/`. Cofniecie: `false`.
 (Alternatywa czystsza: po akceptacji zmien `SLUG` na `''` lub ustaw w WP
 Ustawienia > Czytanie pusta strone — ale SET_AS_FRONT wystarcza.)
 
-## Do uzupelnienia po stronie tresci (placeholdery w home.html)
+## Obrazy (folder img/) — WAZNE dla wdrozenia
 
-- HERO + sekcja "O mnie": slot `<svg class="hero-art">` -> podmien na
-  `<img src="..." alt="Jacke przy perkusji">` (foto z Media Library).
-- SKLEP: 3 karty maja sztywne ceny/marki (Yamaha 4599 / Premier 4200 /
-  Hayman 3690) i linkuja do `/sklep/`. Podmien na realne, najlepiej hot-produkty
-  z WooCommerce (docelowo: shortcode/WC query zamiast statyki).
-- OPINIE: 3 recenzje to placeholdery (Michal/Anna/Piotr) — wstaw prawdziwe z Google.
-- Statystyki: 16 lat / 300+ lekcji / 71 filmow / 4.9 — zweryfikuj liczby.
-- Linki nawigacji zakladaja istnienie `/lekcje-nowy/`, `/sklep/`, `/gra/`.
+Strona uzywa zdjec z `wp-plugins/perki-home/img/` przez sciezke
+`/wp-content/plugins/perki-home/img/...` (dziala automatycznie, gdy wtyczka jest
+w `wp-content/plugins/`). Pliki:
+- `kit-pearl-red.jpg`, `kit-premier-black.jpg`, `kit-premier-green.jpg` — REALNE
+  zdjecia zestawow Jacke (folder `kontrast/`, prawa CZYSTE, wlasne). Sklep.
+- `yt-tuga.jpg`, `yt-bfrt.jpg` — miniatury YouTube (TUGA, Blue Flowers Red Thorns).
+UWAGA: upload zipa przez wp-admin moze tknac pliki — najlepiej wgraj `img/` przez
+WP File Manager / FTP, albo trzymaj wtyczke w repo i deployuj plikowo.
+
+## Stan tresci
+
+ZROBIONE (realne dane):
+- SKLEP: 3 prawdziwe foto zestawow (Pearl Export czerwony, Premier czarny, Premier
+  szmaragdowy). CENY (4200/3690/4599) sa PRZYKLADOWE — ZWERYFIKUJ z WooCommerce.
+  Docelowo: podmien statyke na WC query/shortcode.
+- FILMY: 2 prawdziwe filmy YouTube (lite-embed, klik laduje iframe nocookie).
+- WERSJA EN: pelny przelacznik PL/EN (przycisk w nav, localStorage). Tlumaczenia
+  przez atrybuty `data-en` / `data-en-html`. Dodajac nowy tekst PL, dodaj `data-en`.
+
+DO UZUPELNIENIA:
+- HERO + "O mnie": hero = interaktywny GRYWALNY zestaw (Web Audio) — zostaje.
+  Sekcja "O mnie" ma grafike SVG; prawdziwy PORTRET do dorobienia (sesja). UWAGA
+  PRAWNA: zdjecia z `jam-roose/` wymagaja zgody fotografa (szpilla@gmail.com) —
+  NIE UZYWAC do czasu zgody. Czyste sa tylko `kontrast/` (wlasne Jacke).
+- OPINIE: 3 recenzje to placeholdery (Michal/Anna/Piotr, + EN) — wstaw PRAWDZIWE
+  z Google (tresc + imie). Nie zmyslamy opinii.
+- Statystyki 16/300+/71/4.9 — zweryfikuj.
+- Linki nawigacji zakladaja `/lekcje-nowy/`, `/sklep/`, `/gra/`.

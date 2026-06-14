@@ -94,6 +94,9 @@
   .nav-links a:hover{color:var(--ink)}
   .nav-right{display:flex;align-items:center;gap:14px}
   .nav-tel{font-weight:600;font-size:15px}
+  .lang{background:transparent;border:1.5px solid var(--border-strong);color:var(--ink);font-family:var(--sans);font-weight:600;font-size:13px;padding:7px 12px;border-radius:var(--r-pill);cursor:pointer;transition:.15s;letter-spacing:.04em}
+  .lang:hover{background:var(--accent-tint);border-color:var(--accent);color:var(--accent-press)}
+  @media(max-width:980px){.lang{display:inline-block}}
   .burger{display:none;background:none;border:none;cursor:pointer;color:var(--ink)}
   @media(max-width:980px){.nav-links,.nav-tel,.nav-right .btn--primary{display:none}}
 
@@ -186,8 +189,9 @@
   .shop{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
   .prod{display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);overflow:hidden;transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease}
   .prod:hover{transform:translateY(-4px);box-shadow:var(--shadow);border-color:var(--border-strong)}
-  .prod .ph{aspect-ratio:4/3;background:radial-gradient(120% 120% at 30% 10%,#2a2320,#15110e 75%);display:flex;align-items:center;justify-content:center;position:relative}
+  .prod .ph{aspect-ratio:4/5;background:radial-gradient(120% 120% at 30% 10%,#2a2320,#15110e 75%);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
   .prod .ph .hero-art{width:74%}
+  .prod .ph img{width:100%;height:100%;object-fit:cover;object-position:center}
   .prod .tag{position:absolute;top:12px;left:12px;background:var(--ok-tint);color:var(--ok);font-size:12px;font-weight:700;padding:5px 11px;border-radius:var(--r-pill)}
   .prod .body{padding:18px 20px 22px;display:flex;flex-direction:column;flex:1}
   .prod h3{font-size:1.12rem;margin-bottom:4px}
@@ -211,6 +215,18 @@
   .ftxt p{color:var(--ink-soft);font-size:17px;max-width:48ch;margin-bottom:14px}
   .ftxt .pills{margin-top:12px;margin-bottom:24px}
   @media(max-width:820px){.feature{grid-template-columns:1fr}.feature.rev .ftxt{order:0}}
+
+  /* lite youtube (klik laduje iframe) */
+  .vids{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  .lyt{position:relative;aspect-ratio:16/9;border-radius:var(--r-lg);overflow:hidden;border:1px solid var(--border);cursor:pointer;background:#15110e;box-shadow:var(--shadow)}
+  .lyt img{width:100%;height:100%;object-fit:cover;transition:transform .4s ease,filter .3s ease}
+  .lyt:hover img{transform:scale(1.04);filter:brightness(1.08)}
+  .lyt .play{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:68px;height:68px;border-radius:50%;background:rgba(242,100,30,.95);display:flex;align-items:center;justify-content:center;box-shadow:0 8px 30px rgba(0,0,0,.45);transition:transform .18s}
+  .lyt:hover .play{transform:translate(-50%,-50%) scale(1.08)}
+  .lyt .play svg{width:28px;height:28px;color:#fff;margin-left:4px}
+  .lyt .vtitle{position:absolute;left:0;right:0;bottom:0;padding:30px 16px 14px;background:linear-gradient(transparent,rgba(0,0,0,.82));color:#fff;font-weight:600;font-size:15px}
+  .lyt iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+  @media(max-width:680px){.vids{grid-template-columns:1fr}}
 
   /* reviews */
   .reviews{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;align-items:start}
@@ -292,16 +308,17 @@
       <span>perki<b>.pl</b></span>
     </a>
     <div class="nav-links">
-      <a href="/lekcje-nowy/">Lekcje</a>
-      <a href="/sklep/">Sklep</a>
-      <a href="#filmy">Filmy</a>
-      <a href="/gra/">Gra</a>
-      <a href="#omnie">O mnie</a>
-      <a href="#kontakt">Kontakt</a>
+      <a href="/lekcje-nowy/" data-en="Lessons">Lekcje</a>
+      <a href="/sklep/" data-en="Shop">Sklep</a>
+      <a href="#filmy" data-en="Videos">Filmy</a>
+      <a href="/gra/" data-en="Game">Gra</a>
+      <a href="#omnie" data-en="About">O mnie</a>
+      <a href="#kontakt" data-en="Contact">Kontakt</a>
     </div>
     <div class="nav-right">
+      <button class="lang" id="langBtn" type="button" aria-label="Switch language to English">EN</button>
       <a class="nav-tel" href="tel:+48737899928">737 899 928</a>
-      <a class="btn btn--primary" href="/lekcje-nowy/#booking">Umow lekcje</a>
+      <a class="btn btn--primary" href="/lekcje-nowy/#booking" data-en="Book a lesson">Umow lekcje</a>
       <button class="burger" id="burger" aria-label="Menu" aria-expanded="false">
         <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
       </button>
@@ -310,13 +327,13 @@
 </nav>
 <details class="mmenu" id="mmenu"><summary></summary>
   <div class="mm-in">
-    <a href="/lekcje-nowy/">Lekcje perkusji</a>
-    <a href="/sklep/">Sklep — zestawy</a>
-    <a href="#filmy">Filmy</a>
-    <a href="/gra/">Gra Perki Drum Hero</a>
-    <a href="#omnie">O mnie</a>
-    <a href="#kontakt">Kontakt</a>
-    <a class="btn btn--primary" style="margin-top:14px" href="/lekcje-nowy/#booking">Umow lekcje</a>
+    <a href="/lekcje-nowy/" data-en="Drum lessons">Lekcje perkusji</a>
+    <a href="/sklep/" data-en="Shop — drum kits">Sklep — zestawy</a>
+    <a href="#filmy" data-en="Videos">Filmy</a>
+    <a href="/gra/" data-en="Perki Drum Hero game">Gra Perki Drum Hero</a>
+    <a href="#omnie" data-en="About">O mnie</a>
+    <a href="#kontakt" data-en="Contact">Kontakt</a>
+    <a class="btn btn--primary" style="margin-top:14px" href="/lekcje-nowy/#booking" data-en="Book a lesson">Umow lekcje</a>
   </div>
 </details>
 
@@ -324,31 +341,31 @@
 <header class="hero">
   <div class="wrap hero-grid">
     <div>
-      <span class="kicker">Perkusja w Poznaniu i online</span>
-      <h1>Od pierwszego uderzenia <span class="mark">do sceny</span>.</h1>
-      <p class="lead">Jestem Jacke, perkusista zespolu TUGA i nauczyciel. Ucze grac 1 na 1, sprzedaje sprawdzone i nastrojone zestawy, a groove mozesz poczuc juz teraz w grze online.</p>
+      <span class="kicker" data-en="Drum lessons in Poznan and online">Perkusja w Poznaniu i online</span>
+      <h1 data-en-html="From your first hit <span class=&quot;mark&quot;>to the stage</span>.">Od pierwszego uderzenia <span class="mark">do sceny</span>.</h1>
+      <p class="lead" data-en="I'm Jacke, drummer of the band TUGA and a teacher. I teach 1-on-1, sell tuned and tested drum kits, and you can feel the groove right now in the online game.">Jestem Jacke, perkusista zespolu TUGA i nauczyciel. Ucze grac 1 na 1, sprzedaje sprawdzone i nastrojone zestawy, a groove mozesz poczuc juz teraz w grze online.</p>
       <div class="hero-cta">
-        <a class="btn btn--primary btn--lg beat" href="/lekcje-nowy/#booking">Umow pierwsza lekcje</a>
+        <a class="btn btn--primary btn--lg beat" href="/lekcje-nowy/#booking" data-en="Book your first lesson">Umow pierwsza lekcje</a>
         <a class="btn btn--ghost btn--lg" href="/gra/">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
-          Zagraj w Drum Hero
+          <span data-en="Play Drum Hero">Zagraj w Drum Hero</span>
         </a>
       </div>
       <div class="reassurance">
-        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6 9 17l-5-5"/></svg> Pierwsza lekcja bez ryzyka</span>
-        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg> Zmiana terminu do 24h</span>
-        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6 9 17l-5-5"/></svg> Zestawy nastrojone i sprawdzone</span>
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6 9 17l-5-5"/></svg> <span data-en="First lesson risk-free">Pierwsza lekcja bez ryzyka</span></span>
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg> <span data-en="Reschedule up to 24h">Zmiana terminu do 24h</span></span>
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6 9 17l-5-5"/></svg> <span data-en="Kits tuned and tested">Zestawy nastrojone i sprawdzone</span></span>
       </div>
       <div class="pills">
-        <span class="pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v18M5 8h14"/></svg> Lekcje na zywo i online</span>
-        <span class="pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7h18v13H3z"/><path d="M3 7l3-4h12l3 4"/></svg> Sklep z zestawami</span>
-        <span class="pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M8 12h8M12 8v8"/></svg> Dzieci i dorosli</span>
+        <span class="pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v18M5 8h14"/></svg> <span data-en="In-person and online lessons">Lekcje na zywo i online</span></span>
+        <span class="pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7h18v13H3z"/><path d="M3 7l3-4h12l3 4"/></svg> <span data-en="Drum kit shop">Sklep z zestawami</span></span>
+        <span class="pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M8 12h8M12 8v8"/></svg> <span data-en="Kids and adults">Dzieci i dorosli</span></span>
       </div>
     </div>
     <div class="hero-media kit-stage" id="kit">
       <span class="kit-hint" id="kitHint">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11V6a2 2 0 0 1 4 0v5M13 7a2 2 0 0 1 4 0v6a6 6 0 0 1-6 6h-1.6a3 3 0 0 1-2.3-1l-3-3.6a1.6 1.6 0 0 1 2.4-2L8 14"/></svg>
-        Kliknij bebny — zagraj na zywo
+        <span data-en="Tap the drums — play for real">Kliknij bebny — zagraj na zywo</span>
       </span>
       <!-- INTERAKTYWNY ZESTAW: kazdy element gra prawdziwy dzwiek (Web Audio) -->
       <svg class="kit" viewBox="0 0 400 440" xmlns="http://www.w3.org/2000/svg" role="group" aria-label="Interaktywny zestaw perkusyjny - kliknij elementy, aby zagrac">
@@ -422,9 +439,9 @@
       <div class="kit-controls">
         <button class="kbtn" id="grooveBtn" type="button" aria-pressed="false">
           <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
-          <span id="grooveLabel">Zagraj groove</span>
+          <span id="grooveLabel" data-en="Play a groove">Zagraj groove</span>
         </button>
-        <span class="kit-keys">albo klawisze: F J SPACJA K</span>
+        <span class="kit-keys" data-en="or keys: F J SPACE K">albo klawisze: F J SPACJA K</span>
       </div>
     </div>
   </div>
@@ -433,10 +450,10 @@
 <!-- STATS -->
 <section class="alt" style="padding-block:clamp(40px,5vw,64px)">
   <div class="wrap stats">
-    <div class="stat"><div class="big num" data-count="16">16</div><div class="lab">lat za perkusja</div></div>
-    <div class="stat"><div class="big num" data-count="300">300<span class="u">+</span></div><div class="lab">przeprowadzonych lekcji</div></div>
-    <div class="stat"><div class="big num" data-count="71">71</div><div class="lab">filmow na YouTube</div></div>
-    <div class="stat"><div class="big num" data-count="4.9" data-dec="1">4.9</div><div class="lab">ocena w Google</div></div>
+    <div class="stat"><div class="big num" data-count="16">16</div><div class="lab" data-en="years behind the kit">lat za perkusja</div></div>
+    <div class="stat"><div class="big num" data-count="300">300<span class="u">+</span></div><div class="lab" data-en="lessons taught">przeprowadzonych lekcji</div></div>
+    <div class="stat"><div class="big num" data-count="71">71</div><div class="lab" data-en="videos on YouTube">filmow na YouTube</div></div>
+    <div class="stat"><div class="big num" data-count="4.9" data-dec="1">4.9</div><div class="lab" data-en="Google rating">ocena w Google</div></div>
   </div>
 </section>
 
@@ -445,34 +462,34 @@
   <div class="wrap">
     <div class="head center reveal pre">
       <div class="bar"></div>
-      <span class="kicker">Co znajdziesz na perki.pl</span>
-      <h2>Wszystko wokol perkusji w jednym miejscu</h2>
-      <p>Cztery sciezki, jeden cel: zebys gral i czerpal z tego frajde — niezaleznie od poziomu.</p>
+      <span class="kicker" data-en="What you'll find on perki.pl">Co znajdziesz na perki.pl</span>
+      <h2 data-en="Everything around drums in one place">Wszystko wokol perkusji w jednym miejscu</h2>
+      <p data-en="Four paths, one goal: that you play and have fun doing it — whatever your level.">Cztery sciezki, jeden cel: zebys gral i czerpal z tego frajde — niezaleznie od poziomu.</p>
     </div>
     <div class="grid4">
       <a class="card reveal pre" style="--i:0" href="/lekcje-nowy/">
         <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v18M5 8h14"/></svg></div>
-        <h3>Lekcje 1 na 1</h3>
-        <p>Indywidualne lekcje w centrum Poznania albo online. Dzieci, dorosli, wracajacy i zaawansowani — zaczynamy tam, gdzie jestes.</p>
-        <span class="more">Zobacz lekcje <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        <h3 data-en="1-on-1 lessons">Lekcje 1 na 1</h3>
+        <p data-en="Private lessons in central Poznan or online. Kids, adults, returning and advanced players — we start where you are.">Indywidualne lekcje w centrum Poznania albo online. Dzieci, dorosli, wracajacy i zaawansowani — zaczynamy tam, gdzie jestes.</p>
+        <span class="more"><span data-en="See lessons">Zobacz lekcje</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
       </a>
       <a class="card reveal pre" style="--i:1" href="/sklep/">
         <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7h18v13H3z"/><path d="M3 7l3-4h12l3 4"/></svg></div>
-        <h3>Sprawdzone zestawy</h3>
-        <p>Uzywane perkusje Yamaha, Premier, Hayman i inne — kazda osobiscie nastrojona i sprawdzona, gotowa do grania od pierwszego dnia.</p>
-        <span class="more">Zobacz sklep <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        <h3 data-en="Tested drum kits">Sprawdzone zestawy</h3>
+        <p data-en="Used Pearl, Premier and other kits — each personally tuned and tested, ready to play from day one.">Uzywane perkusje Yamaha, Premier, Hayman i inne — kazda osobiscie nastrojona i sprawdzona, gotowa do grania od pierwszego dnia.</p>
+        <span class="more"><span data-en="See the shop">Zobacz sklep</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
       </a>
       <a class="card reveal pre" style="--i:2" href="/gra/">
         <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M8 12h8M12 8v8"/></svg></div>
-        <h3>Gra Drum Hero</h3>
-        <p>Darmowa gra perkusyjna online na moim prawdziwym zestawie. Poczuj rytm, zdobadz punkty i sprawdz, ile masz w sobie groove'u.</p>
-        <span class="more">Zagraj teraz <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        <h3 data-en="Drum Hero game">Gra Drum Hero</h3>
+        <p data-en="A free online drum game on my real kit. Feel the rhythm, score points and see how much groove you've got.">Darmowa gra perkusyjna online na moim prawdziwym zestawie. Poczuj rytm, zdobadz punkty i sprawdz, ile masz w sobie groove'u.</p>
+        <span class="more"><span data-en="Play now">Zagraj teraz</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
       </a>
       <a class="card reveal pre" style="--i:3" href="#filmy">
         <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7h18v10H3z"/><path d="M10 9l5 3-5 3z" fill="currentColor"/></svg></div>
-        <h3>Filmy i covery</h3>
-        <p>71 filmow na YouTube: soundchecki klasycznych zestawow, covery i nagrania z jam sessions. Posluchaj, jak brzmia perkusje ze sklepu.</p>
-        <span class="more">Obejrzyj <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        <h3 data-en="Videos and covers">Filmy i covery</h3>
+        <p data-en="71 videos on YouTube: kit soundchecks, covers and jam session recordings. Hear how the kits from the shop sound.">71 filmow na YouTube: soundchecki klasycznych zestawow, covery i nagrania z jam sessions. Posluchaj, jak brzmia perkusje ze sklepu.</p>
+        <span class="more"><span data-en="Watch">Obejrzyj</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
       </a>
     </div>
   </div>
@@ -493,16 +510,16 @@
     </div>
     <div class="reveal pre">
       <div class="bar" style="width:42px;height:4px;background:var(--accent);border-radius:3px;margin-bottom:16px"></div>
-      <span class="kicker">Twoj nauczyciel</span>
-      <h2>Uczy Cie czynny perkusista, nie szkola-fabryka.</h2>
-      <p class="q">Gram od 16 lat, na co dzien w zespole TUGA (nowa fala polskiego big-beatu, debiut LP "Nie czuje goryczy", 2024). Prowadze jam sessions w Poznaniu, uczylem sie na warsztatach m.in. u Newmana Taylora Bakera — i to wszystko wnosze na lekcje.</p>
-      <p class="q">Nie sprzedaje suchej techniki. Pokazuje, jak usiasc za zestawem i zagrac cos, co brzmi jak muzyka — juz na pierwszej lekcji.</p>
+      <span class="kicker" data-en="Your teacher">Twoj nauczyciel</span>
+      <h2 data-en="You learn from a working drummer, not a factory-school.">Uczy Cie czynny perkusista, nie szkola-fabryka.</h2>
+      <p class="q" data-en="I've played for 16 years, every day in the band TUGA (new wave of Polish big-beat, debut LP &quot;Nie czuje goryczy&quot;, 2024). I host jam sessions in Poznan and studied at workshops with Newman Taylor Baker among others — and I bring all of it to my lessons.">Gram od 16 lat, na co dzien w zespole TUGA (nowa fala polskiego big-beatu, debiut LP "Nie czuje goryczy", 2024). Prowadze jam sessions w Poznaniu, uczylem sie na warsztatach m.in. u Newmana Taylora Bakera — i to wszystko wnosze na lekcje.</p>
+      <p class="q" data-en="I don't sell dry technique. I show you how to sit at the kit and play something that sounds like music — on your very first lesson.">Nie sprzedaje suchej techniki. Pokazuje, jak usiasc za zestawem i zagrac cos, co brzmi jak muzyka — juz na pierwszej lekcji.</p>
       <div class="badges">
-        <span class="tbadge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg> Zespol TUGA</span>
-        <span class="tbadge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l2.4 7.4H22l-6 4.5 2.3 7.1-6.3-4.6L5.7 21l2.3-7.1-6-4.5h7.6z"/></svg> Mentor: Newman Taylor Baker</span>
-        <span class="tbadge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 12-9 12s-9-5-9-12a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Poznan + online</span>
+        <span class="tbadge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg> <span data-en="Band TUGA">Zespol TUGA</span></span>
+        <span class="tbadge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l2.4 7.4H22l-6 4.5 2.3 7.1-6.3-4.6L5.7 21l2.3-7.1-6-4.5h7.6z"/></svg> <span data-en="Mentor: Newman Taylor Baker">Mentor: Newman Taylor Baker</span></span>
+        <span class="tbadge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 12-9 12s-9-5-9-12a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> <span data-en="Poznan + online">Poznan + online</span></span>
       </div>
-      <a class="btn btn--ghost" href="/lekcje-nowy/">Poznaj oferte lekcji</a>
+      <a class="btn btn--ghost" href="/lekcje-nowy/" data-en="See lesson offer">Poznaj oferte lekcji</a>
     </div>
   </div>
 </section>
@@ -512,46 +529,46 @@
   <div class="wrap">
     <div class="head reveal pre">
       <div class="bar"></div>
-      <span class="kicker">Sklep</span>
-      <h2>Sprawdzone zestawy, gotowe do grania</h2>
-      <p>Kazda perkusja jest osobiscie nastrojona i sprawdzona. Bez loterii — kupujesz instrument, ktory od razu dobrze brzmi.</p>
+      <span class="kicker" data-en="Shop">Sklep</span>
+      <h2 data-en="Tested kits, ready to play">Sprawdzone zestawy, gotowe do grania</h2>
+      <p data-en="Every kit is personally tuned and tested. No lottery — you buy an instrument that sounds great right away.">Kazda perkusja jest osobiscie nastrojona i sprawdzona. Bez loterii — kupujesz instrument, ktory od razu dobrze brzmi.</p>
     </div>
     <div class="shop">
       <a class="prod reveal pre" style="--i:0" href="/sklep/">
-        <div class="ph"><span class="tag">Nastrojony i sprawdzony</span>
-          <svg class="hero-art" viewBox="0 0 220 170" fill="none" aria-hidden="true"><ellipse cx="110" cy="58" rx="48" ry="13" fill="#F2641E"/><rect x="74" y="58" width="72" height="34" rx="6" fill="#2a2320"/><ellipse cx="52" cy="96" rx="30" ry="8" fill="#E6A938"/><ellipse cx="168" cy="96" rx="30" ry="8" fill="#E6A938"/><ellipse cx="110" cy="120" rx="40" ry="11" fill="#F2641E"/><rect x="76" y="120" width="68" height="40" rx="6" fill="#1c1815"/></svg>
+        <div class="ph"><span class="tag" data-en="Tuned and tested">Nastrojony i sprawdzony</span>
+          <img src="/wp-content/plugins/perki-home/img/kit-pearl-red.jpg" width="825" height="1100" loading="lazy" decoding="async" alt="Zestaw perkusyjny Pearl Export w kolorze czerwonym, nastrojony i sprawdzony">
         </div>
         <div class="body">
-          <span class="brandname">Yamaha</span>
-          <h3>Zestaw akustyczny 5-elementowy</h3>
-          <div class="price">4 599 <small>zl</small></div>
-          <span class="more">Zobacz w sklepie <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+          <span class="brandname">Pearl Export</span>
+          <h3 data-en="Acoustic kit, red">Zestaw akustyczny, czerwony</h3>
+          <div class="price">4 200 <small>zl</small></div>
+          <span class="more"><span data-en="View in shop">Zobacz w sklepie</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
         </div>
       </a>
       <a class="prod reveal pre" style="--i:1" href="/sklep/">
-        <div class="ph"><span class="tag">Nastrojony i sprawdzony</span>
-          <svg class="hero-art" viewBox="0 0 220 170" fill="none" aria-hidden="true"><ellipse cx="110" cy="58" rx="48" ry="13" fill="#E6A938"/><rect x="74" y="58" width="72" height="34" rx="6" fill="#3a2c22"/><ellipse cx="52" cy="96" rx="30" ry="8" fill="#F2641E"/><ellipse cx="168" cy="96" rx="30" ry="8" fill="#F2641E"/><ellipse cx="110" cy="120" rx="40" ry="11" fill="#E6A938"/><rect x="76" y="120" width="68" height="40" rx="6" fill="#241a14"/></svg>
+        <div class="ph"><span class="tag" data-en="Tuned and tested">Nastrojony i sprawdzony</span>
+          <img src="/wp-content/plugins/perki-home/img/kit-premier-black.jpg" width="825" height="1100" loading="lazy" decoding="async" alt="Zestaw perkusyjny Premier w kolorze czarnym, nastrojony i sprawdzony">
         </div>
         <div class="body">
           <span class="brandname">Premier</span>
-          <h3>Vintage zestaw perkusyjny</h3>
-          <div class="price">4 200 <small>zl</small></div>
-          <span class="more">Zobacz w sklepie <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+          <h3 data-en="Acoustic kit, black">Zestaw akustyczny, czarny</h3>
+          <div class="price">3 690 <small>zl</small></div>
+          <span class="more"><span data-en="View in shop">Zobacz w sklepie</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
         </div>
       </a>
       <a class="prod reveal pre" style="--i:2" href="/sklep/">
-        <div class="ph"><span class="tag">Nastrojony i sprawdzony</span>
-          <svg class="hero-art" viewBox="0 0 220 170" fill="none" aria-hidden="true"><ellipse cx="110" cy="58" rx="48" ry="13" fill="#F2641E"/><rect x="74" y="58" width="72" height="34" rx="6" fill="#222"/><ellipse cx="52" cy="96" rx="30" ry="8" fill="#E6A938"/><ellipse cx="168" cy="96" rx="30" ry="8" fill="#E6A938"/><ellipse cx="110" cy="120" rx="40" ry="11" fill="#F2641E"/><rect x="76" y="120" width="68" height="40" rx="6" fill="#1a1a1a"/></svg>
+        <div class="ph"><span class="tag" data-en="Tuned and tested">Nastrojony i sprawdzony</span>
+          <img src="/wp-content/plugins/perki-home/img/kit-premier-green.jpg" width="825" height="1100" loading="lazy" decoding="async" alt="Zestaw perkusyjny Premier w kolorze szmaragdowym, nastrojony i sprawdzony">
         </div>
         <div class="body">
-          <span class="brandname">Hayman</span>
-          <h3>Klasyczny zestaw do nauki</h3>
-          <div class="price">3 690 <small>zl</small></div>
-          <span class="more">Zobacz w sklepie <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+          <span class="brandname">Premier</span>
+          <h3 data-en="Acoustic kit, emerald">Zestaw akustyczny, szmaragdowy</h3>
+          <div class="price">4 599 <small>zl</small></div>
+          <span class="more"><span data-en="View in shop">Zobacz w sklepie</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
         </div>
       </a>
     </div>
-    <div style="text-align:center;margin-top:34px"><a class="btn btn--trust btn--lg" href="/sklep/">Zobacz wszystkie zestawy</a></div>
+    <div style="text-align:center;margin-top:34px"><a class="btn btn--trust btn--lg" href="/sklep/" data-en="See all kits">Zobacz wszystkie zestawy</a></div>
   </div>
 </section>
 
@@ -560,16 +577,16 @@
   <div class="wrap feature">
     <div class="ftxt reveal pre">
       <div class="bar" style="width:42px;height:4px;background:var(--accent);border-radius:3px;margin-bottom:16px"></div>
-      <span class="kicker">Gra online — za darmo</span>
+      <span class="kicker" data-en="Online game — free">Gra online — za darmo</span>
       <h2>Perki Drum Hero</h2>
-      <p>Zagraj na moim prawdziwym zestawie prosto z przegladarki. Trafiaj w rytm, zbieraj punkty i odblokowuj kolejne poziomy. Idealny pierwszy krok, zanim usiadziesz za prawdziwa perkusja.</p>
+      <p data-en="Play on my real kit straight from your browser. Hit the rhythm, score points and unlock new levels. The perfect first step before you sit at a real kit.">Zagraj na moim prawdziwym zestawie prosto z przegladarki. Trafiaj w rytm, zbieraj punkty i odblokowuj kolejne poziomy. Idealny pierwszy krok, zanim usiadziesz za prawdziwa perkusja.</p>
       <div class="pills">
-        <span class="pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/></svg> Bez instalacji</span>
-        <span class="pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="6" y="3" width="12" height="18" rx="2"/></svg> Dziala na telefonie</span>
+        <span class="pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/></svg> <span data-en="No install">Bez instalacji</span></span>
+        <span class="pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="6" y="3" width="12" height="18" rx="2"/></svg> <span data-en="Works on mobile">Dziala na telefonie</span></span>
       </div>
       <a class="btn btn--primary btn--lg" href="/gra/">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
-        Zagraj w Drum Hero
+        <span data-en="Play Drum Hero">Zagraj w Drum Hero</span>
       </a>
     </div>
     <a class="fmedia game reveal pre" href="/gra/" aria-label="Zagraj w Perki Drum Hero">
@@ -586,21 +603,31 @@
 
 <!-- VIDEOS -->
 <section id="filmy">
-  <div class="wrap feature rev">
-    <div class="ftxt reveal pre">
-      <div class="bar" style="width:42px;height:4px;background:var(--accent);border-radius:3px;margin-bottom:16px"></div>
-      <span class="kicker">YouTube — 71 filmow</span>
-      <h2>Posluchaj, jak to brzmi</h2>
-      <p>Soundchecki klasycznych zestawow, covery i nagrania z jam sessions. Najlepszy sposob, zeby uslyszec brzmienie perkusji ze sklepu i moj sposob grania — zanim umowisz lekcje.</p>
+  <div class="wrap">
+    <div class="head reveal pre">
+      <div class="bar"></div>
+      <span class="kicker">YouTube</span>
+      <h2 data-en="Hear how it sounds">Posluchaj, jak to brzmi</h2>
+      <p data-en="I play drums in TUGA and other projects. The best way to hear my playing and the sound of the kits — before you book a lesson.">Gram na perkusji w TUGA i innych projektach. Najlepszy sposob, zeby uslyszec moj sposob grania i brzmienie zestawow — zanim umowisz lekcje.</p>
+    </div>
+    <div class="vids">
+      <div class="lyt reveal pre" style="--i:0" data-yt="aqYhn0zh3-Q" role="button" tabindex="0" aria-label="Odtworz: TUGA - Nie czuje goryczy">
+        <img src="/wp-content/plugins/perki-home/img/yt-tuga.jpg" width="1280" height="720" loading="lazy" decoding="async" alt="TUGA - Nie czuje goryczy, teledysk">
+        <span class="play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
+        <span class="vtitle">TUGA — Nie czuje goryczy (teledysk)</span>
+      </div>
+      <div class="lyt reveal pre" style="--i:1" data-yt="4LHHIqqQdcc" role="button" tabindex="0" aria-label="Odtworz: Blue Flowers, Red Thorns - 2AM">
+        <img src="/wp-content/plugins/perki-home/img/yt-bfrt.jpg" width="1280" height="720" loading="lazy" decoding="async" alt="Blue Flowers, Red Thorns - 2AM">
+        <span class="play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
+        <span class="vtitle">Blue Flowers, Red Thorns — 2AM</span>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:34px">
       <a class="btn btn--ghost btn--lg" href="https://www.youtube.com/@jacke_skillovsky" target="_blank" rel="noopener">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23 7.5a3 3 0 0 0-2.1-2.1C19 5 12 5 12 5s-7 0-8.9.4A3 3 0 0 0 1 7.5 31 31 0 0 0 .6 12 31 31 0 0 0 1 16.5a3 3 0 0 0 2.1 2.1C5 19 12 19 12 19s7 0 8.9-.4a3 3 0 0 0 2.1-2.1A31 31 0 0 0 23.4 12 31 31 0 0 0 23 7.5zM9.8 15.3V8.7l5.7 3.3z"/></svg>
-        Otworz kanal na YouTube
+        <span data-en="More on YouTube">Wiecej na kanale YouTube</span>
       </a>
     </div>
-    <a class="fmedia video reveal pre" href="https://www.youtube.com/@jacke_skillovsky" target="_blank" rel="noopener" aria-label="Kanal YouTube Jacke">
-      <svg class="hero-art" viewBox="0 0 320 200" fill="none" aria-hidden="true"><ellipse cx="160" cy="80" rx="90" ry="24" fill="#F2641E"/><rect x="100" y="80" width="120" height="60" rx="8" fill="#2a2320"/><ellipse cx="70" cy="130" rx="44" ry="11" fill="#E6A938"/><ellipse cx="250" cy="130" rx="44" ry="11" fill="#E6A938"/></svg>
-      <span class="play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
-    </a>
   </div>
 </section>
 
@@ -609,34 +636,34 @@
   <div class="wrap">
     <div class="head center reveal pre">
       <div class="bar"></div>
-      <span class="kicker">Opinie</span>
-      <h2>Ocena 4.9/5 w Google</h2>
-      <p>Prawdziwe glosy uczniow z Poznania. (Opinie do uzupelnienia — placeholdery.)</p>
+      <span class="kicker" data-en="Reviews">Opinie</span>
+      <h2 data-en="Rated 4.9/5 on Google">Ocena 4.9/5 w Google</h2>
+      <p data-en="Real voices from students in Poznan. (Reviews to be added — placeholders.)">Prawdziwe glosy uczniow z Poznania. (Opinie do uzupelnienia — placeholdery.)</p>
     </div>
     <div class="reviews">
       <div class="review reveal pre" style="--i:0">
         <div class="stars" aria-label="5 na 5">
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6.3 6.9.9-5 4.8 1.2 6.8L12 17.8 5.9 20.8 7.1 14l-5-4.8 6.9-.9z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6.3 6.9.9-5 4.8 1.2 6.8L12 17.8 5.9 20.8 7.1 14l-5-4.8 6.9-.9z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6.3 6.9.9-5 4.8 1.2 6.8L12 17.8 5.9 20.8 7.1 14l-5-4.8 6.9-.9z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6.3 6.9.9-5 4.8 1.2 6.8L12 17.8 5.9 20.8 7.1 14l-5-4.8 6.9-.9z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6.3 6.9.9-5 4.8 1.2 6.8L12 17.8 5.9 20.8 7.1 14l-5-4.8 6.9-.9z"/></svg>
         </div>
-        <p>"Po trzech miesiacach zagralem swoja pierwsza piosenke od poczatku do konca. Jacke tlumaczy spokojnie i konkretnie."</p>
+        <p data-en="&quot;After three months I played my first song start to finish. Jacke explains things calmly and concretely.&quot;">"Po trzech miesiacach zagralem swoja pierwsza piosenke od poczatku do konca. Jacke tlumaczy spokojnie i konkretnie."</p>
         <div class="who"><div class="av">MK</div><div><b>Michal K.</b><span>Poznan</span></div></div>
       </div>
       <div class="review reveal pre" style="--i:1">
         <div class="stars" aria-label="5 na 5">
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6.3 6.9.9-5 4.8 1.2 6.8L12 17.8 5.9 20.8 7.1 14l-5-4.8 6.9-.9z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6.3 6.9.9-5 4.8 1.2 6.8L12 17.8 5.9 20.8 7.1 14l-5-4.8 6.9-.9z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6.3 6.9.9-5 4.8 1.2 6.8L12 17.8 5.9 20.8 7.1 14l-5-4.8 6.9-.9z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6.3 6.9.9-5 4.8 1.2 6.8L12 17.8 5.9 20.8 7.1 14l-5-4.8 6.9-.9z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6.3 6.9.9-5 4.8 1.2 6.8L12 17.8 5.9 20.8 7.1 14l-5-4.8 6.9-.9z"/></svg>
         </div>
-        <p>"Syn (9 lat) nie moze sie doczekac kazdej lekcji. Zestaw kupiony u Jacke gra rewelacyjnie, byl idealnie nastrojony."</p>
+        <p data-en="&quot;My son (9) can't wait for each lesson. The kit we bought from Jacke plays brilliantly and was perfectly tuned.&quot;">"Syn (9 lat) nie moze sie doczekac kazdej lekcji. Zestaw kupiony u Jacke gra rewelacyjnie, byl idealnie nastrojony."</p>
         <div class="who"><div class="av">AW</div><div><b>Anna W.</b><span>Poznan</span></div></div>
       </div>
       <div class="review reveal pre" style="--i:2">
         <div class="stars" aria-label="5 na 5">
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6.3 6.9.9-5 4.8 1.2 6.8L12 17.8 5.9 20.8 7.1 14l-5-4.8 6.9-.9z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6.3 6.9.9-5 4.8 1.2 6.8L12 17.8 5.9 20.8 7.1 14l-5-4.8 6.9-.9z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6.3 6.9.9-5 4.8 1.2 6.8L12 17.8 5.9 20.8 7.1 14l-5-4.8 6.9-.9z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6.3 6.9.9-5 4.8 1.2 6.8L12 17.8 5.9 20.8 7.1 14l-5-4.8 6.9-.9z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6.3 6.9.9-5 4.8 1.2 6.8L12 17.8 5.9 20.8 7.1 14l-5-4.8 6.9-.9z"/></svg>
         </div>
-        <p>"Wrocilem do grania po 10 latach przerwy. Lekcje online dzialaja bez zarzutu, a frajda jak za dawnych lat."</p>
+        <p data-en="&quot;I came back to playing after a 10-year break. The online lessons work flawlessly and it's as much fun as in the old days.&quot;">"Wrocilem do grania po 10 latach przerwy. Lekcje online dzialaja bez zarzutu, a frajda jak za dawnych lat."</p>
         <div class="who"><div class="av">PT</div><div><b>Piotr T.</b><span>online</span></div></div>
       </div>
     </div>
-    <p class="reviews-note">Jestes moim uczniem? Bede wdzieczny za krotka opinie w Google.</p>
+    <p class="reviews-note" data-en="Are you my student? I'd be grateful for a short review on Google.">Jestes moim uczniem? Bede wdzieczny za krotka opinie w Google.</p>
   </div>
 </section>
 
@@ -646,15 +673,15 @@
     <div class="head center reveal pre">
       <div class="bar"></div>
       <span class="kicker">FAQ</span>
-      <h2>Najczestsze pytania</h2>
+      <h2 data-en="Frequently asked questions">Najczestsze pytania</h2>
     </div>
     <div class="faq reveal pre">
-      <details><summary>Czy musze miec wlasna perkusje na lekcje?</summary><div class="faq-body"><div><p>Nie. Na lekcjach stacjonarnych w Poznaniu grasz na moim zestawie. Jesli uczysz sie online, wystarczy nawet pad cwiczebny albo poduszki na poczatek — podpowiem, co kupic, gdy bedziesz gotowy.</p></div></div></details>
-      <details><summary>Od ilu lat mozna zaczac nauke?</summary><div class="faq-body"><div><p>Dzieci przyjmuje zwykle od 7 lat, ale najwazniejsza jest checa i skupienie. Dla doroslych i wracajacych po przerwie nie ma gornej granicy — zaczynamy od poziomu, na ktorym jestes.</p></div></div></details>
-      <details><summary>Lekcje stacjonarnie czy online?</summary><div class="faq-body"><div><p>Jak wolisz. Stacjonarnie w centrum Poznania (Kramarska 33, Zydowska 35) albo online przez Google Meet. Online dziala swietnie — wielu uczniow uczy sie tak na stale.</p></div></div></details>
-      <details><summary>Czy zestawy ze sklepu sa sprawdzone?</summary><div class="faq-body"><div><p>Tak. Kazda perkusja jest przeze mnie osobiscie nastrojona i sprawdzona, zanim trafi do sprzedazy. Kupujesz instrument gotowy do grania, nie projekt do remontu. Mozesz tez umowic sie na obejrzenie i odsluch.</p></div></div></details>
-      <details><summary>Jak umowic pierwsza lekcje?</summary><div class="faq-body"><div><p>Kliknij "Umow lekcje", wybierz dogodny termin i zostaw kontakt. Odezwe sie, zeby potwierdzic szczegoly. Termin zmienisz do 24h przed lekcja.</p></div></div></details>
-      <details><summary>Czym jest gra Perki Drum Hero?</summary><div class="faq-body"><div><p>To darmowa gra perkusyjna w przegladarce, na moim prawdziwym zestawie. Trafiasz w rytm i zbierasz punkty. Fajny sposob, zeby poczuc groove, zanim usiadziesz za prawdziwa perkusja — dziala tez na telefonie.</p></div></div></details>
+      <details><summary data-en="Do I need my own drum kit for lessons?">Czy musze miec wlasna perkusje na lekcje?</summary><div class="faq-body"><div><p data-en="No. For in-person lessons in Poznan you play on my kit. For online lessons even a practice pad or pillows are enough to start — I'll advise what to buy when you're ready.">Nie. Na lekcjach stacjonarnych w Poznaniu grasz na moim zestawie. Jesli uczysz sie online, wystarczy nawet pad cwiczebny albo poduszki na poczatek — podpowiem, co kupic, gdy bedziesz gotowy.</p></div></div></details>
+      <details><summary data-en="What age can you start at?">Od ilu lat mozna zaczac nauke?</summary><div class="faq-body"><div><p data-en="I usually take kids from age 7, but willingness and focus matter most. For adults and those returning after a break there's no upper limit — we start at your level.">Dzieci przyjmuje zwykle od 7 lat, ale najwazniejsza jest checa i skupienie. Dla doroslych i wracajacych po przerwie nie ma gornej granicy — zaczynamy od poziomu, na ktorym jestes.</p></div></div></details>
+      <details><summary data-en="In-person or online lessons?">Lekcje stacjonarnie czy online?</summary><div class="faq-body"><div><p data-en="Whichever you prefer. In person in central Poznan (Kramarska 33, Zydowska 35) or online via Google Meet. Online works great — many students learn that way permanently.">Jak wolisz. Stacjonarnie w centrum Poznania (Kramarska 33, Zydowska 35) albo online przez Google Meet. Online dziala swietnie — wielu uczniow uczy sie tak na stale.</p></div></div></details>
+      <details><summary data-en="Are the kits in the shop tested?">Czy zestawy ze sklepu sa sprawdzone?</summary><div class="faq-body"><div><p data-en="Yes. Every kit is personally tuned and tested by me before it goes on sale. You buy an instrument ready to play, not a renovation project. You can also arrange a viewing and a listen.">Tak. Kazda perkusja jest przeze mnie osobiscie nastrojona i sprawdzona, zanim trafi do sprzedazy. Kupujesz instrument gotowy do grania, nie projekt do remontu. Mozesz tez umowic sie na obejrzenie i odsluch.</p></div></div></details>
+      <details><summary data-en="How do I book my first lesson?">Jak umowic pierwsza lekcje?</summary><div class="faq-body"><div><p data-en="Click &quot;Book a lesson&quot;, pick a convenient time and leave your contact. I'll get back to confirm details. You can reschedule up to 24h before the lesson.">Kliknij "Umow lekcje", wybierz dogodny termin i zostaw kontakt. Odezwe sie, zeby potwierdzic szczegoly. Termin zmienisz do 24h przed lekcja.</p></div></div></details>
+      <details><summary data-en="What is the Perki Drum Hero game?">Czym jest gra Perki Drum Hero?</summary><div class="faq-body"><div><p data-en="A free browser drum game on my real kit. You hit the rhythm and score points. A fun way to feel the groove before you sit at a real kit — it works on mobile too.">To darmowa gra perkusyjna w przegladarce, na moim prawdziwym zestawie. Trafiasz w rytm i zbierasz punkty. Fajny sposob, zeby poczuc groove, zanim usiadziesz za prawdziwa perkusja — dziala tez na telefonie.</p></div></div></details>
     </div>
   </div>
 </section>
@@ -663,17 +690,17 @@
 <section class="alt final" id="kontakt">
   <div class="wrap reveal pre">
     <div class="bar" style="width:42px;height:4px;background:var(--accent);border-radius:3px;margin:0 auto 16px"></div>
-    <h2>Gotowy, zeby usiasc za bebnami?</h2>
+    <h2 data-en="Ready to sit down at the drums?">Gotowy, zeby usiasc za bebnami?</h2>
     <div class="hero-cta">
-      <a class="btn btn--primary btn--lg beat" href="/lekcje-nowy/#booking">Umow pierwsza lekcje</a>
+      <a class="btn btn--primary btn--lg beat" href="/lekcje-nowy/#booking" data-en="Book your first lesson">Umow pierwsza lekcje</a>
       <a class="btn btn--ghost btn--lg" href="tel:+48737899928">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.1-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>
-        Zadzwon: 737 899 928
+        <span data-en="Call: 737 899 928">Zadzwon: 737 899 928</span>
       </a>
     </div>
     <div class="reassurance" style="justify-content:center">
-      <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6 9 17l-5-5"/></svg> Pierwsza lekcja bez ryzyka</span>
-      <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg> Zmiana terminu do 24h</span>
+      <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6 9 17l-5-5"/></svg> <span data-en="First lesson risk-free">Pierwsza lekcja bez ryzyka</span></span>
+      <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg> <span data-en="Reschedule up to 24h">Zmiana terminu do 24h</span></span>
     </div>
   </div>
 </section>
@@ -684,45 +711,67 @@
     <div>
       <span class="kicker">perki.pl</span>
       <span class="brand">perki<b style="color:var(--accent)">.pl</b></span>
-      <p>Lekcje gry na perkusji, sprawdzone zestawy i gra Perki Drum Hero. Prowadzi Jacke Sienkiewicz, perkusista zespolu TUGA.</p>
+      <p data-en="Drum lessons, tested kits and the Perki Drum Hero game. Run by Jacke Sienkiewicz, drummer of the band TUGA.">Lekcje gry na perkusji, sprawdzone zestawy i gra Perki Drum Hero. Prowadzi Jacke Sienkiewicz, perkusista zespolu TUGA.</p>
     </div>
     <div>
-      <h4>Oferta</h4>
-      <a href="/lekcje-nowy/">Lekcje perkusji</a>
-      <a href="/sklep/">Sklep — zestawy</a>
-      <a href="/gra/">Gra Drum Hero</a>
-      <a href="#filmy">Filmy</a>
+      <h4 data-en="Offer">Oferta</h4>
+      <a href="/lekcje-nowy/" data-en="Drum lessons">Lekcje perkusji</a>
+      <a href="/sklep/" data-en="Shop — kits">Sklep — zestawy</a>
+      <a href="/gra/" data-en="Drum Hero game">Gra Drum Hero</a>
+      <a href="#filmy" data-en="Videos">Filmy</a>
     </div>
     <div>
-      <h4>Kontakt</h4>
+      <h4 data-en="Contact">Kontakt</h4>
       <a href="tel:+48737899928">737 899 928</a>
       <a href="mailto:jackeperki@gmail.com">jackeperki@gmail.com</a>
       <a>Kramarska 33, Poznan</a>
       <a>Zydowska 35, Poznan</a>
     </div>
     <div>
-      <h4>Wiecej</h4>
+      <h4 data-en="More">Wiecej</h4>
       <a href="https://www.youtube.com/@jacke_skillovsky" target="_blank" rel="noopener">YouTube</a>
-      <a href="/polityka-prywatnosci/">Polityka prywatnosci</a>
-      <a href="/regulamin/">Regulamin</a>
+      <a href="/polityka-prywatnosci/" data-en="Privacy policy">Polityka prywatnosci</a>
+      <a href="/regulamin/" data-en="Terms">Regulamin</a>
     </div>
   </div>
   <div class="wrap foot-bottom">
-    <span>&copy; 2026 perki.pl — Jacke Sienkiewicz. Wszystkie prawa zastrzezone.</span>
-    <span>Perkusja w Poznaniu i online.</span>
+    <span data-en="&copy; 2026 perki.pl — Jacke Sienkiewicz. All rights reserved.">&copy; 2026 perki.pl — Jacke Sienkiewicz. Wszystkie prawa zastrzezone.</span>
+    <span data-en="Drums in Poznan and online.">Perkusja w Poznaniu i online.</span>
   </div>
 </footer>
 
 <!-- MOBILE STICKY CTA -->
 <div class="mcta" id="mcta">
-  <div class="price">od 120 zl<small>za lekcje 1 na 1</small></div>
-  <a class="btn btn--primary" href="/lekcje-nowy/#booking">Umow lekcje</a>
+  <div class="price"><span data-en="from 120 zl">od 120 zl</span><small data-en="for a 1-on-1 lesson">za lekcje 1 na 1</small></div>
+  <a class="btn btn--primary" href="/lekcje-nowy/#booking" data-en="Book a lesson">Umow lekcje</a>
 </div>
 
 <script>
 (function(){
   "use strict";
   var rm = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ===== JEZYK PL/EN ===== */
+  var LANG='pl';
+  function applyLang(l){
+    LANG=l;
+    document.documentElement.setAttribute('lang',l);
+    document.querySelectorAll('[data-en]').forEach(function(el){
+      if(!('plText' in el.dataset)) el.dataset.plText=el.textContent;
+      el.textContent = (l==='en') ? el.getAttribute('data-en') : el.dataset.plText;
+    });
+    document.querySelectorAll('[data-en-html]').forEach(function(el){
+      if(!('plHtml' in el.dataset)) el.dataset.plHtml=el.innerHTML;
+      el.innerHTML = (l==='en') ? el.getAttribute('data-en-html') : el.dataset.plHtml;
+    });
+    var lb=document.getElementById('langBtn');
+    if(lb){ lb.textContent=(l==='en')?'PL':'EN'; lb.setAttribute('aria-label', (l==='en')?'Przelacz jezyk na polski':'Switch language to English'); }
+    try{ localStorage.setItem('perki_lang', l); }catch(e){}
+  }
+  var savedLang='pl'; try{ if(localStorage.getItem('perki_lang')==='en') savedLang='en'; }catch(e){}
+  applyLang(savedLang);
+  var langBtn=document.getElementById('langBtn');
+  if(langBtn) langBtn.addEventListener('click', function(){ applyLang(LANG==='en'?'pl':'en'); });
 
   /* mobile menu */
   var burger = document.getElementById('burger');
@@ -848,7 +897,7 @@
     ['hihat','kick'],['hihat','kick'],['hihat','snare'],['hihat']
   ];
   function stopGroove(){ groovePlaying=false; grooveTimers.forEach(clearTimeout); grooveTimers=[];
-    if(grooveBtn){ grooveBtn.setAttribute('aria-pressed','false'); } if(grooveLabel){ grooveLabel.textContent='Zagraj groove'; } }
+    if(grooveBtn){ grooveBtn.setAttribute('aria-pressed','false'); } if(grooveLabel){ grooveLabel.textContent=(LANG==='en'?'Play a groove':'Zagraj groove'); } }
   function playGroove(){
     groovePlaying=true; if(grooveBtn) grooveBtn.setAttribute('aria-pressed','true'); if(grooveLabel) grooveLabel.textContent='Stop';
     dismissHint();
@@ -862,6 +911,16 @@
     })(i); }
   }
   if(grooveBtn){ grooveBtn.addEventListener('click', function(){ if(groovePlaying) stopGroove(); else playGroove(); }); }
+
+  /* lite youtube: klik laduje iframe (szybkie LCP, brak YT do czasu kliku) */
+  function loadYt(el){ var id=el.getAttribute('data-yt'); if(!id||el.dataset.loaded) return; el.dataset.loaded='1';
+    var f=document.createElement('iframe'); f.src='https://www.youtube-nocookie.com/embed/'+id+'?autoplay=1&rel=0';
+    f.title=el.getAttribute('aria-label')||'YouTube'; f.allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+    f.setAttribute('allowfullscreen',''); el.innerHTML=''; el.appendChild(f); }
+  [].slice.call(document.querySelectorAll('.lyt')).forEach(function(el){
+    el.addEventListener('click', function(){ loadYt(el); });
+    el.addEventListener('keydown', function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); loadYt(el); } });
+  });
 
   /* mobile sticky cta after hero */
   var mcta = document.getElementById('mcta');
