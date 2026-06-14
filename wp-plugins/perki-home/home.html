@@ -257,6 +257,15 @@
   .final{text-align:center}
   .final h2{font-size:clamp(2rem,4.5vw,3.2rem);max-width:18ch;margin:0 auto 22px}
   .final .hero-cta{justify-content:center}
+  .final--photo{position:relative;background:#120f0d;color:#fff;overflow:hidden;isolation:isolate}
+  .final-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 28%;z-index:-2}
+  .final-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(18,15,13,.74),rgba(18,15,13,.58));z-index:-1}
+  .final--photo h2{color:#fff}
+  .final--photo .bar{background:var(--accent)}
+  .final--photo .reassurance{color:rgba(255,255,255,.88)}
+  .final--photo .reassurance svg{color:#fff}
+  .final--photo .btn--ghost{color:#fff;border-color:rgba(255,255,255,.55)}
+  .final--photo .btn--ghost:hover{background:rgba(255,255,255,.14);border-color:#fff;color:#fff}
   footer{background:var(--trust);color:#cdd7e0}
   .foot{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:32px;padding-block:clamp(44px,6vw,72px)}
   footer .kicker{color:var(--accent)}
@@ -499,14 +508,7 @@
 <section id="omnie" class="alt">
   <div class="wrap inst">
     <div class="inst-photo reveal pre">
-      <!-- SLOT NA FOTO: podmien hero-art na <img src="..." alt="Jacke Sienkiewicz"> -->
-      <svg class="hero-art" viewBox="0 0 280 300" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <circle cx="140" cy="92" r="42" fill="#3a322c"/><circle cx="140" cy="86" r="34" fill="#54483f"/>
-        <path d="M70 300c0-50 31-86 70-86s70 36 70 86z" fill="#2a2320"/>
-        <ellipse cx="140" cy="150" rx="58" ry="14" fill="#F2641E"/>
-        <rect x="96" y="150" width="88" height="40" rx="6" fill="#1c1815"/>
-        <ellipse cx="74" cy="132" rx="34" ry="7" fill="#E6A938"/><ellipse cx="206" cy="132" rx="34" ry="7" fill="#E6A938"/>
-      </svg>
+      <img src="/wp-content/plugins/perki-home/img/jacke-about.jpg" width="800" height="1200" loading="lazy" decoding="async" alt="Jacke Sienkiewicz gra na perkusji podczas jam session w Poznaniu" style="object-position:center 30%">
     </div>
     <div class="reveal pre">
       <div class="bar" style="width:42px;height:4px;background:var(--accent);border-radius:3px;margin-bottom:16px"></div>
@@ -687,7 +689,9 @@
 </section>
 
 <!-- FINAL CTA -->
-<section class="alt final" id="kontakt">
+<section class="final final--photo" id="kontakt">
+  <img class="final-bg" src="/wp-content/plugins/perki-home/img/jacke-cta.jpg" width="1800" height="1199" loading="lazy" decoding="async" alt="">
+  <div class="final-overlay"></div>
   <div class="wrap reveal pre">
     <div class="bar" style="width:42px;height:4px;background:var(--accent);border-radius:3px;margin:0 auto 16px"></div>
     <h2 data-en="Ready to sit down at the drums?">Gotowy, zeby usiasc za bebnami?</h2>
