@@ -1,0 +1,100 @@
+{
+  "_opis": "JEDYNE zrodlo prawdy o firmie dla danych maszynowych: JSON-LD (schema.org), /llms.txt i konfiguracja formularza rezerwacji. FAQ NIE jest tutaj: zrodlem jest widoczne FAQ w landing.html (PHP wyciaga je do FAQPage i llms.txt). Ceny sa tez widoczne w landing.html; test tests/consistency.test.mjs pilnuje zgodnosci.",
+  "nazwa": "perki.pl, lekcje gry na perkusji",
+  "opis": "Lekcje gry na perkusji 1 na 1 w centrum Poznania i online (Google Meet) dla dzieci od 7 lat, dorosłych, wracających po przerwie i zaawansowanych. Prowadzi Jacke Sienkiewicz, perkusista zespołu TUGA.",
+  "url": "https://perki.pl/",
+  "telefon": "+48737899928",
+  "telefon_wyswietlany": "737 899 928",
+  "email": "jackeperki@gmail.com",
+  "jezyk": "pl-PL",
+  "waluta": "PLN",
+  "obraz": "https://perki.pl/wp-content/plugins/perki-lekcje-jasny/assets/img/og-perki-lekcje.jpg",
+  "logo": "https://perki.pl/wp-content/plugins/perki-lekcje-jasny/assets/img/apple-touch-icon.png",
+  "nauczyciel": {
+    "imie": "Jacke Sienkiewicz",
+    "rola": "Nauczyciel gry na perkusji, perkusista zespołu TUGA",
+    "zespol": "TUGA",
+    "fakty": [
+      "16 lat gry na perkusji",
+      "perkusista zespołu TUGA, debiutancki album LP w 2024",
+      "prowadzi jam sessions w Poznaniu",
+      "mentor: Newman Taylor Baker"
+    ]
+  },
+  "lokalizacje": [
+    {
+      "nazwa": "Sala Kramarska",
+      "ulica": "Kramarska 33",
+      "miasto": "Poznań",
+      "region": "wielkopolskie",
+      "kraj": "PL"
+    },
+    {
+      "nazwa": "Sala Żydowska",
+      "ulica": "Żydowska 35",
+      "miasto": "Poznań",
+      "region": "wielkopolskie",
+      "kraj": "PL"
+    }
+  ],
+  "online": "Google Meet",
+  "profile": [
+    "https://www.youtube.com/@jacke_skillovsky",
+    "https://www.instagram.com/jacke_skillovsky"
+  ],
+  "lekcja_min": 45,
+  "oferta": [
+    {
+      "id": "lekcja",
+      "nazwa": "Pojedyncza lekcja",
+      "lekcje": 1,
+      "cena": 150
+    },
+    {
+      "id": "karnet4",
+      "nazwa": "Karnet 4 lekcje",
+      "lekcje": 4,
+      "cena": 570
+    },
+    {
+      "id": "karnet8",
+      "nazwa": "Karnet 8 lekcji",
+      "lekcje": 8,
+      "cena": 1080
+    },
+    {
+      "id": "karnet12",
+      "nazwa": "Karnet 12 lekcji",
+      "lekcje": 12,
+      "cena": 1530
+    },
+    {
+      "id": "voucher",
+      "nazwa": "Voucher podarunkowy",
+      "lekcje": 1,
+      "cena": 150,
+      "od": true
+    }
+  ],
+  "abonament_cena_za_lekcje": 135,
+  "zasada_zmiany_terminu_h": 24,
+  "rezerwacja": {
+    "dni_tygodnia": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "godzina_od": 12,
+    "godzina_do": 20,
+    "dlugosci_min": [
+      45,
+      60,
+      90
+    ],
+    "horyzont_dni": 60,
+    "min_wyprzedzenie_h": 12
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "name": "perki-tests",
+  "private": true,
+  "description": "Testy wtyczki perki-lekcje-jasny: spojnosc danych, API (prawdziwy PHP na stubie WP), E2E w Chromium, axe WCAG 2.2.",
+  "scripts": {
+    "test": "node --test --test-concurrency=1 ./"
+  },
+  "devDependencies": {
+    "axe-core": "4.10.3"
+  }
+}
