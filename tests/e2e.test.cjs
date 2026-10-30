@@ -146,6 +146,9 @@ test('voucher ukrywa pola lekcji (forma, dlugosc) i pokazuje wskazowke', async (
 
 test('kalendarz: niedziele i przeszlosc zablokowane, nawigacja miesiecy w horyzoncie', async () => {
   const { ctx, page } = await open();
+  // poczatek: biezacy miesiac albo (koncowka miesiaca) nastepny; cofamy sie do granicy
+  let back = 0; while (await page.isEnabled('#calPrev') && back++ < 2) await page.click('#calPrev');
+  assert.ok(back <= 1, 'widok startowy najwyzej 1 miesiac do przodu');
   assert.equal(await page.isDisabled('#calPrev'), true);
   const labels = await page.$$eval('#cal button', bs => bs.map(b => [b.getAttribute('aria-label'), b.disabled]));
   for (const [l, dis] of labels) if (/^niedziela/.test(l)) assert.equal(dis, true, l);
@@ -190,6 +193,18 @@ for (const [w, h] of [[320, 640], [375, 812], [768, 1024], [1024, 768], [1440, 9
     await ctx.close();
   });
 }
+
+test('mobilny pasek CTA: ukryty na hero, przy formularzu i na koncu strony, widoczny pomiedzy', async () => {
+  const { ctx, page } = await open({ viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true, reducedMotion: 'reduce' });
+  const shown = () => page.evaluate(() => document.getElementById('mcta').classList.contains('show'));
+  const go = async y => { await page.evaluate(y => window.scrollTo(0, y === 'end' ? document.body.scrollHeight : y), y); await page.waitForTimeout(250); };
+  assert.equal(await shown(), false, 'hero');
+  await go('end'); assert.equal(await shown(), false, 'koniec strony (skok)');
+  await go(1500); assert.equal(await shown(), true, 'srodek');
+  await page.locator('#booking').scrollIntoViewIfNeeded(); await page.waitForTimeout(250);
+  assert.equal(await shown(), false, 'formularz');
+  await ctx.close();
+});
 
 test('menu mobilne: otwiera sie, zamyka po kliknieciu linku i Escape', async () => {
   const { ctx, page } = await open({ viewport: { width: 375, height: 812 }, isMobile: true, hasTouch: true });
