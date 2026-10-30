@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Perki Lekcje (jasny landing)
  * Description: Jasny, sprzedazowy landing lekcji perkusji pod adresem /lekcje-nowy/ serwowany headless (pelny dokument, bez motywu i Elementora). Zrodla prawdy: landing.html (tresc) i business.json (dane firmy). Przyjmuje prosby o termin (CPT "prosba_lekcja" + mail do Jacke + potwierdzenie do ucznia). Serwuje tez /llms.txt, /perki-sitemap.xml i dopisuje boty AI do robots.txt.
- * Version: 1.2.1
+ * Version: 1.3.0
  * Author: perki.pl
  * License: GPL-2.0-or-later
  * Text Domain: perki-lekcje-jasny
@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; }
 
 class Perki_Lekcje_Jasny {
 
-	const VERSION   = '1.2.1';            // zmiana (lub edycja landing.html/business.json) = auto purge LiteSpeed
+	const VERSION   = '1.3.0';            // zmiana (lub edycja landing.html/business.json) = auto purge LiteSpeed
 	const QV        = 'perki_lekcje_jasny';
 	const SLUG      = 'lekcje-nowy';      // docelowo mozna przelaczyc na 'lekcje'
 	const PAGE_FILE = 'landing.html';     // jedyne zrodlo prawdy tresci (DRY)
