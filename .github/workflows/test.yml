@@ -1,0 +1,42 @@
+name: Testy i paczka wtyczki
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Lint PHP
+        run: find wp-plugins tests -name '*.php' -print0 | xargs -0 -n1 php -l
+      - name: Zaleznosci testow
+        working-directory: tests
+        run: |
+          npm ci
+          npm install --no-save playwright@1
+          npx playwright install --with-deps chromium
+      - name: Testy (spojnosc, API na stubie WP, E2E, axe WCAG 2.2)
+        working-directory: tests
+        run: npm test
+      - name: Zrzuty ekranu i metryki
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: zrzuty-i-metryki
+          path: tests/artifacts/
+      - name: Paczka wtyczki
+        run: tools/build-zip.sh
+      - uses: actions/upload-artifact@v4
+        with:
+          name: perki-lekcje-jasny-zip
+          path: dist/*.zip

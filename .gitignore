@@ -4,3 +4,4 @@ wp-plugins/*.zip
 **/.DS_Store
 node_modules/
 tests/artifacts/
+dist/

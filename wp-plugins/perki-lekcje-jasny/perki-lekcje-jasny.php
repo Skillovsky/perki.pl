@@ -51,6 +51,32 @@ class Perki_Lekcje_Jasny {
 		add_filter( 'manage_' . self::CPT . '_posts_columns', array( __CLASS__, 'admin_columns' ) );
 		add_action( 'manage_' . self::CPT . '_posts_custom_column', array( __CLASS__, 'admin_column_value' ), 10, 2 );
 		add_action( 'add_meta_boxes', array( __CLASS__, 'meta_box' ) );
+		add_action( 'admin_notices', array( __CLASS__, 'health_notice' ) );
+	}
+
+	/**
+	 * Samodiagnostyka po wdrozeniu: na tym hostingu upload zipa potrafi wyzerowac pliki .html
+	 * (DEPLOY-NOTES). Pokazujemy adminowi, czego brakuje, zamiast cicho serwowac pusta strone.
+	 */
+	public static function health_notice() {
+		if ( ! current_user_can( 'activate_plugins' ) ) { return; }
+		$need = array(
+			self::PAGE_FILE                  => 20000,
+			self::DATA_FILE                  => 500,
+			'assets/fonts/inter-pl.woff2'    => 10000,
+			'assets/img/perki-kit-960.avif'  => 5000,
+			'assets/img/og-perki-lekcje.jpg' => 5000,
+		);
+		$bad = array();
+		foreach ( $need as $f => $min ) {
+			$size = @filesize( self::path( $f ) );
+			if ( ! $size || $size < $min ) { $bad[] = $f . ' (' . (int) $size . ' B)'; }
+		}
+		if ( $bad ) {
+			echo '<div class="notice notice-error"><p><b>Perki Lekcje:</b> brakuje plikow albo sa puste: '
+				. esc_html( implode( ', ', $bad ) )
+				. '. Wgraj je ponownie (Wtyczki &gt; Edytor plikow wtyczki dla .html/.json, zip dla obrazow i fontow).</p></div>';
+		}
 	}
 
 	/* -------------------------------------------------------------- DANE */
