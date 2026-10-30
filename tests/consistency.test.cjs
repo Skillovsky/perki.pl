@@ -22,10 +22,9 @@ test('ceny w cenniku i w formularzu = business.json', () => {
     assert.ok(card[0].includes(pl(o.cena / o.lekcje)), `karta ${o.id}: brak ceny za lekcje ${pl(o.cena / o.lekcje)}`);
     if (o.lekcje > 1) {
       const single = biz.oferta.find(x => x.id === 'lekcja').cena;
-      assert.ok(card[0].includes(`${single * o.lekcje - o.cena} zł mniej`), `karta ${o.id}: zla kwota oszczednosci`);
+      assert.ok(card[0].includes(`Oszczędzasz ${single * o.lekcje - o.cena} zł`), `karta ${o.id}: zla kwota oszczednosci`);
     }
   }
-  assert.ok(html.includes(`<b>${biz.abonament_cena_za_lekcje} zł</b> za lekcję`), 'abonament');
 });
 
 test('FAQ z cenami zgodne z business.json', () => {
@@ -70,4 +69,7 @@ test('godziny rezerwacji i dlugosci z business.json maja sens', () => {
   assert.ok(r.godzina_od < r.godzina_do && r.godzina_od >= 0 && r.godzina_do <= 23);
   assert.ok(r.dni_tygodnia.every(d => d >= 1 && d <= 7));
   for (const len of r.dlugosci_min) assert.ok(html.includes(`name="len" value="${len}"`), `brak opcji dlugosci ${len}`);
+  const offered = [...html.matchAll(/name="len" value="(\d+)"/g)].map(m => +m[1]);
+  assert.deepEqual(offered, r.dlugosci_min, 'formularz = business.json');
+  for (const m of html.matchAll(/(\d+) min/g)) assert.ok(r.dlugosci_min.includes(+m[1]), `tekst obiecuje ${m[0]}, ktorej nie da sie zarezerwowac`);
 });

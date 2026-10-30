@@ -8,6 +8,7 @@
  */
 
 define( 'ABSPATH', __DIR__ . '/' );
+define( 'DAY_IN_SECONDS', 86400 );
 date_default_timezone_set( 'UTC' );
 
 $STATE_DIR = getenv( 'PERKI_STUB_STATE' ) ?: sys_get_temp_dir() . '/perki-stub';
@@ -84,6 +85,8 @@ function esc_html( $s ) { return htmlspecialchars( (string) $s, ENT_QUOTES ); }
 function wp_create_nonce( $a ) { return substr( hash_hmac( 'sha256', $a . floor( time() / 43200 ), 'stub-salt' ), 0, 10 ); }
 function wp_verify_nonce( $n, $a ) { return is_string( $n ) && '' !== $n && hash_equals( wp_create_nonce( $a ), $n ) ? 1 : false; }
 function wp_timezone() { return new DateTimeZone( 'Europe/Warsaw' ); }
+function wp_timezone_string() { return 'Europe/Warsaw'; }
+function current_user_can( $c ) { return true; }
 function wp_date( $fmt, $ts, $tz ) {
 	$d    = ( new DateTimeImmutable( '@' . $ts ) )->setTimezone( $tz );
 	$days = array( 'niedziela', 'poniedziałek', 'wtorek', 'środa', 'czwartek', 'piątek', 'sobota' );
@@ -123,6 +126,7 @@ function register_rest_route( $ns, $route, $args ) { $GLOBALS['stub_routes'][ '/
 require plugin_dir_path( '' ) . 'perki-lekcje-jasny.php';
 $_SERVER['REQUEST_URI'] = $uri;
 do_action( 'init' ); // moze zakonczyc zadanie (llms.txt, sitemap)
+do_action( 'wp_loaded' );
 
 /* ------------------------------------------------------------ dispatch */
 if ( 0 === strpos( $path, '/wp-json/' ) ) {

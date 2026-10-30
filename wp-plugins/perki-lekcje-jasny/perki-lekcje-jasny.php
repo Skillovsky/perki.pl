@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Perki Lekcje (jasny landing)
  * Description: Jasny, sprzedazowy landing lekcji perkusji pod adresem /lekcje-nowy/ serwowany headless (pelny dokument, bez motywu i Elementora). Zrodla prawdy: landing.html (tresc) i business.json (dane firmy). Przyjmuje prosby o termin (CPT "prosba_lekcja" + mail do Jacke + potwierdzenie do ucznia). Serwuje tez /llms.txt, /perki-sitemap.xml i dopisuje boty AI do robots.txt.
- * Version: 1.2.0
+ * Version: 1.2.1
  * Author: perki.pl
  * License: GPL-2.0-or-later
  * Text Domain: perki-lekcje-jasny
@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; }
 
 class Perki_Lekcje_Jasny {
 
-	const VERSION   = '1.2.0';            // zmiana (lub edycja landing.html/business.json) = auto purge LiteSpeed
+	const VERSION   = '1.2.1';            // zmiana (lub edycja landing.html/business.json) = auto purge LiteSpeed
 	const QV        = 'perki_lekcje_jasny';
 	const SLUG      = 'lekcje-nowy';      // docelowo mozna przelaczyc na 'lekcje'
 	const PAGE_FILE = 'landing.html';     // jedyne zrodlo prawdy tresci (DRY)
@@ -26,6 +26,13 @@ class Perki_Lekcje_Jasny {
 	const THROTTLE_WIN = 3600;
 	const MAX_BODY     = 8192;
 	const CACHE_TTL    = 604800;          // LiteSpeed: 7 dni, purge przy kazdej zmianie plikow
+	const CONFIRM_DAY  = 50;              // maks. potwierdzen do uczniow dziennie (cala strona)
+
+	/** Awaryjne reguly rezerwacji, gdy business.json jest uszkodzony (formularz dalej dziala). */
+	const DEFAULT_REZ = array(
+		'dni_tygodnia' => array( 1, 2, 3, 4, 5, 6 ), 'godzina_od' => 12, 'godzina_do' => 20,
+		'dlugosci_min' => array( 45, 60, 90 ), 'horyzont_dni' => 60, 'min_wyprzedzenie_h' => 12,
+	);
 
 	const FORMY = array( 'stacjonarnie' => 'Stacjonarnie (Poznań)', 'online' => 'Online (Google Meet)' );
 
@@ -35,13 +42,13 @@ class Perki_Lekcje_Jasny {
 		'Claude-SearchBot', 'Claude-User', 'ClaudeBot',
 		'PerplexityBot', 'Perplexity-User',
 		'Google-Extended', 'Applebot-Extended',
-		'Bingbot', 'DuckAssistBot', 'MistralAI-User', 'meta-externalagent',
+		'DuckAssistBot', 'MistralAI-User', 'meta-externalagent',
 	);
 
 	public static function init() {
 		add_action( 'init', array( __CLASS__, 'register_cpt' ) );
 		add_action( 'init', array( __CLASS__, 'register_rewrite' ) );
-		add_action( 'init', array( __CLASS__, 'maybe_purge_on_update' ), 99 );
+		add_action( 'wp_loaded', array( __CLASS__, 'maybe_purge_on_update' ) );
 		add_action( 'init', array( __CLASS__, 'serve_text_endpoints' ), 100 );
 		add_filter( 'query_vars', array( __CLASS__, 'query_vars' ) );
 		add_action( 'template_redirect', array( __CLASS__, 'serve_page' ) );
@@ -68,12 +75,13 @@ class Perki_Lekcje_Jasny {
 			'assets/img/og-perki-lekcje.jpg' => 5000,
 		);
 		$bad = array();
+		if ( null === self::business_raw_error() ) { $bad[] = self::DATA_FILE . ' (niepoprawny JSON: ' . json_last_error_msg() . ')'; }
 		foreach ( $need as $f => $min ) {
 			$size = @filesize( self::path( $f ) );
 			if ( ! $size || $size < $min ) { $bad[] = $f . ' (' . (int) $size . ' B)'; }
 		}
 		if ( $bad ) {
-			echo '<div class="notice notice-error"><p><b>Perki Lekcje:</b> brakuje plikow albo sa puste: '
+			echo '<div class="notice notice-error"><p><b>Perki Lekcje:</b> brakuje plikow, sa puste albo uszkodzone: '
 				. esc_html( implode( ', ', $bad ) )
 				. '. Wgraj je ponownie (Wtyczki &gt; Edytor plikow wtyczki dla .html/.json, zip dla obrazow i fontow).</p></div>';
 		}
@@ -85,13 +93,20 @@ class Perki_Lekcje_Jasny {
 		return plugin_dir_path( __FILE__ ) . $file;
 	}
 
-	/** business.json jako tablica (cache na czas zadania). */
+	/** Surowe dekodowanie business.json: tablica albo null (brak pliku / zly JSON). */
+	private static function business_raw_error() {
+		$raw = @file_get_contents( self::path( self::DATA_FILE ) );
+		$b   = $raw ? json_decode( $raw, true ) : null;
+		return is_array( $b ) ? $b : null;
+	}
+
+	/** business.json jako tablica (cache na czas zadania); reguly rezerwacji zawsze kompletne. */
 	public static function business() {
 		static $b = null;
 		if ( null === $b ) {
-			$raw = @file_get_contents( self::path( self::DATA_FILE ) );
-			$b   = $raw ? json_decode( $raw, true ) : null;
-			if ( ! is_array( $b ) ) { $b = array(); }
+			$b = self::business_raw_error();
+			if ( null === $b ) { $b = array(); }
+			$b['rezerwacja'] = array_merge( self::DEFAULT_REZ, isset( $b['rezerwacja'] ) && is_array( $b['rezerwacja'] ) ? $b['rezerwacja'] : array() );
 		}
 		return $b;
 	}
@@ -249,7 +264,8 @@ class Perki_Lekcje_Jasny {
 				'prosba' => rest_url( self::NS . '/prosba' ),
 				'ping'   => rest_url( self::NS . '/lekcja-ping' ),
 			),
-			'rezerwacja'  => isset( $b['rezerwacja'] ) ? $b['rezerwacja'] : new stdClass(),
+			'rezerwacja'  => $b['rezerwacja'],
+			'tz'          => function_exists( 'wp_timezone_string' ) ? wp_timezone_string() : 'Europe/Warsaw',
 			'oferta'      => isset( $b['oferta'] ) ? $b['oferta'] : array(),
 			'telefon'     => isset( $b['telefon_wyswietlany'] ) ? $b['telefon_wyswietlany'] : '',
 			'prywatnosc'  => $privacy ? $privacy : '',
@@ -369,10 +385,9 @@ class Perki_Lekcje_Jasny {
 			$per = $o['cena'] / max( 1, (int) $o['lekcje'] );
 			$L[] = sprintf( '- Cena: %s: %s%s zł%s', $o['nazwa'], empty( $o['od'] ) ? '' : 'od ', self::fmt_price( $o['cena'] ), $o['lekcje'] > 1 ? ' (' . self::fmt_price( $per ) . ' zł za lekcję)' : '' );
 		}
-		$L[] = '- Abonament miesięczny: ' . self::fmt_price( $b['abonament_cena_za_lekcje'] ) . ' zł za lekcję';
 		$L[] = '- Zmiana terminu: bezpłatnie do ' . (int) $b['zasada_zmiany_terminu_h'] . ' h przed lekcją';
 		$r   = $b['rezerwacja'];
-		$L[] = sprintf( '- Rezerwacja: formularz na stronie (dzień i godzina %d:00-%d:00, poniedziałek-sobota), potwierdzenie terminu i link do płatności BLIK, Przelewy24 lub kartą', (int) $r['godzina_od'], (int) $r['godzina_do'] );
+		$L[] = sprintf( '- Rezerwacja: formularz na stronie (%s, godziny %d:00-%d:00), potwierdzenie terminu i link do płatności BLIK, Przelewy24 lub kartą', self::days_label( $r['dni_tygodnia'] ), (int) $r['godzina_od'], (int) $r['godzina_do'] );
 		$L[] = '- Kontakt: tel. ' . $b['telefon_wyswietlany'] . ', e-mail ' . $b['email'];
 		$L[] = '';
 		$L[] = '## Strony';
@@ -398,6 +413,21 @@ class Perki_Lekcje_Jasny {
 		return implode( "\n", $L ) . "\n";
 	}
 
+	/** [1,2,3,4,5,6] -> "poniedziałek-sobota"; [1,3,5] -> "poniedziałek, środa, piątek". */
+	public static function days_label( $days ) {
+		$n    = array( 1 => 'poniedziałek', 'wtorek', 'środa', 'czwartek', 'piątek', 'sobota', 'niedziela' );
+		$days = array_values( array_unique( array_map( 'intval', (array) $days ) ) );
+		sort( $days );
+		$runs = array();
+		foreach ( $days as $d ) {
+			if ( $runs && end( $runs )[1] === $d - 1 ) { $runs[ count( $runs ) - 1 ][1] = $d; } else { $runs[] = array( $d, $d ); }
+		}
+		return implode( ', ', array_map( function ( $r ) use ( $n ) {
+			if ( $r[0] === $r[1] ) { return $n[ $r[0] ]; }
+			return $n[ $r[0] ] . ( $r[1] - $r[0] > 1 ? '-' : ', ' ) . $n[ $r[1] ];
+		}, $runs ) );
+	}
+
 	public static function sitemap_xml() {
 		$items = array(
 			array( self::page_url(), (int) @filemtime( self::path( self::PAGE_FILE ) ), '0.9' ),
@@ -413,9 +443,18 @@ class Perki_Lekcje_Jasny {
 	/** robots.txt (wirtualny WP): zaproszenie botow AI + nasza mapa. Fizyczny plik robots.txt ma pierwszenstwo. */
 	public static function robots_txt( $output, $public ) {
 		if ( ! $public ) { return $output; }
+		// Bot, ktory znajdzie wlasna grupe, ignoruje "User-agent: *" (RFC 9309), wiec kopiujemy jej reguly.
+		$rules = array();
+		$in    = false;
+		foreach ( preg_split( '/\r?\n/', (string) $output ) as $line ) {
+			$t = trim( $line );
+			if ( preg_match( '/^user-agent:\s*(.+)$/i', $t, $m ) ) { $in = ( '*' === trim( $m[1] ) ); continue; }
+			if ( $in && preg_match( '/^(allow|disallow|crawl-delay):/i', $t ) ) { $rules[] = $t; }
+		}
+		if ( ! $rules ) { $rules[] = 'Allow: /'; }
 		$o  = rtrim( (string) $output ) . "\n\n# perki.pl: wyszukiwarki i asystenci AI moga czytac i cytowac strone\n";
 		foreach ( self::AI_BOTS as $ua ) { $o .= 'User-agent: ' . $ua . "\n"; }
-		$o .= "Allow: /\nDisallow: /wp-admin/\nAllow: /wp-admin/admin-ajax.php\nDisallow: /*?add-to-cart=\n\n";
+		$o .= implode( "\n", array_unique( $rules ) ) . "\n\n";
 		$o .= 'Sitemap: ' . home_url( '/perki-sitemap.xml' ) . "\n";
 		return $o;
 	}
@@ -452,8 +491,11 @@ class Perki_Lekcje_Jasny {
 			'methods'             => 'GET',
 			'permission_callback' => '__return_true',
 			'callback'            => function () {
+				// LiteSpeed domyslnie cache'uje REST (7 dni): wspolny, przeterminowany nonce = 403 dla wszystkich.
+				do_action( 'litespeed_control_set_nocache', 'perki nonce' );
 				$res = new WP_REST_Response( array( 'nonce' => wp_create_nonce( 'wp_rest' ) ), 200 );
-				$res->header( 'Cache-Control', 'no-store' );
+				$res->header( 'Cache-Control', 'no-store, private' );
+				$res->header( 'X-LiteSpeed-Cache-Control', 'no-cache' );
 				return $res;
 			},
 		) );
@@ -463,6 +505,14 @@ class Perki_Lekcje_Jasny {
 			'permission_callback' => '__return_true',
 			'callback'            => array( __CLASS__, 'handle_prosba' ),
 		) );
+	}
+
+	/** IPv6: throttle per /64 (jeden klient ma zwykle cala podsiec). */
+	private static function ip_bucket( $ip ) {
+		if ( false !== strpos( $ip, ':' ) && false !== ( $bin = @inet_pton( $ip ) ) ) {
+			return bin2hex( substr( $bin, 0, 8 ) ) . '::/64';
+		}
+		return $ip;
 	}
 
 	private static function client_ip() {
@@ -481,12 +531,15 @@ class Perki_Lekcje_Jasny {
 	 */
 	public static function validate_term( $date, $time, $required ) {
 		$r = self::business();
-		$r = isset( $r['rezerwacja'] ) ? $r['rezerwacja'] : array();
+		$r = $r['rezerwacja'];
 		if ( '' === $date ) {
 			return $required ? self::err( 'pl_term', 'Wybierz dzień i godzinę lekcji.', 400, 'data' ) : array( '', '' );
 		}
 		if ( ! preg_match( '/^\d{4}-\d{2}-\d{2}$/', $date ) ) {
 			return array( trim( $date . ' ' . $time ), '' ); // zgodnosc wsteczna
+		}
+		if ( ! $required && '' === $time ) {
+			return array( '', '' ); // voucher: termin opcjonalny, sam dzien bez godziny pomijamy
 		}
 		if ( ! preg_match( '/^(\d{1,2}):(\d{2})$/', $time, $tm ) ) {
 			return self::err( 'pl_time', 'Wybierz godzinę lekcji.', 400, 'godzina' );
@@ -538,12 +591,12 @@ class Perki_Lekcje_Jasny {
 			return self::err( 'pl_nonce', 'Sesja wygasła. Odśwież stronę i spróbuj ponownie.', 403 );
 		}
 
-		$ip   = self::client_ip();
-		$tkey = 'perki_lekcja_thr_' . md5( $ip );
+		$tkey = 'perki_lekcja_thr_' . md5( self::ip_bucket( self::client_ip() ) );
 		$cnt  = (int) get_transient( $tkey );
 		if ( $cnt >= self::THROTTLE_MAX ) {
 			return self::err( 'pl_throttle', 'Za dużo prób. Spróbuj ponownie za chwilę albo zadzwoń.', 429 );
 		}
+		set_transient( $tkey, $cnt + 1, self::THROTTLE_WIN ); // liczymy proby, nie tylko sukcesy
 
 		$b     = self::business();
 		$name  = mb_substr( sanitize_text_field( (string) $request->get_param( 'name' ) ), 0, 80 );
@@ -591,25 +644,23 @@ class Perki_Lekcje_Jasny {
 
 		$meta = array(
 			'name' => $name, 'email' => $email, 'phone' => $phone, 'produkt' => $prod_name,
-			'len' => $len, 'data' => $term_label, 'termin_iso' => $term_iso, 'godzina' => $term_iso ? '' : $time,
-			'forma' => $mode ? self::FORMY[ $mode ] : '', 'wiadomosc' => $msg, 'ip' => $ip,
+			'len' => 'voucher' === $prod ? 0 : $len, 'data' => $term_label, 'termin_iso' => $term_iso,
+			'forma' => ( $mode && 'voucher' !== $prod ) ? self::FORMY[ $mode ] : '', 'wiadomosc' => $msg,
 		);
 		foreach ( $meta as $k => $v ) { update_post_meta( $post_id, self::META . $k, $v ); }
 
-		set_transient( $tkey, $cnt + 1, self::THROTTLE_WIN );
 		$mail_ok = self::notify_admin( $post_id, $meta );
-		self::confirm_student( $meta );
+		$copy_ok = self::confirm_student( $meta, $prod, (bool) $term_iso );
 
-		return new WP_REST_Response( array( 'ok' => true, 'id' => $post_id, 'termin' => $term_label, 'mail' => (bool) $mail_ok ), 200 );
+		return new WP_REST_Response( array( 'ok' => true, 'id' => $post_id, 'termin' => $term_label, 'mail' => (bool) $mail_ok, 'kopia' => (bool) $copy_ok ), 200 );
 	}
 
 	private static function summary_lines( $m ) {
-		return array(
-			'Pakiet: ' . ( $m['produkt'] ? $m['produkt'] : 'lekcja' ),
-			'Długość: ' . ( $m['len'] ? $m['len'] . ' min' : '(do ustalenia)' ),
-			'Preferowany termin: ' . ( $m['data'] ? $m['data'] : '(do ustalenia)' ) . ( $m['godzina'] ? ' ' . $m['godzina'] : '' ),
-			'Forma: ' . ( $m['forma'] ? $m['forma'] : '(do ustalenia)' ),
-		);
+		$l = array( 'Pakiet: ' . ( $m['produkt'] ? $m['produkt'] : 'lekcja' ) );
+		if ( $m['len'] ) { $l[] = 'Długość: ' . $m['len'] . ' min'; }
+		$l[] = 'Preferowany termin: ' . ( $m['data'] ? $m['data'] : '(do ustalenia)' );
+		if ( $m['forma'] ) { $l[] = 'Forma: ' . $m['forma']; }
+		return $l;
 	}
 
 	private static function notify_admin( $post_id, $m ) {
@@ -630,7 +681,6 @@ class Perki_Lekcje_Jasny {
 				'Wiadomość: ' . ( $m['wiadomosc'] ? $m['wiadomosc'] : '(brak)' ),
 				'',
 				'Potwierdź termin i wyślij uczniowi link do płatności (BLIK/Przelewy24/karta).',
-				'IP: ' . $m['ip'],
 			)
 		);
 		$headers = array(
@@ -640,32 +690,46 @@ class Perki_Lekcje_Jasny {
 		return wp_mail( $to, $subj, implode( "\n", $lines ), $headers );
 	}
 
-	/** Potwierdzenie przyjecia prosby do ucznia (Odpowiedz trafia do Jacke). */
-	private static function confirm_student( $m ) {
+	/**
+	 * Potwierdzenie przyjecia prosby do ucznia (Odpowiedz trafia do Jacke).
+	 * Antyspam: mail idzie na adres podany w formularzu, wiec NIE zawiera zadnego tekstu od
+	 * nadawcy (ani imienia, ani wiadomosci): tylko nazwe pakietu z business.json i termin
+	 * zwalidowany przez serwer. Limity: 1 mail / adres / 24 h i CONFIRM_DAY dziennie na strone.
+	 */
+	private static function confirm_student( $m, $prod_id, $term_valid ) {
+		$rkey = 'perki_lekcja_to_' . md5( strtolower( $m['email'] ) );
+		$dkey = 'perki_lekcja_conf_' . gmdate( 'Ymd' );
+		$day  = (int) get_transient( $dkey );
+		if ( get_transient( $rkey ) || $day >= self::CONFIRM_DAY ) { return false; }
+		set_transient( $rkey, 1, DAY_IN_SECONDS );
+		set_transient( $dkey, $day + 1, DAY_IN_SECONDS );
+
 		$b     = self::business();
 		$reply = isset( $b['email'] ) ? $b['email'] : get_option( 'admin_email' );
 		$h     = isset( $b['zasada_zmiany_terminu_h'] ) ? (int) $b['zasada_zmiany_terminu_h'] : 24;
-		$lines = array_merge(
-			array(
-				'Cześć ' . $m['name'] . ',',
-				'',
-				'dziękuję za prośbę o lekcję perkusji. Oto, co do mnie dotarło:',
-				'',
-			),
-			self::summary_lines( $m ),
-			array(
-				'',
-				'Co dalej: sprawdzę dostępność, potwierdzę termin i wyślę link do płatności (BLIK, Przelewy24 albo karta). Termin jest Twój po opłaceniu. Zmienisz go bezpłatnie do ' . $h . ' h przed lekcją.',
-				'',
-				'Masz pytanie? Odpowiedz na tego maila albo zadzwoń: ' . ( isset( $b['telefon_wyswietlany'] ) ? $b['telefon_wyswietlany'] : '' ) . '.',
-				'W międzyczasie możesz poćwiczyć rytm w darmowej grze: ' . home_url( '/gra/' ),
-				'',
-				'Do usłyszenia,',
-				'Jacke, perki.pl',
-				'',
-				'Ta wiadomość jest odpowiedzią na formularz na stronie ' . self::page_url() . '. Jeśli to nie Ty, zignoruj ją.',
-			)
-		);
+		$known = '';
+		foreach ( (array) ( isset( $b['oferta'] ) ? $b['oferta'] : array() ) as $o ) {
+			if ( $o['id'] === $prod_id ) { $known = $o['nazwa']; }
+		}
+		$lines = array( 'Cześć,', '', 'dziękuję za prośbę o lekcję perkusji na perki.pl.', '' );
+		if ( $known ) { $lines[] = 'Pakiet: ' . $known; }
+		if ( $m['len'] ) { $lines[] = 'Długość: ' . (int) $m['len'] . ' min'; }
+		$lines[] = 'Preferowany termin: ' . ( $term_valid ? $m['data'] : 'do ustalenia' );
+		if ( $m['forma'] ) { $lines[] = 'Forma: ' . $m['forma']; }
+		$lines = array_merge( $lines, array(
+			'',
+			'voucher' === $prod_id
+				? 'Co dalej: odezwę się w sprawie vouchera i wyślę link do płatności (BLIK, Przelewy24 albo karta).'
+				: 'Co dalej: sprawdzę dostępność, potwierdzę termin i wyślę link do płatności (BLIK, Przelewy24 albo karta). Termin jest Twój po opłaceniu. Zmienisz go bezpłatnie do ' . $h . ' h przed lekcją.',
+			'',
+			'Masz pytanie? Odpowiedz na tego maila albo zadzwoń: ' . ( isset( $b['telefon_wyswietlany'] ) ? $b['telefon_wyswietlany'] : '' ) . '.',
+			'W międzyczasie możesz poćwiczyć rytm w darmowej grze: ' . home_url( '/gra/' ),
+			'',
+			'Do usłyszenia,',
+			'Jacke, perki.pl',
+			'',
+			'Ta wiadomość jest odpowiedzią na formularz na stronie ' . self::page_url() . '. Jeśli to nie Ty, zignoruj ją.',
+		) );
 		$headers = array(
 			'Content-Type: text/plain; charset=UTF-8',
 			'Reply-To: perki.pl <' . $reply . '>',
@@ -697,7 +761,7 @@ class Perki_Lekcje_Jasny {
 		$map = array( 'pl_email' => 'email', 'pl_phone' => 'phone', 'pl_prod' => 'produkt', 'pl_forma' => 'forma' );
 		if ( isset( $map[ $col ] ) ) { echo esc_html( get_post_meta( $post_id, self::META . $map[ $col ], true ) ); return; }
 		if ( 'pl_term' === $col ) {
-			echo esc_html( trim( get_post_meta( $post_id, self::META . 'data', true ) . ' ' . get_post_meta( $post_id, self::META . 'godzina', true ) ) );
+			echo esc_html( get_post_meta( $post_id, self::META . 'data', true ) );
 		}
 	}
 
@@ -708,8 +772,7 @@ class Perki_Lekcje_Jasny {
 	public static function render_meta_box( $post ) {
 		$labels = array(
 			'name' => 'Imie', 'email' => 'E-mail', 'phone' => 'Telefon', 'produkt' => 'Pakiet',
-			'len' => 'Dlugosc (min)', 'data' => 'Preferowany termin', 'godzina' => 'Godzina (stary formularz)',
-			'forma' => 'Forma', 'wiadomosc' => 'Wiadomosc', 'ip' => 'IP',
+			'len' => 'Dlugosc (min)', 'data' => 'Preferowany termin', 'forma' => 'Forma', 'wiadomosc' => 'Wiadomosc',
 		);
 		echo '<table class="widefat striped"><tbody>';
 		foreach ( $labels as $k => $label ) {

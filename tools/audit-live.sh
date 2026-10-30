@@ -47,9 +47,12 @@ curl -s "$B/llms.txt" | head -1 | grep -q '^# perki.pl' && ok "llms.txt nasz" ||
 curl -s "$B/perki-sitemap.xml" | grep -q '<loc>' && ok "sitemap" || bad "sitemap"
 
 echo "== REST rezerwacji (bez wysylania prosby)"
-p=$(curl -s -D - "$B/wp-json/perki/v1/lekcja-ping" | tr -d '\r')
-grep -q '"nonce"' <<<"$p" && ok "ping zwraca nonce" || bad "ping (WAF?)"
-grep -qi 'x-litespeed-cache: hit' <<<"$p" && bad "ping z cache LiteSpeed (nonce bylby wspolny)" || ok "ping nie z cache"
+for ep in lekcja-ping gra-ping; do
+  curl -s -o /dev/null "$B/wp-json/perki/v1/$ep"   # 1. zadanie moze zapelnic cache...
+  p=$(curl -s -D - "$B/wp-json/perki/v1/$ep" | tr -d '\r')   # ...2. nie moze byc z cache
+  grep -q '"nonce"' <<<"$p" && ok "$ep zwraca nonce" || bad "$ep (WAF?)"
+  grep -qi '^x-litespeed-cache: hit' <<<"$p" && bad "$ep z cache LiteSpeed: nonce wspolny, po 24 h formularz padnie" || ok "$ep nie z cache"
+done
 c=$(curl -s -o /dev/null -w '%{http_code}' -X POST -H 'Content-Type: application/json' -d '{}' "$B/wp-json/perki/v1/prosba")
 [ "$c" = 403 ] && ok "POST bez nonce -> 403" || bad "POST bez nonce -> $c"
 

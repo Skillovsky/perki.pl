@@ -103,6 +103,44 @@ test('voucher: wysylka bez terminu', async () => {
   await page.click('#bookCta');
   await page.waitForSelector('.done');
   assert.match(await page.textContent('.done'), /Voucher/);
+  assert.doesNotMatch(await page.textContent('.done'), /45 min/);
+  await ctx.close();
+});
+
+test('przegladarka w innej strefie (Nowy Jork): termin z UI przechodzi walidacje serwera (Warszawa)', async () => {
+  await S.reset();
+  const { ctx, page } = await open({ timezoneId: 'America/New_York' });
+  await pickFirstSlot(page);
+  await page.fill('#bfName', 'Tom'); await page.fill('#bfEmail', 'tom@example.com');
+  await page.click('#bookCta');
+  await page.waitForSelector('.done', { timeout: 5000 });
+  await ctx.close();
+});
+
+test('odrzucony nonce: jeden automatyczny ponowny ping i sukces', async () => {
+  await S.reset();
+  const { ctx, page } = await open();
+  let pings = 0;
+  await page.route('**/wp-json/perki/v1/lekcja-ping*', async r => {
+    pings++;
+    if (pings === 1) return r.fulfill({ status: 200, contentType: 'application/json', body: '{"nonce":"przeterminowany"}' });
+    return r.continue();
+  });
+  await pickFirstSlot(page);
+  await page.fill('#bfName', 'Ewa'); await page.fill('#bfEmail', 'ewa@example.com');
+  await page.click('#bookCta');
+  await page.waitForSelector('.done', { timeout: 5000 });
+  assert.equal(pings, 2);
+  await ctx.close();
+});
+
+test('voucher ukrywa pola lekcji (forma, dlugosc) i pokazuje wskazowke', async () => {
+  const { ctx, page } = await open();
+  await page.selectOption('#bfProd', 'voucher');
+  assert.equal(await page.isVisible('#voucherHint'), true);
+  assert.equal(await page.isVisible('input[name=len]'), false);
+  await page.selectOption('#bfProd', 'lekcja');
+  assert.equal(await page.isVisible('#voucherHint'), false);
   await ctx.close();
 });
 

@@ -6,7 +6,18 @@ mini-gra perkusyjna w przegladarce (klawiatura/dotyk) + system poziomow, XP i na
 odblokowywanych po lekcjach. Gra jest jednoczesnie lead magnetem (darmowa, na landingu)
 i narzedziem utrwalania materialu z kursu wideo (deep-link ?level=N po kazdej lekcji).
 
-## Stan na dzis (2026-06-10)
+## Stan na dzis (2026-10-30)
+- perki-lekcje-jasny 1.2.1 GOTOWE W REPO, NIEWDROZONE (sesja bez dostepu sieciowego
+  do perki.pl): rezerwacja z kalendarzem i walidacja, business.json = zrodlo prawdy
+  danych firmy (JSON-LD, /llms.txt, formularz), /perki-sitemap.xml, boty AI w robots.txt,
+  fonty/obrazy self-hosted. Procedura: `DEPLOY-NOTES-2026-10-30-lekcje-1.2.md`.
+- PILNY hotfix gry: perki-gra 1.1.1 (nonce /gra-ping cache'owany przez LiteSpeed).
+- Testy: `cd tests && npm install && npm test` (prawdziwy PHP wtyczki na stubie WP +
+  Chromium + axe). CI: .github/workflows/test.yml, artefakt = zip wtyczki.
+- Audyt produkcji po wdrozeniu: `tools/audit-live.sh https://perki.pl`.
+- Research 2026 (SEO/LLM, rezerwacja+prawo PL, wydajnosc): docs/RESEARCH-2026-10-30-*.md.
+
+## Stan z 2026-06-10
 - GRA OPUBLIKOWANA: https://perki.pl/gra/ (deep-link: https://perki.pl/gra/?level=N).
 - Zrodlo prawdy gry: `wp-plugins/perki-gra/perki-drum-hero.html` W TYM REPO.
   Kopia w ~/Downloads to archiwum; zmiany robimy tu i republikujemy.
@@ -59,7 +70,8 @@ i narzedziem utrwalania materialu z kursu wideo (deep-link ?level=N po kazdej le
 
 ## Roadmapa (kolejnosc)
 1. ~~Publikacja gry + zapis wynikow i lejek~~ WYKONANE 2026-06-10. <- bylo
-2. JASNY redesign: landing sprzedazowy (lekcje + kursy) + jasna skorka gry. <- TERAZ
+2. JASNY redesign: landing sprzedazowy (lekcje + kursy) + jasna skorka gry.
+   Landing 1.2.1: rezerwacja, SEO/LLM, wydajnosc, a11y gotowe w repo. <- TERAZ: wdrozenie
 3. Fotorealistyczny interfejs gry (zdjecie zestawu Jacke + hotspoty, wzor EZdrummer).
 4. Silnik sample'owy: CC0/CC-BY od razu, nagrania Jacke po sesji (spec nizej).
 5. LMS: LearnDash/Tutor LMS + GamiPress; kurs "Pierwszy Groove"; po lekcji N gra ?level=N.

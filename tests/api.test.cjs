@@ -55,7 +55,11 @@ test('poprawna prosba: zapis CPT, meta ISO, 2 maile z Reply-To', async () => {
   assert.equal(admin.to, 'admin@perki.test');
   assert.ok(admin.headers.includes('Reply-To: Ola <ola@example.com>'));
   assert.match(admin.body, /Wiadomość: Gram 2 lata/);
+  assert.ok(!/IP:/.test(admin.body), 'bez IP w mailu (RODO)');
+  assert.equal(m._pl_ip, undefined, 'bez IP w meta');
   assert.equal(student.to, 'ola@example.com');
+  assert.ok(!student.body.includes('Ola') && !student.body.includes('Gram 2 lata'), 'zero tekstu od nadawcy w mailu do adresata (antyspam)');
+  assert.match(student.body, /Pakiet: Karnet 8 lekcji\nDługość: 60 min\nPreferowany termin: .+, 15:00\nForma: Online/);
   assert.ok(student.headers.some(h => h.startsWith('Reply-To: perki.pl <jackeperki@gmail.com>')));
   assert.match(student.body, /link do płatności/);
 });
@@ -80,9 +84,43 @@ test('walidacja terminu: przeszlosc, niedziela, za daleko, zla godzina, brak ter
   assert.equal((await S.state()).posts.length, 0, 'nic nie zapisano');
 });
 
-test('voucher bez terminu jest OK', async () => {
+test('voucher bez terminu (takze sam dzien bez godziny) jest OK, bez formy/dlugosci', async () => {
   const { status, j } = await post({ ...OK(), produkt: 'voucher', data: '', godzina: '' });
   assert.equal(status, 200, JSON.stringify(j));
+  const r2 = await post({ ...OK(), email: 'inny@example.com', produkt: 'voucher', godzina: '' });
+  assert.equal(r2.status, 200, JSON.stringify(r2.j));
+  const st = await S.state();
+  assert.equal(st.meta[j.id]._pl_forma, '');
+  assert.equal(st.meta[j.id]._pl_len, 0);
+  assert.match(st.mails[1].body, /w sprawie vouchera/);
+});
+
+test('potwierdzenia do ucznia: max 1 na adres na dobe (antyspam), prosby dalej zapisywane', async () => {
+  for (let i = 0; i < 3; i++) assert.equal((await post(OK())).status, 200);
+  const st = await S.state();
+  assert.equal(st.posts.length, 3);
+  assert.equal(st.mails.filter(m => m.to === 'ola@example.com').length, 1);
+  assert.equal(st.mails.filter(m => m.to === 'admin@perki.test').length, 3);
+});
+
+test('ping: sygnal no-cache dla LiteSpeed (inaczej wspolny, przeterminowany nonce)', async () => {
+  const r = await fetch(S.base + '/wp-json/perki/v1/lekcja-ping?t=1');
+  assert.equal(r.headers.get('x-litespeed-cache-control'), 'no-cache');
+  assert.ok((await S.state()).actions.includes('litespeed_control_set_nocache'));
+});
+
+test('uszkodzony business.json: rezerwacje dzialaja na regulach awaryjnych', async () => {
+  const fs = require('node:fs'), path = require('node:path');
+  const f = path.resolve(__dirname, '../wp-plugins/perki-lekcje-jasny/business.json');
+  const orig = fs.readFileSync(f, 'utf8');
+  try {
+    fs.writeFileSync(f, orig.replace('"nazwa"', ',"nazwa"'));
+    const { status, j } = await post(OK());
+    assert.equal(status, 200, JSON.stringify(j));
+    const html = await (await fetch(S.base + '/lekcje-nowy/')).text();
+    assert.match(html, /"rezerwacja":\{"dni_tygodnia":\[1,2,3,4,5,6\],"godzina_od":12/);
+    assert.equal((await post({ ...OK(), data: sunday() })).j.code, 'pl_dow', 'walidacja dalej dziala');
+  } finally { fs.writeFileSync(f, orig); }
 });
 
 test('zgodnosc wsteczna: stary front (tekstowa data, nazwa produktu) nie gubi leada', async () => {
@@ -90,6 +128,9 @@ test('zgodnosc wsteczna: stary front (tekstowa data, nazwa produktu) nie gubi le
   assert.equal(status, 200, JSON.stringify(j));
   const m = (await S.state()).meta[j.id];
   assert.equal(m._pl_data, 'piątek, 6 listopada 14:00');
+  const [admin, student] = (await S.state()).mails;
+  assert.match(admin.body, /Preferowany termin: piątek, 6 listopada 14:00\n/, 'godzina nie powtorzona');
+  assert.match(student.body, /Preferowany termin: do ustalenia/, 'niezwalidowany tekst nie trafia do adresata');
   assert.equal(m._pl_produkt, 'Karnet 8 lekcji');
 });
 
@@ -166,6 +207,10 @@ test('llms.txt, robots.txt, perki-sitemap.xml', async () => {
   assert.ok(!lt.includes('Jak przetwarzam Twoje dane'), 'RODO to nie FAQ');
   const rb = await (await fetch(S.base + '/robots.txt')).text();
   for (const ua of ['OAI-SearchBot', 'Claude-SearchBot', 'PerplexityBot', 'Google-Extended']) assert.ok(rb.includes('User-agent: ' + ua), ua);
+  assert.ok(!rb.includes('User-agent: Bingbot'), 'zwykle wyszukiwarki zostaja w grupie *');
+  const ai = rb.slice(rb.indexOf('User-agent: OAI-SearchBot'));
+  assert.match(ai, /Disallow: \/wp-admin\/\nAllow: \/wp-admin\/admin-ajax\.php/, 'grupa AI dziedziczy reguly z *');
+  assert.match(lt, /poniedziałek-sobota, godziny 12:00-20:00/);
   assert.match(rb, /Sitemap: http:\/\/127\.0\.0\.1:8791\/perki-sitemap\.xml/);
   assert.match(rb, /User-agent: \*\nDisallow: \/wp-admin\//, 'oryginal zachowany');
   const sm = await (await fetch(S.base + '/perki-sitemap.xml')).text();

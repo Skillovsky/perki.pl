@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Perki Gra (Drum Hero)
  * Description: Serwuje gre Perki Drum Hero pod adresem /gra/ (pelny ekran, bez motywu) i zapisuje wyniki graczy WEWNATRZ WordPress jako CPT "wynik_gry" + powiadomienie mailem. Endpointy: GET /perki/v1/gra-ping (nonce), POST /perki/v1/wynik.
- * Version: 1.1.0
+ * Version: 1.1.1
  * Author: perki.pl
  * License: GPL-2.0-or-later
  * Text Domain: perki-gra
@@ -18,7 +18,7 @@ class Perki_Gra {
 	const QV        = 'perki_gra';       // query var strony /gra/
 	const GAME_FILE = 'perki-drum-hero.html'; // jedyne zrodlo prawdy gry (DRY)
 
-	const VERSION      = '1.1.0'; // zmiana wersji = automatyczny purge cache LiteSpeed
+	const VERSION      = '1.1.1'; // zmiana wersji = automatyczny purge cache LiteSpeed
 	const THROTTLE_MAX = 120;   // backstop antyspamowy per IP, nie limiter UX (utwor trwa ~30-40 s)
 	const THROTTLE_WIN = 3600;  // okno throttlingu w sekundach (1h)
 	const MAX_BODY     = 8192;  // limit wielkosci payloadu JSON w bajtach
@@ -116,8 +116,11 @@ class Perki_Gra {
 			'methods'             => 'GET',
 			'permission_callback' => '__return_true',
 			'callback'            => function () {
+				// LiteSpeed domyslnie cache'uje REST (7 dni): wspolny, przeterminowany nonce = 403 dla wszystkich.
+				do_action( 'litespeed_control_set_nocache', 'perki nonce' );
 				$res = new WP_REST_Response( array( 'nonce' => wp_create_nonce( 'wp_rest' ) ), 200 );
-				$res->header( 'Cache-Control', 'no-store' );
+				$res->header( 'Cache-Control', 'no-store, private' );
+				$res->header( 'X-LiteSpeed-Cache-Control', 'no-cache' );
 				return $res;
 			},
 		) );
