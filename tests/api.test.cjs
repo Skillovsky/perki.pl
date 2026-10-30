@@ -110,17 +110,22 @@ test('ping: sygnal no-cache dla LiteSpeed (inaczej wspolny, przeterminowany nonc
 });
 
 test('uszkodzony business.json: rezerwacje dzialaja na regulach awaryjnych', async () => {
-  const fs = require('node:fs'), path = require('node:path');
-  const f = path.resolve(__dirname, '../wp-plugins/perki-lekcje-jasny/business.json');
-  const orig = fs.readFileSync(f, 'utf8');
+  // Kopia wtyczki w katalogu tymczasowym: test nigdy nie dotyka plikow repo.
+  const fs = require('node:fs'), path = require('node:path'), os = require('node:os');
+  const src = path.resolve(__dirname, '../wp-plugins/perki-lekcje-jasny');
+  const dir = path.join(fs.mkdtempSync(path.join(os.tmpdir(), 'perki-broken-')), 'perki-lekcje-jasny');
+  fs.cpSync(src, dir, { recursive: true });
+  const f = path.join(dir, 'business.json');
+  fs.writeFileSync(f, fs.readFileSync(f, 'utf8').replace('"nazwa"', ',"nazwa"'));
+  const B = await startServer(8796, dir);
+  const prev = S; S = B;
   try {
-    fs.writeFileSync(f, orig.replace('"nazwa"', ',"nazwa"'));
     const { status, j } = await post(OK());
     assert.equal(status, 200, JSON.stringify(j));
-    const html = await (await fetch(S.base + '/lekcje-nowy/')).text();
+    const html = await (await fetch(B.base + '/lekcje-nowy/')).text();
     assert.match(html, /"rezerwacja":\{"dni_tygodnia":\[1,2,3,4,5,6\],"godzina_od":12/);
-    assert.equal((await post({ ...OK(), data: sunday() })).j.code, 'pl_dow', 'walidacja dalej dziala');
-  } finally { fs.writeFileSync(f, orig); }
+    assert.equal((await post({ ...OK(), email: 'x@example.com', data: sunday() })).j.code, 'pl_dow', 'walidacja dalej dziala');
+  } finally { S = prev; B.stop(); }
 });
 
 test('zgodnosc wsteczna: stary front (tekstowa data, nazwa produktu) nie gubi leada', async () => {
