@@ -223,14 +223,14 @@ test('llms.txt, robots.txt, perki-sitemap.xml', async () => {
 });
 
 test('auto purge LiteSpeed przy zmianie odcisku wersji', async () => {
-  await fetch(S.base + '/lekcje-nowy/');
+  await (await fetch(S.base + '/lekcje-nowy/')).text();
   const st = await S.state();
   assert.ok(st.actions.includes('litespeed_purge_all'));
   assert.match(st.options.perki_lekcje_jasny_ver, /^1\.\d+\.\d+\|\d+\|\d+$/);
   await S.reset(); // opcje wyczyszczone -> znowu purge; bez resetu: brak purge
-  await fetch(S.base + '/lekcje-nowy/');
+  await (await fetch(S.base + '/lekcje-nowy/')).text();
   const before = (await S.state()).actions.filter(a => a === 'litespeed_purge_all').length;
-  await fetch(S.base + '/lekcje-nowy/');
+  await (await fetch(S.base + '/lekcje-nowy/')).text();
   const after = (await S.state()).actions.filter(a => a === 'litespeed_purge_all').length;
   assert.equal(after, before, 'bez zmian plikow nie czyscimy cache przy kazdym zadaniu');
 });

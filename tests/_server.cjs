@@ -12,13 +12,13 @@ async function startServer(port, pluginDir) {
   const proc = spawn(path.join(root, 'tests/serve.sh'), [String(port)], { env, stdio: 'ignore' });
   const base = `http://127.0.0.1:${port}`;
   for (let i = 0; i < 50; i++) {
-    try { const r = await fetch(base + '/__reset', { method: 'POST' }); if (r.ok) break; } catch (e) {}
+    try { const r = await fetch(base + '/__reset', { method: 'POST' }); await r.text(); if (r.ok) break; } catch (e) {}
     await new Promise(r => setTimeout(r, 100));
   }
   return {
     base,
     stop: () => proc.kill('SIGTERM'),
-    reset: () => fetch(base + '/__reset', { method: 'POST' }),
+    reset: () => fetch(base + '/__reset', { method: 'POST' }).then(r => r.text()),
     state: () => fetch(base + '/__state').then(r => r.json()),
   };
 }
