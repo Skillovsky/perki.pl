@@ -7,10 +7,10 @@ odblokowywanych po lekcjach. Gra jest jednoczesnie lead magnetem (darmowa, na la
 i narzedziem utrwalania materialu z kursu wideo (deep-link ?level=N po kazdej lekcji).
 
 ## Stan na dzis (2026-10-30)
-- perki-lekcje-jasny 1.2.1 GOTOWE W REPO, NIEWDROZONE (sesja bez dostepu sieciowego
+- perki-lekcje-jasny 1.3.0 GOTOWE W REPO, NIEWDROZONE (sesja bez dostepu sieciowego
   do perki.pl): rezerwacja z kalendarzem i walidacja, business.json = zrodlo prawdy
   danych firmy (JSON-LD, /llms.txt, formularz), /perki-sitemap.xml, boty AI w robots.txt,
-  fonty/obrazy self-hosted. Procedura: `DEPLOY-NOTES-2026-10-30-lekcje-1.2.md`.
+  fonty/obrazy self-hosted. Procedura: `DEPLOY-NOTES-2026-10-30-lekcje-1.3.md`.
 - PILNY hotfix gry: perki-gra 1.1.1 (nonce /gra-ping cache'owany przez LiteSpeed).
 - Testy: `cd tests && npm install && npm test` (prawdziwy PHP wtyczki na stubie WP +
   Chromium + axe). CI: .github/workflows/test.yml, artefakt = zip wtyczki.
@@ -71,7 +71,7 @@ i narzedziem utrwalania materialu z kursu wideo (deep-link ?level=N po kazdej le
 ## Roadmapa (kolejnosc)
 1. ~~Publikacja gry + zapis wynikow i lejek~~ WYKONANE 2026-06-10. <- bylo
 2. JASNY redesign: landing sprzedazowy (lekcje + kursy) + jasna skorka gry.
-   Landing 1.2.1: rezerwacja, SEO/LLM, wydajnosc, a11y gotowe w repo. <- TERAZ: wdrozenie
+   Landing 1.3.0: rezerwacja, SEO/LLM, wydajnosc, a11y, wyglad "Studio" gotowe w repo. <- TERAZ: wdrozenie
 3. Fotorealistyczny interfejs gry (zdjecie zestawu Jacke + hotspoty, wzor EZdrummer).
 4. Silnik sample'owy: CC0/CC-BY od razu, nagrania Jacke po sesji (spec nizej).
 5. LMS: LearnDash/Tutor LMS + GamiPress; kurs "Pierwszy Groove"; po lekcji N gra ?level=N.

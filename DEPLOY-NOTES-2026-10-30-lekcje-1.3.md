@@ -1,4 +1,8 @@
-# Wdrozenie perki-lekcje-jasny 1.2.x + hotfix perki-gra 1.1.1 (2026-10-30)
+# Wdrozenie perki-lekcje-jasny 1.3.0 + hotfix perki-gra 1.1.1 (2026-10-30)
+
+1.3.0 = 1.2.1 (rezerwacja, SEO/LLM, wydajnosc) + nowy system wizualny "Studio"
+(papier, grafit, miedz talerza, mosiadz; kontrasty AA). Cytat w sekcji nauczyciela
+to tekst w glosie Jacke: do akceptacji albo podmiany na wlasne slowa.
 
 ## PILNE (dotyczy tego, co JUZ dziala na produkcji)
 Przeglad adwersaryjny wykazal: LiteSpeed Cache domyslnie cache'uje REST API (7 dni).
